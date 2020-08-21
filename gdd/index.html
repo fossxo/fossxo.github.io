@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FossXO Game Design Document &#8212; FossXO Game Design Document Rev. B</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1. Introduction" href="introduction.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="fossxo-game-design-document">
+<h1>FossXO Game Design Document<a class="headerlink" href="#fossxo-game-design-document" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to FossXO game design document. FossXO is a free and open-source
+example of tic-tac-toe created using the Rust programming language. This
+document describes in detail the design considerations of the game.</p>
+<p>The FossXO game design document is also available in these other formats:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="fossxo_game_design_document_rev_b.pdf">Printable PDF</a></p></li>
+<li><p><a class="reference external" href="singlepage.html">Single HTML page</a></p></li>
+</ul>
+<div class="section" id="overview-documents">
+<h2>Overview Documents<a class="headerlink" href="#overview-documents" title="Permalink to this headline">¶</a></h2>
+<p>These short overview documents introduce the FossXO game and provide the
+scope of the project.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="fossxo-overview-handout.pdf">Handout</a> - start here</p></li>
+<li><p><a class="reference external" href="fossxo-overview-slides.pdf">Slides</a> - a short presentation about the game</p></li>
+</ul>
+</div>
+<div class="section" id="useful-resources">
+<h2>Useful Resources<a class="headerlink" href="#useful-resources" title="Permalink to this headline">¶</a></h2>
+<p>Below are links to resources developers working on the game might find useful.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://amethyst.rs/doc">Amethyst engine documentation</a></p></li>
+<li><p><a class="reference external" href="https://opengameart.org/">OpenGameArt.org</a></p></li>
+<li><p><a class="reference external" href="https://freesound.org/">Freesound</a> (requires account)</p></li>
+</ul>
+</div>
+<div class="section" id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#purpose-of-this-document">1.1. Purpose of this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#scope-of-the-game">1.2. Scope of the Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#overview-of-this-document">1.3. Overview of this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#project-objectives">1.4. Project Objectives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gameplay.html">2. Gameplay</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gameplay.html#rules-of-tic-tac-toe">2.1. Rules of Tic-tac-toe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gameplay.html#single-player-mode">2.2. Single-player Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gameplay.html#two-player-mode">2.3. Two Player Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gameplay.html#speedrun-mode">2.4. Speedrun Mode</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.html">3. User Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gui.html#game-board">3.1. Game Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.html#controls">3.2. Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.html#menus">3.3. Menus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.html#screen-flowchart">3.4. Screen Flowchart</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="environments.html">4. Environments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="environments.html#environment-selection">4.1. Environment Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environments.html#list-of-environments">4.2. List of Environments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="misc/index.html">5. Additional Considerations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="misc/audience.html">5.1. Target Audience</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc/platforms.html">5.2. Target Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc/licensing-and-distribution.html">5.3. Licensing and Distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc/similar-games.html">5.4. Similar Games</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc/future-enhancements.html">5.5. Future Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="technical-design/index.html">6. Technical Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="technical-design/engine-overview.html">6.1. Engine Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical-design/states.html">6.2. Game States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical-design/systems.html">6.3. Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical-design/components-resources-entities.html">6.4. Components, Resources, and Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical-design/file-formats.html">6.5. File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical-design/user-manual.html">6.6. User Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical-design/packaging.html">6.7. Packages and Source Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical-design/security.html">6.8. System and Data Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical-design/development-tools.html">6.9. Development Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="technical-design/prototype.html">6.10. Prototype Lessons Learned</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">8. References</a></li>
+</ul>
+</div>
+<p>Also See:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">FossXO Game Design Document</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gameplay.html">2. Gameplay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gui.html">3. User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="environments.html">4. Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/index.html">5. Additional Considerations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical-design/index.html">6. Technical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">8. References</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/fossxo/fossxo-gdd">GitHub Source</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="introduction.html" title="next chapter"><span class="section-number">1. </span>Introduction</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, James Richey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

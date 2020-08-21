@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5.3. Licensing and Distribution &#8212; FossXO Game Design Document Rev. B</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.4. Similar Games" href="similar-games.html" />
+    <link rel="prev" title="5.2. Target Platforms" href="platforms.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="licensing-and-distribution">
+<h1><span class="section-number">5.3. </span>Licensing and Distribution<a class="headerlink" href="#licensing-and-distribution" title="Permalink to this headline">¶</a></h1>
+<p>This section describes how the game is licensed, distributed, and other related
+details of getting the game into player’s hands.</p>
+<div class="section" id="game-s-license">
+<span id="index-0"></span><h2><span class="section-number">5.3.1. </span>Game’s License<a class="headerlink" href="#game-s-license" title="Permalink to this headline">¶</a></h2>
+<p>The game is dual licensed under the MIT <a class="footnote-reference brackets" href="#mitlicense" id="id1">1</a> and
+Apache-2.0 <a class="footnote-reference brackets" href="#apachelicense" id="id2">2</a> licenses. This is the same licensing scheme used
+for the Rust language. <a class="footnote-reference brackets" href="#rustlanglicense" id="id3">3</a> Under these licenses users are free
+to obtain, modify, and redistribute the source code for both private and
+commercial use.</p>
+<p>Any original game assets are licensed under the CC-BY-4.0 license. <a class="footnote-reference brackets" href="#ccbylicense" id="id4">4</a></p>
+</div>
+<div class="section" id="distribution">
+<span id="ref-distribution"></span><h2><span class="section-number">5.3.2. </span>Distribution<a class="headerlink" href="#distribution" title="Permalink to this headline">¶</a></h2>
+<p>The game is directly distributed to players via the internet. There are two main
+ways to acquire a copy of the game: downloading a platform specific package, or
+building the game from source.</p>
+<div class="section" id="platform-packages">
+<span id="index-1"></span><h3><span class="section-number">5.3.2.1. </span>Platform Packages<a class="headerlink" href="#platform-packages" title="Permalink to this headline">¶</a></h3>
+<p>Platform specific packages can be downloaded from the game’s website.
+In particular, Windows users expect an installer to install the game on their
+system. They do not have ready access to compilers or other tools to build
+software from source. Finally, Windows is the most widely used operating system
+so a Windows installer is a requirement for this project to be successful.</p>
+<p>Linux and Mac users have easier access to compilers but they still appreciate
+packages for their convenience. Packages for these platforms are created on a
+best effort basis.</p>
+</div>
+<div class="section" id="build-from-source">
+<h3><span class="section-number">5.3.2.2. </span>Build from Source<a class="headerlink" href="#build-from-source" title="Permalink to this headline">¶</a></h3>
+<p>Because the game is open-source anyone can build the game from source. This
+involves cloning the game’s source code repository and following the build
+instructions documented in the README file. <a class="footnote-reference brackets" href="#cratessizelimit" id="id5">5</a></p>
+</div>
+</div>
+<div class="section" id="monetization">
+<h2><span class="section-number">5.3.3. </span>Monetization<a class="headerlink" href="#monetization" title="Permalink to this headline">¶</a></h2>
+<p>There is no intention to generate revenue from FossXO. The is released
+free of charge. There are no advertisements, microtransactions, or data
+stealing spyware that is found in other <em>free</em> games.</p>
+</div>
+<div class="section" id="third-party-license-compliance">
+<span id="ref-distribution-license-compliance"></span><h2><span class="section-number">5.3.4. </span>Third Party License Compliance<a class="headerlink" href="#third-party-license-compliance" title="Permalink to this headline">¶</a></h2>
+<p>FossXO makes extensive use of third party software libraries and game
+assets to help reduce the development effort. To use these resources, the game
+must comply with their various licensing terms. Additionally, the game can only
+use any third party resources that have licenses that are compatible with the
+game’s license.</p>
+<div class="section" id="software-libraries">
+<h3><span class="section-number">5.3.4.1. </span>Software Libraries<a class="headerlink" href="#software-libraries" title="Permalink to this headline">¶</a></h3>
+<p>Rust libraries that have the following licenses can be used by the game:</p>
+<ul class="simple">
+<li><p>MIT</p></li>
+<li><p>BSD-2-Clause, BSD-3-Clause, and similar (FTL, ISC, Zlib)</p></li>
+<li><p>Apache-2.0</p></li>
+<li><p>MPL-2.0 <a class="footnote-reference brackets" href="#mpl2license" id="id6">6</a></p></li>
+<li><p>CC0 and The Unlicense</p></li>
+</ul>
+<p>Additionally, the game can dynamically link to libraries with the above licenses
+plus libraries that are licensed under the LGPL.</p>
+<p>A software bill of materials is included in the game’s user documentation. This
+ensures the game complies with the required copyright notices. Also, users can
+see exactly what is included in the software.</p>
+<p>The software bill of materials includes the following information about each
+library:</p>
+<ul class="simple">
+<li><p>Name</p></li>
+<li><p>Version number</p></li>
+<li><p>License</p></li>
+<li><p>Link to website or source code repository</p></li>
+</ul>
+</div>
+<div class="section" id="game-assets">
+<h3><span class="section-number">5.3.4.2. </span>Game Assets<a class="headerlink" href="#game-assets" title="Permalink to this headline">¶</a></h3>
+<p>The game can freely use or remix third party music, sound FX, and textures that
+have the following licenses: <a class="footnote-reference brackets" href="#ccbysa" id="id7">7</a></p>
+<ul class="simple">
+<li><p>CC0</p></li>
+<li><p>CC-BY</p></li>
+<li><p>CC-BY-NC <a class="footnote-reference brackets" href="#ccbync" id="id8">8</a></p></li>
+</ul>
+<p>A list of third party assets used is accessible from the game’s credits or user
+documentation to fulfill the attribution requirements. The following information
+is included for each asset:</p>
+<ul class="simple">
+<li><p>Title - title of the work.</p></li>
+<li><p>Author - name or handle of the author.</p></li>
+<li><p>License - the specific CC license the work is published under.</p></li>
+<li><p>Copyright notice - some works include a copyright notice supplied by the
+author that must be included in the attribution.</p></li>
+<li><p>Source - link to website the asset was obtained from.</p></li>
+<li><p>Is derivative - Mention if the work was modified from the original and
+provide a short summary of changes.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="internationalization-and-localization">
+<h2><span class="section-number">5.3.5. </span>Internationalization and Localization<a class="headerlink" href="#internationalization-and-localization" title="Permalink to this headline">¶</a></h2>
+<p>The game is initially released in American English. However, localizations are
+accepted from contributors to include in future releases. This helps the game be
+more accessible to a wider audience. To make it easy to add various
+localizations, the game is designed with internationalization support.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="mitlicense"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://choosealicense.com/licenses/mit/">Choose an open source license - MIT License</a></p>
+</dd>
+<dt class="label" id="apachelicense"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p><a class="reference external" href="https://choosealicense.com/licenses/apache-2.0/">Choose an open source license - Apache License 2.0</a></p>
+</dd>
+<dt class="label" id="rustlanglicense"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>See Rust’s <a class="reference external" href="https://github.com/rust-lang/rust#license">README</a>
+for licensing details.</p>
+</dd>
+<dt class="label" id="ccbylicense"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p><a class="reference external" href="https://choosealicense.com/licenses/cc-by-4.0/">Choose an open source license - Creative Commons Attribution 4.0 International</a></p>
+</dd>
+<dt class="label" id="cratessizelimit"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>Cargo, the Rust package manager, can download and build
+applications hosted on crates.io. However, crates.io has a 10MB size
+limit that is too small to host this game.</p>
+</dd>
+<dt class="label" id="mpl2license"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p><a class="reference external" href="https://choosealicense.com/licenses/mpl-2.0/">Choose an open source license - Mozilla Public License 2.0</a>
+summary indicates it is OK to distribute programs that use unmodified
+MPL-2.0 libraries under different terms.</p>
+</dd>
+<dt class="label" id="ccbysa"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p>The CC-BY-SA is incompatible with the the game’s licensing terms.
+It is this author’s understanding that a game is considered a derivative
+work and thus must also be licensed under CC-BY-SA if it were to use
+CC-BY-SA assets.</p>
+</dd>
+<dt class="label" id="ccbync"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
+<dd><p>Per the monetization section, the game is being released for free
+and is not intended to produce a revenue stream.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">FossXO Game Design Document</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameplay.html">2. Gameplay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">3. User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../environments.html">4. Environments</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">5. Additional Considerations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="audience.html">5.1. Target Audience</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platforms.html">5.2. Target Platforms</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.3. Licensing and Distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="similar-games.html">5.4. Similar Games</a></li>
+<li class="toctree-l2"><a class="reference internal" href="future-enhancements.html">5.5. Future Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../technical-design/index.html">6. Technical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">8. References</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/fossxo/fossxo-gdd">GitHub Source</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html"><span class="section-number">5. </span>Additional Considerations</a><ul>
+      <li>Previous: <a href="platforms.html" title="previous chapter"><span class="section-number">5.2. </span>Target Platforms</a></li>
+      <li>Next: <a href="similar-games.html" title="next chapter"><span class="section-number">5.4. </span>Similar Games</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, James Richey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/misc/licensing-and-distribution.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

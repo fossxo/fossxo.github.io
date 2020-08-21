@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6. Technical Design &#8212; FossXO Game Design Document Rev. B</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.1. Engine Overview" href="engine-overview.html" />
+    <link rel="prev" title="5.5. Future Enhancements" href="../misc/future-enhancements.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="technical-design">
+<h1><span class="section-number">6. </span>Technical Design<a class="headerlink" href="#technical-design" title="Permalink to this headline">¶</a></h1>
+<p>The technical design of FossXO is described in this chapter.</p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Technical design topics:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="engine-overview.html">6.1. Engine Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="states.html">6.2. Game States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systems.html">6.3. Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="components-resources-entities.html">6.4. Components, Resources, and Entities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-formats.html">6.5. File Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user-manual.html">6.6. User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packaging.html">6.7. Packages and Source Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">6.8. System and Data Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development-tools.html">6.9. Development Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prototype.html">6.10. Prototype Lessons Learned</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">FossXO Game Design Document</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameplay.html">2. Gameplay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">3. User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../environments.html">4. Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/index.html">5. Additional Considerations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">6. Technical Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="engine-overview.html">6.1. Engine Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states.html">6.2. Game States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems.html">6.3. Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components-resources-entities.html">6.4. Components, Resources, and Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-formats.html">6.5. File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual.html">6.6. User Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html">6.7. Packages and Source Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">6.8. System and Data Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development-tools.html">6.9. Development Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototype.html">6.10. Prototype Lessons Learned</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">8. References</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/fossxo/fossxo-gdd">GitHub Source</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../misc/future-enhancements.html" title="previous chapter"><span class="section-number">5.5. </span>Future Enhancements</a></li>
+      <li>Next: <a href="engine-overview.html" title="next chapter"><span class="section-number">6.1. </span>Engine Overview</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, James Richey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/technical-design/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6.5. File Formats &#8212; FossXO Game Design Document Rev. B</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.6. User Manual" href="user-manual.html" />
+    <link rel="prev" title="6.4. Components, Resources, and Entities" href="components-resources-entities.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="file-formats">
+<h1><span class="section-number">6.5. </span>File Formats<a class="headerlink" href="#file-formats" title="Permalink to this headline">¶</a></h1>
+<p>This section describes the various types of files used by FossXO including
+details of the data format and considerations such as what happens if the file
+cannot be loaded.</p>
+<div class="section" id="game-asset-files">
+<span id="index-0"></span><h2><span class="section-number">6.5.1. </span>Game Asset Files<a class="headerlink" href="#game-asset-files" title="Permalink to this headline">¶</a></h2>
+<p>The game uses many different assets such as textures, fonts, and audio.
+The supported types of asset files are listed in
+<a class="reference internal" href="#table-supported-asset-file-types"><span class="std std-numref">Table 6.1</span></a>.</p>
+<span id="table-supported-asset-file-types"></span><table class="docutils align-default" id="id5">
+<caption><span class="caption-number">Table 6.1 </span><span class="caption-text">Supported asset file types.</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 28%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Asset Type</p></th>
+<th class="head"><p>Extension</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Texture</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.png</span></code></p></td>
+<td><p>24 bit RGB or 32 bit RGBA PNGs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sound FX</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.flac</span></code> / <code class="docutils literal notranslate"><span class="pre">.ogg</span></code></p></td>
+<td><p>FLAC is used for short sounds,
+Ogg Vorbis for longer sounds. <a class="footnote-reference brackets" href="#shortsounds" id="id1">1</a>
+Mono or stereo. FLAC is 16 bit.
+44.1 kHz or 48 kHz sample rate.</p></td>
+</tr>
+<tr class="row-even"><td><p>Music</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.ogg</span></code></p></td>
+<td><p>Mono or stereo Ogg Vorbis at
+44.1 kHz or 48 kHz.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Font</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.ttf</span></code></p></td>
+<td><p>TrueType font.</p></td>
+</tr>
+<tr class="row-even"><td><p>Prefab</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.ron</span></code></p></td>
+<td><p>Entity definitions in Rusty Object
+Notation.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The asset files are located in the <code class="docutils literal notranslate"><span class="pre">assets/</span></code> directory that is next to the
+game’s executable. Each type of asset is organized in subdirectories as shown in
+<a class="reference internal" href="#code-asset-dir-organization"><span class="std std-numref">Listing 6.3</span></a>. <a class="footnote-reference brackets" href="#environmentsubdirs" id="id2">2</a></p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<span id="code-asset-dir-organization"></span><div class="code-block-caption"><span class="caption-number">Listing 6.3 </span><span class="caption-text">Organization of the assets directory.</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>assets/
+├── fonts
+├── music
+├── prefab
+├── shaders
+├── sound_fx
+├── textures
+└── ui
+</pre></div>
+</div>
+</div>
+<p>If needed, further subdirectories can be created, e.g. the <code class="docutils literal notranslate"><span class="pre">textures</span></code>
+directory could contain <code class="docutils literal notranslate"><span class="pre">backgrounds</span></code> and <code class="docutils literal notranslate"><span class="pre">sprites</span></code> subdirectories.</p>
+<p>The game requires read access to its asset files. If an asset file used by an
+environment cannot be accessed, the environment will not be used and an error
+is emitted to the game’s log. If a asset required by the game’s menu or other
+core systems cannot be loaded the game exits with a user facing error message.
+Additionally, if all environments fail to find their required resources, the
+debug environment is used as it does not require any special resources but still
+provides access to the core game mechanics.</p>
+<p>To avoid unnecessary files from accidentally being included in the game, the
+game emits a warning if unused files are found in the assets directory.</p>
+</div>
+<div class="section" id="game-configuration-file">
+<span id="ref-game-configuration-file"></span><span id="index-1"></span><h2><span class="section-number">6.5.2. </span>Game Configuration File<a class="headerlink" href="#game-configuration-file" title="Permalink to this headline">¶</a></h2>
+<p>The game’s settings and options are stored in the game configuration file. This
+is a TOML file named <code class="docutils literal notranslate"><span class="pre">config.toml</span></code> and is stored in the user’s local data
+directory. <a class="footnote-reference brackets" href="#userdata" id="id3">3</a></p>
+<p>The file contains the following keys in the global section:</p>
+<dl class="simple">
+<dt>music_volume</dt><dd><p>The volume to play the environments, speedrun, and menu music. This is a
+float value from 0.0 to 1.0 where 1.0 is full volume. The default value is 1.0.</p>
+</dd>
+<dt>sound_fx_volume</dt><dd><p>The volume to play sound FX. This is a float value from 0.0 to 1.0 where 1.0
+is full volume. The default value is 1.0.</p>
+</dd>
+</dl>
+<p>The <code class="docutils literal notranslate"><span class="pre">single-player</span></code> section provides the single-player settings to use when
+the game is first loaded or default to when starting a new single-single player
+game.</p>
+<dl class="simple">
+<dt>difficulty</dt><dd><p>The difficulty to use. Default is medium.</p>
+</dd>
+<dt>mark</dt><dd><p>The player’s mark, X or O. Default is X.</p>
+</dd>
+</dl>
+<p>If the file does not exist, the game creates a new file using the default values.
+If there is a problem reading or parsing this file, default values are used.</p>
+</div>
+<div class="section" id="user-data-file">
+<span id="ref-user-data-file"></span><span id="index-2"></span><h2><span class="section-number">6.5.3. </span>User Data File<a class="headerlink" href="#user-data-file" title="Permalink to this headline">¶</a></h2>
+<p>The user data file stores various pieces of user data including best speedrun
+times or unlocked achievements. This file is a SQLite database stored in the
+user’s data directory. <a class="footnote-reference brackets" href="#userdata" id="id4">3</a> The file is created if it does not exist.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">speedruns</span></code> table whose schema is shown in
+<a class="reference internal" href="#code-user-data-speedruns-table"><span class="std std-numref">Listing 6.4</span></a>, stores the best speedrun times.</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<span id="code-user-data-speedruns-table"></span><div class="code-block-caption"><span class="caption-number">Listing 6.4 </span><span class="caption-text">The user data file speedruns table schema.</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Stores the results of speedruns</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">speedruns</span> <span class="p">(</span>
+    <span class="c1">-- The initials of the user who completed the run.</span>
+    <span class="n">initials</span> <span class="nb">TEXT</span><span class="p">,</span>
+
+    <span class="c1">-- The total time of the run.</span>
+    <span class="n">total_time</span> <span class="n">duration</span><span class="p">,</span>
+
+    <span class="c1">-- The time of the fastest game during the run.</span>
+    <span class="n">fastest_game</span> <span class="n">duration</span><span class="p">,</span>
+
+    <span class="c1">-- The date and time of the run.</span>
+    <span class="nb">date</span> <span class="n">datetime</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">duration</span></code> and <code class="docutils literal notranslate"><span class="pre">datetime</span></code> custom SQLite types are mapped to Rust types
+such as <code class="docutils literal notranslate"><span class="pre">chrono::Duration</span></code> and <code class="docutils literal notranslate"><span class="pre">chrono::DateTime</span></code> from the
+<a class="reference external" href="https://crates.io/crates/chrono">chrono crate</a>.</p>
+<p>The SQLite <code class="docutils literal notranslate"><span class="pre">user_version</span></code> value is set to 1 allowing future versions of the
+game to load and migrate existing user data.</p>
+<p>If the file cannot be initially created, an existing file fails to load, or if
+the <code class="docutils literal notranslate"><span class="pre">user_version</span></code> value is greater than 1, the functionality provided is
+disabled. E.g. the best speedrun times are not displayed.</p>
+</div>
+<div class="section" id="asset-license-info-files">
+<span id="ref-asset-license-info-files"></span><span id="index-3"></span><h2><span class="section-number">6.5.4. </span>Asset License Info Files<a class="headerlink" href="#asset-license-info-files" title="Permalink to this headline">¶</a></h2>
+<p>To ensure <a class="reference internal" href="../misc/licensing-and-distribution.html#ref-distribution-license-compliance"><span class="std std-ref">Third Party License Compliance</span></a> the license information of
+every asset file is tracked using license info files. Every <code class="docutils literal notranslate"><span class="pre">assets</span></code>
+subdirectory contains a <code class="docutils literal notranslate"><span class="pre">license-info.yaml</span></code> file that contains the required
+licensing information.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">license-info.yaml</span></code> is a YAML format text file that contains a list of
+license info objects where each license info object contains the following
+keys.</p>
+<dl class="simple">
+<dt>files</dt><dd><p>List of files relative to the <code class="docutils literal notranslate"><span class="pre">license-info.yaml</span></code> for which the
+licencing information applies. Glob patterns are accepted.</p>
+</dd>
+<dt>title</dt><dd><p>Title of the work.</p>
+</dd>
+<dt>author</dt><dd><p>Name or handle of the author who created the files.</p>
+</dd>
+<dt>license</dt><dd><p>The specific license the work is published under. Examples include CC0-1.0
+or CC-BY-4.0. See <a class="reference external" href="https://spdx.org/licenses/">https://spdx.org/licenses/</a> for a complete listing of
+allowed license identifiers.</p>
+</dd>
+<dt>source</dt><dd><p>Link to website the resource was obtained from.</p>
+</dd>
+<dt>copyright</dt><dd><p>Optional. Some works include a copyright notice supplied by the author that
+must be included in the attribution.</p>
+</dd>
+<dt>modifications</dt><dd><p>Optional. If the work was modified from the original provide a short summary
+of changes.</p>
+</dd>
+</dl>
+<p>When a new asset is added to the game, it is the responsibility of the
+developer or artist adding the resource to update the license info files.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="shortsounds"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Short sounds are around 5 seconds or less.</p>
+</dd>
+<dt class="label" id="environmentsubdirs"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>An alternate way to organize the <code class="docutils literal notranslate"><span class="pre">assets</span></code>
+directory is create subdirectories for each environment. However,
+environments may share various resources such as sound FX or brush
+textures. In fact, programmers are encouraged to extract common
+components from environments to promote their reuse. Thus, to prevent
+developers and artists of thinking assets belong to specific
+environments, an alternate approach is taken of organizing resources by
+asset type.</p>
+</dd>
+<dt class="label" id="userdata"><span class="brackets">3</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id4">2</a>)</span></dt>
+<dd><p>The user data directory is <code class="docutils literal notranslate"><span class="pre">~/.local/share/fossxo/</span></code> on Linux
+and <code class="docutils literal notranslate"><span class="pre">Documents/My</span> <span class="pre">Games/FossXO</span></code> on Windows. The game needs read and
+write access to this directory.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">FossXO Game Design Document</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameplay.html">2. Gameplay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">3. User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../environments.html">4. Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/index.html">5. Additional Considerations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. Technical Design</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="engine-overview.html">6.1. Engine Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states.html">6.2. Game States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems.html">6.3. Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components-resources-entities.html">6.4. Components, Resources, and Entities</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.5. File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual.html">6.6. User Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html">6.7. Packages and Source Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">6.8. System and Data Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development-tools.html">6.9. Development Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototype.html">6.10. Prototype Lessons Learned</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">8. References</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/fossxo/fossxo-gdd">GitHub Source</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html"><span class="section-number">6. </span>Technical Design</a><ul>
+      <li>Previous: <a href="components-resources-entities.html" title="previous chapter"><span class="section-number">6.4. </span>Components, Resources, and Entities</a></li>
+      <li>Next: <a href="user-manual.html" title="next chapter"><span class="section-number">6.6. </span>User Manual</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, James Richey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/technical-design/file-formats.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

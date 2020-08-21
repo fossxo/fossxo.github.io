@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="123px" preserveAspectRatio="none" style="width:359px;height:123px;" version="1.1" viewBox="0 0 359 123" width="359px" zoomAndPan="magnify"><defs><filter height="300%" id="f1otl2qmsayu2z" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--class Environment--><rect fill="#FEFECE" filter="url(#f1otl2qmsayu2z)" height="104.0234" id="Environment" style="stroke: #A80036; stroke-width: 1.5;" width="342" x="6" y="8"/><ellipse cx="133.75" cy="24" fill="#A68CFF" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M134.5938,30.75 L132.1406,30.75 L132.1406,20.5 L129,20.5 L129,18.3594 L137.7344,18.3594 L137.7344,20.5 L134.5938,20.5 L134.5938,30.75 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="78" x="154.25" y="28.1543">Environment</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="347" y1="40" y2="40"/><ellipse cx="17" cy="51.9023" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="87" x="26" y="54.2104">spawn(options)</text><ellipse cx="17" cy="64.707" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="43" x="26" y="67.0151">delete()</text><ellipse cx="17" cy="77.5117" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="50" x="26" y="79.8198">is_alive()</text><ellipse cx="17" cy="90.3164" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="168" x="26" y="92.6245">spawn_mark(player, position)</text><ellipse cx="17" cy="103.1211" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="316" x="26" y="105.4292">spawn_game_over(winning_positions, outcome_affinity)</text><!--
+@startuml
+
+
+
+hide empty members
+
+interface Environment << (T,#a68cff) >> {
+    + spawn(options)
+    + delete()
+    + is_alive()
+    + spawn_mark(player, position)
+    + spawn_game_over(winning_positions, outcome_affinity)
+}
+
+@enduml
+
+PlantUML version 1.2019.01(Sat Feb 09 07:32:04 PST 2019)
+(LGPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_252-b09
+Operating System: Linux
+OS Version: 5.6.13-100.fc30.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

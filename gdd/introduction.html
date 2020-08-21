@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1. Introduction &#8212; FossXO Game Design Document Rev. B</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. Gameplay" href="gameplay.html" />
+    <link rel="prev" title="FossXO Game Design Document" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="introduction">
+<h1><span class="section-number">1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="purpose-of-this-document">
+<h2><span class="section-number">1.1. </span>Purpose of this Document<a class="headerlink" href="#purpose-of-this-document" title="Permalink to this headline">¶</a></h2>
+<p>This is the FossXO game design document. This document describes in
+detail the objectives, requirements, and design considerations of the game
+providing a central location for this information. This is invaluable for
+understanding the game’s scope, planning the project milestones, and creating
+the games assets.</p>
+<p>Anyone who is involved with the game’s development is encouraged to read this
+document and keep a copy handy.</p>
+</div>
+<div class="section" id="scope-of-the-game">
+<h2><span class="section-number">1.2. </span>Scope of the Game<a class="headerlink" href="#scope-of-the-game" title="Permalink to this headline">¶</a></h2>
+<p>Tic-tac-toe is a game of strategy where two players, X and O, take turns placing
+their mark in a 3 x 3 gird. The first player to get three marks in a row,
+column, or diagonal wins the game.</p>
+<p>FossXO is a unique take on the classic game of tic-tac-toe. Players of
+all ages battle the computer or each other in a variety of stunning environments.
+Each environment tells part of the story of tic-tac-toe from the past, present,
+and future. Each environment has a strong visual theme and complementary
+soundtrack.</p>
+<p>FossXO is free, open-source, and no contains no annoying advertisements. It
+runs on Windows, Mac, and Linux. The game launches Summer 2020.</p>
+</div>
+<div class="section" id="overview-of-this-document">
+<h2><span class="section-number">1.3. </span>Overview of this Document<a class="headerlink" href="#overview-of-this-document" title="Permalink to this headline">¶</a></h2>
+<p>This game design document contains chapters covering various aspects of the
+game. <a class="footnote-reference brackets" href="#rogers" id="id1">1</a> This includes chapters for the <a class="reference internal" href="gameplay.html"><span class="doc">Gameplay</span></a>,
+<a class="reference internal" href="gui.html"><span class="doc">User Interface</span></a>, and various <a class="reference internal" href="environments.html"><span class="doc">Environments</span></a>.</p>
+<p>The <a class="reference internal" href="technical-design/index.html"><span class="doc">Technical Design</span></a> chapter describe how the game is created.
+This includes details of the game’s software architecture and design.</p>
+<p>Additionally, the <a class="reference internal" href="glossary.html"><span class="doc">Glossary</span></a> defines terms that are used throughout the
+game design document.</p>
+</div>
+<div class="section" id="project-objectives">
+<h2><span class="section-number">1.4. </span>Project Objectives<a class="headerlink" href="#project-objectives" title="Permalink to this headline">¶</a></h2>
+<p>This section describes the project’s primary objectives.</p>
+<div class="section" id="create-tic-tac-toe-game-with-rust">
+<span id="ref-objective-create-ttt-game-with-rust"></span><h3><span class="section-number">1.4.1. </span>Create Tic-tac-toe Game with Rust<a class="headerlink" href="#create-tic-tac-toe-game-with-rust" title="Permalink to this headline">¶</a></h3>
+<p>The main deliverable of this project is a tic-tac-toe game for Windows, Mac,
+and Linux. This project is the follow-up to the Ounce of Rust project <a class="footnote-reference brackets" href="#ounceofrust" id="id2">2</a>
+that resulted in the creation of a Rust based tic-tac-toe logic library,
+<code class="docutils literal notranslate"><span class="pre">open_ttt_lib</span></code>. <a class="footnote-reference brackets" href="#opentttlib" id="id3">3</a></p>
+<p>In addition to creating a fun game, the project provides more hands on experience
+using Rust and is a showcase for <code class="docutils literal notranslate"><span class="pre">open_ttt_lib</span></code>.</p>
+</div>
+<div class="section" id="provide-free-of-charge-and-under-an-open-source-license">
+<span id="ref-objective-free-of-charge"></span><h3><span class="section-number">1.4.2. </span>Provide Free of Charge and Under an Open-Source License<a class="headerlink" href="#provide-free-of-charge-and-under-an-open-source-license" title="Permalink to this headline">¶</a></h3>
+<p>FossXO is and will always be free, open-source, and contain no advertisements or
+trackers. The game is released under a permissive open-source license and its
+code is available from a public repository such as <a class="reference external" href="https://github.com/">https://github.com/</a>.</p>
+<p>Many of today’s games casual games are released for free, but include
+questionable monetization models such as microtransactions, pay-to-win schemes,
+advertisements, and personal data harvesters. FossXO stands apart from
+these games by respecting players who choose to spend their valuable time
+playing the game.</p>
+</div>
+<div class="section" id="release-by-rustconf-2020">
+<span id="index-0"></span><h3><span class="section-number">1.4.3. </span>Release by RustConf 2020<a class="headerlink" href="#release-by-rustconf-2020" title="Permalink to this headline">¶</a></h3>
+<p>FossXO’s initial release is scheduled to coincide with RustConf 2020
+on August 21, 2020. <a class="footnote-reference brackets" href="#rustconf" id="id4">4</a> RustConf is the annual Rust developers conference; since
+FossXO is developed in Rust this makes an excellent time to launch a Rust
+based game. <a class="footnote-reference brackets" href="#limitedscope" id="id5">5</a></p>
+</div>
+<div class="section" id="easily-expandable-and-modifiable">
+<span id="ref-objective-easily-expandable-and-modifiable"></span><h3><span class="section-number">1.4.4. </span>Easily Expandable and Modifiable<a class="headerlink" href="#easily-expandable-and-modifiable" title="Permalink to this headline">¶</a></h3>
+<p>Playing tic-tac-toe in a variety of environments is a large part of what sets
+FossXO apart from other tic-tac-toe games. The game is designed such that
+developers can easily add new environments. This allows developers to focus
+their time and effort creating stunning environments. Additionally, this
+lowers the barrier of entry for users who are interested in modifying the game.
+Finally, an easily modifiable code base allows quick turnaround of future
+releases of the game.</p>
+</div>
+<div class="section" id="build-risk-reduction-prototype">
+<span id="ref-objective-build-risk-reduction-prototype"></span><span id="index-1"></span><h3><span class="section-number">1.4.5. </span>Build Risk Reduction Prototype<a class="headerlink" href="#build-risk-reduction-prototype" title="Permalink to this headline">¶</a></h3>
+<p>The development team creating FossXO is new to the Rust programming language
+and the available Rust libraries for game development. To help mitigate this
+risk, a throwaway prototype game is created early in the project that explores
+various technical aspects.</p>
+<p>Using the lessons learned from the prototype also helps the development team
+design a code base that is easily expandable and modifiable per the above
+objective.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="rogers"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>The structure of this document is based on <a class="reference internal" href="references.html#rogers-2014" id="id6"><span>[Rogers-2014]</span></a>.</p>
+</dd>
+<dt class="label" id="ounceofrust"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>For details on the Ounce of Rust project see the
+<a class="reference external" href="https://j-richey.github.io/project-documentation/ounce-of-rust/">Ounce of Rust Project Manual</a></p>
+</dd>
+<dt class="label" id="opentttlib"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">open_ttt_lib</span></code> is available at <a class="reference external" href="https://crates.io/crates/open_ttt_lib">https://crates.io/crates/open_ttt_lib</a>
+and source code is hosted at <a class="reference external" href="https://github.com/j-richey/open_ttt_lib">https://github.com/j-richey/open_ttt_lib</a></p>
+</dd>
+<dt class="label" id="rustconf"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>For details on RustConf see their website: <a class="reference external" href="https://rustconf.com/">https://rustconf.com/</a></p>
+</dd>
+<dt class="label" id="limitedscope"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>To help meet the target release date, the initial release of
+the game might contain a subset of the environments described in this
+document.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">FossXO Game Design Document</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#purpose-of-this-document">1.1. Purpose of this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scope-of-the-game">1.2. Scope of the Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overview-of-this-document">1.3. Overview of this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#project-objectives">1.4. Project Objectives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gameplay.html">2. Gameplay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gui.html">3. User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="environments.html">4. Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/index.html">5. Additional Considerations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical-design/index.html">6. Technical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">8. References</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/fossxo/fossxo-gdd">GitHub Source</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">FossXO Game Design Document</a></li>
+      <li>Next: <a href="gameplay.html" title="next chapter"><span class="section-number">2. </span>Gameplay</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, James Richey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/introduction.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

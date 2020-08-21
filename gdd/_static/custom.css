@@ -1,0 +1,5 @@
+/* Make the GUI label menu selection text to be bold per the Windows style guide. */
+.guilabel, .menuselection {
+    font-family: sans-serif;
+    font-weight: bold;
+}

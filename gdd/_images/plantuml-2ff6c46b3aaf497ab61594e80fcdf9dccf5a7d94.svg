@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="148px" preserveAspectRatio="none" style="width:359px;height:148px;" version="1.1" viewBox="0 0 359 148" width="359px" zoomAndPan="magnify"><defs><filter height="300%" id="f4iqbr8bxbffb" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--class Environments--><rect fill="#FEFECE" filter="url(#f4iqbr8bxbffb)" height="129.6328" id="Environments" style="stroke: #A80036; stroke-width: 1.5;" width="342" x="6" y="8"/><ellipse cx="130.25" cy="24" fill="#FF6AD3" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M129.7344,24.5625 Q127.875,23.8594 127.2188,23.0938 Q126.5781,22.3125 126.5781,21 Q126.5781,19.3125 127.6563,18.3438 Q128.7344,17.375 130.6094,17.375 Q131.4688,17.375 132.3125,17.5781 Q133.1719,17.7656 134.0156,18.1563 L134.0156,20.5469 Q133.2344,19.9844 132.4063,19.7031 Q131.5938,19.4063 130.7969,19.4063 Q129.9219,19.4063 129.4375,19.7656 Q128.9688,20.125 128.9688,20.7813 Q128.9688,21.2969 129.3125,21.6406 Q129.6563,21.9688 130.75,22.375 L131.8125,22.7813 Q133.2969,23.3281 134,24.2344 Q134.7188,25.1406 134.7188,26.5156 Q134.7188,28.3906 133.6094,29.3125 Q132.5,30.2344 130.25,30.2344 Q129.3281,30.2344 128.4063,30.0156 Q127.4844,29.7969 126.625,29.375 L126.625,26.8438 Q127.5938,27.5313 128.5156,27.875 Q129.4375,28.2188 130.3281,28.2188 Q131.2344,28.2188 131.7344,27.8125 Q132.2344,27.3906 132.2344,26.6563 Q132.2344,26.0938 131.8906,25.6875 Q131.5625,25.2656 130.9375,25.0156 L129.7344,24.5625 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="85" x="150.75" y="28.1543">Environments</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="347" y1="40" y2="40"/><ellipse cx="17" cy="51.9023" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="31" x="26" y="54.2104">new()</text><ellipse cx="17" cy="64.707" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="126" x="26" y="67.0151">debug(debug_options)</text><ellipse cx="17" cy="77.5117" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="32" x="26" y="79.8198">load()</text><ellipse cx="17" cy="90.3164" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="137" x="26" y="92.6245">spawn_random(options)</text><ellipse cx="17" cy="103.1211" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="90" x="26" y="105.4292">delete_current()</text><ellipse cx="17" cy="115.9258" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="168" x="26" y="118.2339">spawn_mark(player, position)</text><ellipse cx="17" cy="128.7305" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="316" x="26" y="131.0386">spawn_game_over(winning_positions, outcome_affinity)</text><!--
+@startuml
+
+
+
+hide empty members
+
+class Environments << (S,#ff6ad3) >> {
+    + new()
+    + debug(debug_options)
+    + load()
+    + spawn_random(options)
+    + delete_current()
+    + spawn_mark(player, position)
+    + spawn_game_over(winning_positions, outcome_affinity)
+}
+
+@enduml
+
+PlantUML version 1.2019.01(Sat Feb 09 07:32:04 PST 2019)
+(LGPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_252-b09
+Operating System: Linux
+OS Version: 5.6.13-100.fc30.x86_64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

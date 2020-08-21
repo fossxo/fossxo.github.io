@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6.3. Systems &#8212; FossXO Game Design Document Rev. B</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.4. Components, Resources, and Entities" href="components-resources-entities.html" />
+    <link rel="prev" title="6.2. Game States" href="states.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="systems">
+<h1><span class="section-number">6.3. </span>Systems<a class="headerlink" href="#systems" title="Permalink to this headline">¶</a></h1>
+<p>Systems contain small pieces of the game’s logic that is applied to collections
+of components or resources. The systems can be grouped into bundles that provide
+a specific game feature.</p>
+<p>This section describes how systems are constructed and provides details about
+the core systems used by the game.</p>
+<div class="section" id="system-trait">
+<span id="index-0"></span><h2><span class="section-number">6.3.1. </span>System Trait<a class="headerlink" href="#system-trait" title="Permalink to this headline">¶</a></h2>
+<p>In Amethyst systems implement the <a class="reference external" href="https://docs.amethyst.rs/stable/specs/trait.System.html">System trait</a>.
+A summary of the System trait is shown in <a class="reference internal" href="#uml-system-trait"><span class="std std-numref">Figure 6.5</span></a>.</p>
+<div class="figure align-default" id="id1">
+<span id="uml-system-trait"></span><p class="plantuml">
+<img src="../_images/plantuml-71160edc216dc60a748f2290712e2cf68d547a70.svg" alt="!include rust_types.uml
+hide empty members
+
+trait(System) {
+    +SystemData: type
+    +run(SystemData)
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.5 </span><span class="caption-text">Notable methods provided by the System trait.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">SystemData</span></code> type specifies what types of components and resources the
+system operates on. The <code class="docutils literal notranslate"><span class="pre">run()</span></code> method is provided the specified system data
+every time it is called. This is typically once per game loop.</p>
+</div>
+<div class="section" id="system-design-considerations">
+<h2><span class="section-number">6.3.2. </span>System Design Considerations<a class="headerlink" href="#system-design-considerations" title="Permalink to this headline">¶</a></h2>
+<p>The game contains additional systems that are not described in this document.
+However, these systems are designed around the following considerations.</p>
+<ul class="simple">
+<li><p>Systems contain small pieces of functionality. For example in a Pong type
+game, one system would be responsible for moving the ball and a second
+system for moving the paddles.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">run()</span></code> method often uses database like queries when accessing
+components using the <code class="docutils literal notranslate"><span class="pre">join()</span></code> method. For example, a Pong move ball system
+would join the <code class="docutils literal notranslate"><span class="pre">Ball</span></code> and <code class="docutils literal notranslate"><span class="pre">Transform</span></code> components.</p></li>
+<li><p>Systems should not assume the number of components they are operating on.
+For example, the Pong move ball system should not assume there is exactly
+one ball. This ensures new gameplay modes can be easily added in the future.</p></li>
+<li><p>Systems should be designed with re-usability in mind. For example, if making
+a system to move spark particles, consider making a generic particle system
+that can be used for other particle types.</p></li>
+<li><p>Systems should not store any data in as a local field.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Even though systems are implemented as structures, they should not store any
+data in local fields. If a system needs private data, store the data
+in a resource object that has private fields. In fact, the next major
+version of Amethyst uses loose functions for systems and the System trait is
+removed.</p>
+</div>
+</div>
+<div class="section" id="core-systems">
+<h2><span class="section-number">6.3.3. </span>Core Systems<a class="headerlink" href="#core-systems" title="Permalink to this headline">¶</a></h2>
+<p>There are several notable systems the game uses to provide the game’s core
+functionality. This includes getting player input and managing AI opponents.
+Additional systems for environment specific features are added as needed.</p>
+<div class="section" id="local-player-system">
+<span id="index-1"></span><h3><span class="section-number">6.3.3.1. </span>Local Player System<a class="headerlink" href="#local-player-system" title="Permalink to this headline">¶</a></h3>
+<p>The local player system is responsible for translating mouse clicks and keyboard
+button presses into player events that indicate where the player would like to
+move.</p>
+<p>The pseudocode in <a class="reference internal" href="#code-local-player-system-pseudocode"><span class="std std-numref">Listing 6.1</span></a> describes the
+local player system logic.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<span id="code-local-player-system-pseudocode"></span><div class="code-block-caption"><span class="caption-number">Listing 6.1 </span><span class="caption-text">Local player system pseudocode.</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>For each local player:
+    Get the any active button presses from the input bindings.
+    For keyboard buttons, extract the direct mappings to the board position.
+    For mouse buttons, translate the coordinates to the board position.
+    Send the request move player event with the indicated position.
+</pre></div>
+</div>
+</div>
+<p>The local player system allows players to request moves even when it is not
+their turn — it delegates filtering invalid moves to other systems. Checking
+the keyboard bindings takes prescience over the mouse.</p>
+</div>
+<div class="section" id="ai-player-system">
+<span id="index-2"></span><h3><span class="section-number">6.3.3.2. </span>AI Player System<a class="headerlink" href="#ai-player-system" title="Permalink to this headline">¶</a></h3>
+<p>The AI player system generates player events for the AI opponents.</p>
+<p><a class="reference internal" href="#code-ai-player-system-pseudocode"><span class="std std-numref">Listing 6.2</span></a> shows the pseudocode that describes
+the AI player system logic.</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<span id="code-ai-player-system-pseudocode"></span><div class="code-block-caption"><span class="caption-number">Listing 6.2 </span><span class="caption-text">AI player system pseudocode.</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>For each AI player:
+    Check to see if is the player&#39;s turn, if not skip the player.
+    Check the AI&#39;s move delay to see if sufficient time has elapsed since
+        the last game move.
+    Get the position the AI wishes to mark using it&#39;s opponent field.
+    Send the request move player event with the indicated position.
+</pre></div>
+</div>
+</div>
+<p>To prevent burning CPU cycles evaluating positions that will not be used the
+AI system skips players if it is not the player’s turn.</p>
+</div>
+</div>
+<div class="section" id="builtin-amethyst-systems">
+<h2><span class="section-number">6.3.4. </span>Builtin Amethyst Systems<a class="headerlink" href="#builtin-amethyst-systems" title="Permalink to this headline">¶</a></h2>
+<p>Amethyst provides several system bundles that are used by the game:</p>
+<dl class="simple">
+<dt>TransformBundle</dt><dd><p>Handles updating transform component’s position matrix.</p>
+</dd>
+<dt>InputBundle</dt><dd><p>Provides access to OS input events and is required for the UI systems.</p>
+</dd>
+<dt>AudioBundle</dt><dd><p>Provides basic audio playing support.</p>
+</dd>
+<dt>UiBundle</dt><dd><p>Provides support for rendering user interfaces and processing UI input events.</p>
+</dd>
+<dt>RenderingBundle</dt><dd><p>Provides the game’s rendering support.</p>
+</dd>
+</dl>
+<p>See the Amethyst documentation for details on each of these bundles and the
+systems they provide.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">FossXO Game Design Document</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameplay.html">2. Gameplay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">3. User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../environments.html">4. Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/index.html">5. Additional Considerations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. Technical Design</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="engine-overview.html">6.1. Engine Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states.html">6.2. Game States</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.3. Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components-resources-entities.html">6.4. Components, Resources, and Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-formats.html">6.5. File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual.html">6.6. User Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html">6.7. Packages and Source Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">6.8. System and Data Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development-tools.html">6.9. Development Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototype.html">6.10. Prototype Lessons Learned</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">8. References</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/fossxo/fossxo-gdd">GitHub Source</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html"><span class="section-number">6. </span>Technical Design</a><ul>
+      <li>Previous: <a href="states.html" title="previous chapter"><span class="section-number">6.2. </span>Game States</a></li>
+      <li>Next: <a href="components-resources-entities.html" title="next chapter"><span class="section-number">6.4. </span>Components, Resources, and Entities</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, James Richey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/technical-design/systems.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

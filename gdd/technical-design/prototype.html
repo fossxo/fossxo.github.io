@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6.10. Prototype Lessons Learned &#8212; FossXO Game Design Document Rev. B</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7. Glossary" href="../glossary.html" />
+    <link rel="prev" title="6.9. Development Tools" href="development-tools.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="prototype-lessons-learned">
+<span id="index-0"></span><h1><span class="section-number">6.10. </span>Prototype Lessons Learned<a class="headerlink" href="#prototype-lessons-learned" title="Permalink to this headline">¶</a></h1>
+<p>The development team is new to the Rust game development ecosystem; the
+<a class="reference internal" href="../introduction.html#ref-objective-build-risk-reduction-prototype"><span class="std std-ref">Build Risk Reduction Prototype</span></a> objective allowed the team
+to explore various techniques and come up with a design that fulfills the game
+requirements listed in this document.</p>
+<p>The game’s design is influenced by the knowledge learned during the prototyping
+phase. This section describes the knowledge gathered during the prototyping
+phase including why Amethyst was chosen as the engine to base the game’s design
+around.</p>
+<div class="section" id="rust-game-engines">
+<span id="index-1"></span><h2><span class="section-number">6.10.1. </span>Rust Game Engines<a class="headerlink" href="#rust-game-engines" title="Permalink to this headline">¶</a></h2>
+<p>While doing research for the prototype three popular Rust game engines were
+considered: <a class="reference external" href="https://github.com/amethyst/amethyst/tree/v0.15.0">Amethyst v0.15.0</a>,
+<a class="reference external" href="https://github.com/ggez/ggez">ggez v0.5.1</a>, and
+<a class="reference external" href="https://github.com/PistonDevelopers/piston">Piston v0.48.0</a>. An overview of
+these engines with regards to how their features meet FossXO’s requirements
+is provided in <a class="reference internal" href="#table-rust-engines-comparison"><span class="std std-numref">Table 6.2</span></a> . <a class="footnote-reference brackets" href="#enginedisclaimer" id="id1">1</a></p>
+<span id="table-rust-engines-comparison"></span><table class="docutils align-default" id="id4">
+<caption><span class="caption-number">Table 6.2 </span><span class="caption-text">Comparison of Rust game engines with regards to meeting FossXO’s requirements.</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Amethyst</p></th>
+<th class="head"><p>ggez</p></th>
+<th class="head"><p>Piston</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>crates.io downloads</p></td>
+<td><p>50k</p></td>
+<td><p>45k</p></td>
+<td><p>190k</p></td>
+</tr>
+<tr class="row-odd"><td><p>GitHub stars</p></td>
+<td><p>5.9k</p></td>
+<td><p>2.4k</p></td>
+<td><p>3.5k</p></td>
+</tr>
+<tr class="row-even"><td><p>Tagged releases</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>Usage Model</p></td>
+<td><p>Complete engine for games large and small</p></td>
+<td><p>Complete engine for basic games</p></td>
+<td><p>Loose collection of libraries</p></td>
+</tr>
+<tr class="row-even"><td><p>Getting Started Guide</p></td>
+<td><p>Excellent</p></td>
+<td><p>Ok</p></td>
+<td><p>Disorganized</p></td>
+</tr>
+<tr class="row-odd"><td><p>API Docs</p></td>
+<td><p>OK</p></td>
+<td><p>Excellent</p></td>
+<td><p>Ok</p></td>
+</tr>
+<tr class="row-even"><td><p>Examples</p></td>
+<td><p>Excellent</p></td>
+<td><p>Excellent</p></td>
+<td><p>Poor</p></td>
+</tr>
+<tr class="row-odd"><td><p>GUI Widgets</p></td>
+<td><p>Basic</p></td>
+<td><p>No</p></td>
+<td><p>Full support via conrod</p></td>
+</tr>
+<tr class="row-even"><td><p>Wayland support</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Test support</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Unknown</p></td>
+</tr>
+<tr class="row-even"><td><p>Camera System</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Unknown</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sprite Drawing</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Unknown</p></td>
+</tr>
+<tr class="row-even"><td><p>Vector Drawing</p></td>
+<td><p>No (Debug lines only)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Audio / Sound FX</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Unknown</p></td>
+</tr>
+<tr class="row-even"><td><p>Animation System</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Unknown</p></td>
+</tr>
+<tr class="row-odd"><td><p>Special FX</p></td>
+<td><p>Lighting</p></td>
+<td><p>Can create simple custom shaders and compose multiple buffers</p></td>
+<td><p>Unknown</p></td>
+</tr>
+<tr class="row-even"><td><p>Particle Systems</p></td>
+<td><p>No, but very easy to add new systems</p></td>
+<td><p>No</p></td>
+<td><p>Unknown</p></td>
+</tr>
+<tr class="row-odd"><td><p>Keyboard / Mouse</p></td>
+<td><p>High level binding system in addison to basic access</p></td>
+<td><p>Basic access</p></td>
+<td><p>Unknown</p></td>
+</tr>
+<tr class="row-even"><td><p>Resource Management</p></td>
+<td><p>Full resource system</p></td>
+<td><p>Basic loading of resources</p></td>
+<td><p>Unknown</p></td>
+</tr>
+</tbody>
+</table>
+<p>Amethyst, ggez, and Piston are all built on top of a similar collection of
+underlying Rust libraries that handel things such as graphics, keyboard and
+mouse support, and audio. However, the engines different in the API and
+abstractions created around these libraries.</p>
+<div class="section" id="piston">
+<h3><span class="section-number">6.10.1.1. </span>Piston<a class="headerlink" href="#piston" title="Permalink to this headline">¶</a></h3>
+<p>Piston was the first engine considered for FossXO and is one of the most
+downloaded game engines from crates.io. However, its documentation and design
+as a loose collection of libraries made it hard to use as a new Rust programmer.</p>
+<p>This was especially true when looking at Piston’s examples. Different examples
+would do basic tasks like create a window in vastly different ways leading to
+confusion on why these tasks needed to be done differently or if one way was
+preferred over another.</p>
+<p>Because of Piston’s complexity it was ruled out for use in FossXO.</p>
+</div>
+<div class="section" id="ggez">
+<h3><span class="section-number">6.10.1.2. </span>ggez<a class="headerlink" href="#ggez" title="Permalink to this headline">¶</a></h3>
+<p>ggez’s goal is to allow developers to make simple games quickly. Additionally,
+it provided good getting started documentation and an excellent set of examples.
+Additionally, ggez’s core set of features work well for FossXO’s requirements.
+E.g. the easy of use of rendering lines, textures, and allowing multiple texture
+buffers to be composed for creating special FX.</p>
+<p>There were a few rough spots such as the programmer needing to know about
+details of the underlying libraries used. ggez is also very opinionated about
+where user data is saved. Additionally, ggez does not provide any UI widgets so
+those would have to be created. However, overall ggez was a strong contender for
+use with FossXO.</p>
+<p>Unfortunately, the design phase of the project exposed a major flaw with ggez:
+it does not provide any functionality or guidance on how to structure your game.
+FossXO contains multiple environments, game modes, and menus. Trying to manage
+the data, logic, relationships, and ownership of all these items quickly became
+complicated. Being new to Rust and wanting to focus on making a game and not a
+game engine it was decided to look elsewhere.</p>
+</div>
+<div class="section" id="amethyst">
+<h3><span class="section-number">6.10.1.3. </span>Amethyst<a class="headerlink" href="#amethyst" title="Permalink to this headline">¶</a></h3>
+<p>Amethyst is built around a entity component system which provides structure
+on where all the pieces of the game go. Amethyst has excellent getting started
+documentation and examples that demonstrate the engine. Additionally, Amethyst
+provides basic UI widgets which would otherwise take a fair amount of time to
+implement. <a class="footnote-reference brackets" href="#expandable" id="id2">2</a></p>
+<p>Compared to ggez, Amethyst works at a higher level. This has a few down sides
+such as it being harder, or at least not as oblivious, on how to do some basic
+tasks such as drawing lines. However, its architecture allows different
+rendering systems to be used or swapped in and out.</p>
+<p>One more unique aspect about Amethyst compared to the other engines considered
+it is the only one to tag its releases per the Rust API Guidelines. <a class="footnote-reference brackets" href="#rustapiguidelines" id="id3">3</a></p>
+<p>Therefore, of the engines considered Amethyst aligned best with FossXO’s
+requirements and made the foundation for the team to build upon.</p>
+</div>
+</div>
+<div class="section" id="entity-component-system">
+<h2><span class="section-number">6.10.2. </span>Entity Component System<a class="headerlink" href="#entity-component-system" title="Permalink to this headline">¶</a></h2>
+<p>The main feature that Amethyst provides over the other engines is its
+entity component system. The ECS model works well with Rust’s ownership model.
+This greatly simplified the game’s design.</p>
+<p>Therefore, considering using a ECS architecture for future games even if not
+using the Amethyst engine.</p>
+</div>
+<div class="section" id="wayland-issue">
+<span id="index-2"></span><h2><span class="section-number">6.10.3. </span>Wayland Issue<a class="headerlink" href="#wayland-issue" title="Permalink to this headline">¶</a></h2>
+<p>While working with both ggez and Amethyst an issue with Wayland was discovered
+due to an issue in an underlying library. To resolve the issue set the
+<code class="docutils literal notranslate"><span class="pre">WINIT_UNIX_BACKEND</span></code> environmental variable to <code class="docutils literal notranslate"><span class="pre">x11</span></code> before creating the
+game’s window. <a class="reference internal" href="#code-set-winit-unix-backend-envar"><span class="std std-numref">Listing 6.5</span></a> shows how to this
+in code.</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<span id="code-set-winit-unix-backend-envar"></span><div class="code-block-caption"><span class="caption-number">Listing 6.5 </span><span class="caption-text">Example of setting the WINIT_UNIX_BACKEND environmental variable.</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// Workaround for crash on Wayland.</span>
+<span class="n">env</span>::<span class="n">set_var</span><span class="p">(</span><span class="s">&quot;WINIT_UNIX_BACKEND&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;x11&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<p>For details see:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ggez/ggez/issues/579">https://github.com/ggez/ggez/issues/579</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rust-windowing/winit/issues/793">https://github.com/rust-windowing/winit/issues/793</a></p></li>
+</ul>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="enginedisclaimer"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>The comparison of Rust engines is based on a cursory
+examination of each engine with a focus on how they meet FossXO’s
+specific requirements. The engines might support more features than
+described here and the feasibility findings might be different if
+evaluating the engines for a different application or game.</p>
+</dd>
+<dt class="label" id="expandable"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Amethyst makes it easy to add new systems and features which
+helps with the <a class="reference internal" href="../introduction.html#ref-objective-easily-expandable-and-modifiable"><span class="std std-ref">Easily Expandable and Modifiable</span></a>
+objective.</p>
+</dd>
+<dt class="label" id="rustapiguidelines"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p><a class="reference external" href="https://rust-lang.github.io/api-guidelines/documentation.html">Rust API Guidelines: Documentation</a></p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">FossXO Game Design Document</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameplay.html">2. Gameplay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">3. User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../environments.html">4. Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/index.html">5. Additional Considerations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. Technical Design</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="engine-overview.html">6.1. Engine Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states.html">6.2. Game States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems.html">6.3. Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components-resources-entities.html">6.4. Components, Resources, and Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-formats.html">6.5. File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual.html">6.6. User Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html">6.7. Packages and Source Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">6.8. System and Data Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development-tools.html">6.9. Development Tools</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.10. Prototype Lessons Learned</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">8. References</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/fossxo/fossxo-gdd">GitHub Source</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html"><span class="section-number">6. </span>Technical Design</a><ul>
+      <li>Previous: <a href="development-tools.html" title="previous chapter"><span class="section-number">6.9. </span>Development Tools</a></li>
+      <li>Next: <a href="../glossary.html" title="next chapter"><span class="section-number">7. </span>Glossary</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, James Richey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/technical-design/prototype.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

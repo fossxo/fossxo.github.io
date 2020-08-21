@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6.7. Packages and Source Builds &#8212; FossXO Game Design Document Rev. B</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.8. System and Data Security" href="security.html" />
+    <link rel="prev" title="6.6. User Manual" href="user-manual.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="packages-and-source-builds">
+<h1><span class="section-number">6.7. </span>Packages and Source Builds<a class="headerlink" href="#packages-and-source-builds" title="Permalink to this headline">¶</a></h1>
+<p>The game is <a class="reference internal" href="../misc/licensing-and-distribution.html#ref-distribution"><span class="std std-ref">distributed</span></a> as either a precompiled
+package for their platform or users can build the game from source.</p>
+<div class="section" id="inno-setup-windows-installer">
+<span id="index-0"></span><h2><span class="section-number">6.7.1. </span>Inno Setup Windows Installer<a class="headerlink" href="#inno-setup-windows-installer" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://jrsoftware.org/isinfo.php">Inno Setup</a> is used to create Windows
+packages. Inno Setup has been around for many years, is straight forward to
+create setup script files, and provides excellent documentation on how to use.</p>
+<p>Installer has typical behavior for Windows setup programs:</p>
+<ul class="simple">
+<li><p>The executable and game assets are stored in the user’s program files
+directory. <a class="footnote-reference brackets" href="#autoconstants" id="id1">1</a></p></li>
+<li><p>The game’s configuration and user data is stored in the user’s games directory.</p></li>
+<li><p>Shortcuts are placed in the start menu and optionally on the desktop.</p></li>
+<li><p>The game is listed in the Programs &amp; Features control panel so it can easily
+be uninstalled.</p></li>
+<li><p>The version number listed in the installer and control panel match that of
+the game. <a class="footnote-reference brackets" href="#getenv" id="id2">2</a></p></li>
+</ul>
+<p>The game might require some additional Windows specific resources to run, such
+as the Microsoft Visual C++ redistributable. These items are included in the
+installer or listed as prerequisites on a case by case basis.</p>
+</div>
+<div class="section" id="appimage-linux-package">
+<span id="index-1"></span><h2><span class="section-number">6.7.2. </span>AppImage Linux Package<a class="headerlink" href="#appimage-linux-package" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://appimage.org/">AppImage</a> is a way to package applications into a
+standalone file that can run on many different Linux distributions. <a class="footnote-reference brackets" href="#openra" id="id3">3</a>
+Therefore, this makes its use ideal for this project.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>AppImage package include libraries traditionally installed system wide.
+These included libraries and their versions are included as part of the
+software bill of materials.</p>
+</div>
+</div>
+<div class="section" id="build-from-source">
+<h2><span class="section-number">6.7.3. </span>Build from Source<a class="headerlink" href="#build-from-source" title="Permalink to this headline">¶</a></h2>
+<p>The game is open-source thus users can build the game themselves. Several steps
+are taken to help users build the game with minimal friction.</p>
+<ul class="simple">
+<li><p>The repository’s default branch is the <code class="docutils literal notranslate"><span class="pre">release</span></code> branch. Code on this
+branch has been tested, tagged, and is ready for release. Development
+occurs on a different branch. This allows users to clone and build the
+repository without having to remember to check out a specific tag or branch.</p></li>
+<li><p>The README file contains clear instructions on how to build the game
+including any dependencies that need to be installed. These steps are
+targeted specifically at end users. For example, build steps that typically
+occur during development, such as running unit tests or lint tools are
+omitted.</p></li>
+<li><p>The build steps are automated as much as possible to reduce the possibility
+of mistakes being made.</p></li>
+</ul>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="autoconstants"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>See Inno Setup’s <em>Auto Constants</em> feature for automatically
+selecting the correct directories to place files.</p>
+</dd>
+<dt class="label" id="getenv"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Inno Setup’s <code class="docutils literal notranslate"><span class="pre">GetEnv</span></code> preprocessor can get environmental
+variables — this is likely a useful way of passing data to Inno
+including the applications version number.</p>
+</dd>
+<dt class="label" id="openra"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>OpenRA is an example of a game that uses AppImage.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">FossXO Game Design Document</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameplay.html">2. Gameplay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">3. User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../environments.html">4. Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/index.html">5. Additional Considerations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. Technical Design</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="engine-overview.html">6.1. Engine Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states.html">6.2. Game States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems.html">6.3. Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components-resources-entities.html">6.4. Components, Resources, and Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-formats.html">6.5. File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual.html">6.6. User Manual</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.7. Packages and Source Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">6.8. System and Data Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development-tools.html">6.9. Development Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototype.html">6.10. Prototype Lessons Learned</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">8. References</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/fossxo/fossxo-gdd">GitHub Source</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html"><span class="section-number">6. </span>Technical Design</a><ul>
+      <li>Previous: <a href="user-manual.html" title="previous chapter"><span class="section-number">6.6. </span>User Manual</a></li>
+      <li>Next: <a href="security.html" title="next chapter"><span class="section-number">6.8. </span>System and Data Security</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, James Richey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/technical-design/packaging.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

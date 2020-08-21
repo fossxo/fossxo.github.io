@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6.6. User Manual &#8212; FossXO Game Design Document Rev. B</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.7. Packages and Source Builds" href="packaging.html" />
+    <link rel="prev" title="6.5. File Formats" href="file-formats.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="user-manual">
+<h1><span class="section-number">6.6. </span>User Manual<a class="headerlink" href="#user-manual" title="Permalink to this headline">¶</a></h1>
+<p>The user manual provides information about how to play the game, different
+gameplay modes, and contains content to fulfill the
+<a class="reference internal" href="../misc/licensing-and-distribution.html#ref-distribution-license-compliance"><span class="std std-ref">Third Party License Compliance</span></a> requirements.</p>
+<div class="section" id="user-manual-topics">
+<span id="index-0"></span><h2><span class="section-number">6.6.1. </span>User Manual Topics<a class="headerlink" href="#user-manual-topics" title="Permalink to this headline">¶</a></h2>
+<p>The list of topics included in user manual are:</p>
+<ul class="simple">
+<li><p>How to play tic-tac-toe and the <a class="reference internal" href="../gameplay.html#ref-gameplay-rules-of-tic-tac-toe"><span class="std std-ref">Rules of Tic-tac-toe</span></a>.</p></li>
+<li><p>The different <a class="reference internal" href="../gameplay.html"><span class="doc">Gameplay</span></a> modes of FossXO.</p></li>
+<li><p>The <a class="reference internal" href="../gui.html#ref-ui-controls"><span class="std std-ref">Controls</span></a> and key bindings available.</p></li>
+<li><p>How to get support. <a class="footnote-reference brackets" href="#githubissues" id="id1">1</a> To help with support requests the
+manual includes information such as the game’s version number. This cold
+also include information on how to resolve common issues.</p></li>
+<li><p>The game’s credits.</p></li>
+<li><p>Software bill of materials that provides a concise overview of the
+libraries used by the game.</p></li>
+<li><p>Licenses information for third party software and assets.</p></li>
+</ul>
+<p>To help users quickly find the information they are looking for each section is
+kept short and pictures are used to demonstrate concepts.</p>
+</div>
+<div class="section" id="html-generation-suggestions">
+<h2><span class="section-number">6.6.2. </span>HTML Generation Suggestions<a class="headerlink" href="#html-generation-suggestions" title="Permalink to this headline">¶</a></h2>
+<p>As the <a class="reference internal" href="../gui.html#ref-ui-help"><span class="std std-ref">Help</span></a> menu describes, local HTML files store the user
+manual. There are some tools worth considering for creating the user manual.</p>
+<div class="section" id="mdbook">
+<span id="index-1"></span><h3><span class="section-number">6.6.2.1. </span>mdBook<a class="headerlink" href="#mdbook" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/rust-lang/mdBook">mdBook</a> is a Rust based tool for
+generating HTML based books from Markdown files. This tool both popular in the
+Rust community and is used for other game manuals. <a class="footnote-reference brackets" href="#openrabook" id="id2">2</a></p>
+</div>
+<div class="section" id="cargo-about">
+<span id="index-2"></span><h3><span class="section-number">6.6.2.2. </span>cargo-about<a class="headerlink" href="#cargo-about" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://crates.io/crates/cargo-about">cargo-about</a> is a Cargo plugin for
+generating a listing of all creates used by the application. It uses a
+templating engine to render the output listing allowing for Markdown or HTML
+output which can then be included in the manual.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A similar technique can be used for generating the third party asset
+license information.</p>
+</div>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="githubissues"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>For example, provide links to the GitHub issue tracker.</p>
+</dd>
+<dt class="label" id="openrabook"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>The <a class="reference external" href="https://github.com/OpenRA/book">OpenRA book</a> is mdBook
+based.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">FossXO Game Design Document</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameplay.html">2. Gameplay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">3. User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../environments.html">4. Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/index.html">5. Additional Considerations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. Technical Design</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="engine-overview.html">6.1. Engine Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states.html">6.2. Game States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems.html">6.3. Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components-resources-entities.html">6.4. Components, Resources, and Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-formats.html">6.5. File Formats</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.6. User Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html">6.7. Packages and Source Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">6.8. System and Data Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development-tools.html">6.9. Development Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototype.html">6.10. Prototype Lessons Learned</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">8. References</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/fossxo/fossxo-gdd">GitHub Source</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html"><span class="section-number">6. </span>Technical Design</a><ul>
+      <li>Previous: <a href="file-formats.html" title="previous chapter"><span class="section-number">6.5. </span>File Formats</a></li>
+      <li>Next: <a href="packaging.html" title="next chapter"><span class="section-number">6.7. </span>Packages and Source Builds</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, James Richey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/technical-design/user-manual.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

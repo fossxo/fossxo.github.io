@@ -1,0 +1,2908 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FossXO Game Design Document Rev. B</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>FossXO Game Design Document<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="toctree-wrapper compound">
+<span id="document-introduction"></span><div class="section" id="introduction">
+<h1><span class="section-number">1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="purpose-of-this-document">
+<h2><span class="section-number">1.1. </span>Purpose of this Document<a class="headerlink" href="#purpose-of-this-document" title="Permalink to this headline">¶</a></h2>
+<p>This is the FossXO game design document. This document describes in
+detail the objectives, requirements, and design considerations of the game
+providing a central location for this information. This is invaluable for
+understanding the game’s scope, planning the project milestones, and creating
+the games assets.</p>
+<p>Anyone who is involved with the game’s development is encouraged to read this
+document and keep a copy handy.</p>
+</div>
+<div class="section" id="scope-of-the-game">
+<h2><span class="section-number">1.2. </span>Scope of the Game<a class="headerlink" href="#scope-of-the-game" title="Permalink to this headline">¶</a></h2>
+<p>Tic-tac-toe is a game of strategy where two players, X and O, take turns placing
+their mark in a 3 x 3 gird. The first player to get three marks in a row,
+column, or diagonal wins the game.</p>
+<p>FossXO is a unique take on the classic game of tic-tac-toe. Players of
+all ages battle the computer or each other in a variety of stunning environments.
+Each environment tells part of the story of tic-tac-toe from the past, present,
+and future. Each environment has a strong visual theme and complementary
+soundtrack.</p>
+<p>FossXO is free, open-source, and no contains no annoying advertisements. It
+runs on Windows, Mac, and Linux. The game launches Summer 2020.</p>
+</div>
+<div class="section" id="overview-of-this-document">
+<h2><span class="section-number">1.3. </span>Overview of this Document<a class="headerlink" href="#overview-of-this-document" title="Permalink to this headline">¶</a></h2>
+<p>This game design document contains chapters covering various aspects of the
+game. <a class="footnote-reference brackets" href="#rogers" id="id1">1</a> This includes chapters for the <a class="reference internal" href="singlepage.html#document-gameplay"><span class="doc">Gameplay</span></a>,
+<a class="reference internal" href="singlepage.html#document-gui"><span class="doc">User Interface</span></a>, and various <a class="reference internal" href="singlepage.html#document-environments"><span class="doc">Environments</span></a>.</p>
+<p>The <a class="reference internal" href="singlepage.html#document-technical-design/index"><span class="doc">Technical Design</span></a> chapter describe how the game is created.
+This includes details of the game’s software architecture and design.</p>
+<p>Additionally, the <a class="reference internal" href="singlepage.html#document-glossary"><span class="doc">Glossary</span></a> defines terms that are used throughout the
+game design document.</p>
+</div>
+<div class="section" id="project-objectives">
+<h2><span class="section-number">1.4. </span>Project Objectives<a class="headerlink" href="#project-objectives" title="Permalink to this headline">¶</a></h2>
+<p>This section describes the project’s primary objectives.</p>
+<div class="section" id="create-tic-tac-toe-game-with-rust">
+<span id="ref-objective-create-ttt-game-with-rust"></span><h3><span class="section-number">1.4.1. </span>Create Tic-tac-toe Game with Rust<a class="headerlink" href="#create-tic-tac-toe-game-with-rust" title="Permalink to this headline">¶</a></h3>
+<p>The main deliverable of this project is a tic-tac-toe game for Windows, Mac,
+and Linux. This project is the follow-up to the Ounce of Rust project <a class="footnote-reference brackets" href="#ounceofrust" id="id2">2</a>
+that resulted in the creation of a Rust based tic-tac-toe logic library,
+<code class="docutils literal notranslate"><span class="pre">open_ttt_lib</span></code>. <a class="footnote-reference brackets" href="#opentttlib" id="id3">3</a></p>
+<p>In addition to creating a fun game, the project provides more hands on experience
+using Rust and is a showcase for <code class="docutils literal notranslate"><span class="pre">open_ttt_lib</span></code>.</p>
+</div>
+<div class="section" id="provide-free-of-charge-and-under-an-open-source-license">
+<span id="ref-objective-free-of-charge"></span><h3><span class="section-number">1.4.2. </span>Provide Free of Charge and Under an Open-Source License<a class="headerlink" href="#provide-free-of-charge-and-under-an-open-source-license" title="Permalink to this headline">¶</a></h3>
+<p>FossXO is and will always be free, open-source, and contain no advertisements or
+trackers. The game is released under a permissive open-source license and its
+code is available from a public repository such as <a class="reference external" href="https://github.com/">https://github.com/</a>.</p>
+<p>Many of today’s games casual games are released for free, but include
+questionable monetization models such as microtransactions, pay-to-win schemes,
+advertisements, and personal data harvesters. FossXO stands apart from
+these games by respecting players who choose to spend their valuable time
+playing the game.</p>
+</div>
+<div class="section" id="release-by-rustconf-2020">
+<span id="index-0"></span><h3><span class="section-number">1.4.3. </span>Release by RustConf 2020<a class="headerlink" href="#release-by-rustconf-2020" title="Permalink to this headline">¶</a></h3>
+<p>FossXO’s initial release is scheduled to coincide with RustConf 2020
+on August 21, 2020. <a class="footnote-reference brackets" href="#rustconf" id="id4">4</a> RustConf is the annual Rust developers conference; since
+FossXO is developed in Rust this makes an excellent time to launch a Rust
+based game. <a class="footnote-reference brackets" href="#limitedscope" id="id5">5</a></p>
+</div>
+<div class="section" id="easily-expandable-and-modifiable">
+<span id="ref-objective-easily-expandable-and-modifiable"></span><h3><span class="section-number">1.4.4. </span>Easily Expandable and Modifiable<a class="headerlink" href="#easily-expandable-and-modifiable" title="Permalink to this headline">¶</a></h3>
+<p>Playing tic-tac-toe in a variety of environments is a large part of what sets
+FossXO apart from other tic-tac-toe games. The game is designed such that
+developers can easily add new environments. This allows developers to focus
+their time and effort creating stunning environments. Additionally, this
+lowers the barrier of entry for users who are interested in modifying the game.
+Finally, an easily modifiable code base allows quick turnaround of future
+releases of the game.</p>
+</div>
+<div class="section" id="build-risk-reduction-prototype">
+<span id="ref-objective-build-risk-reduction-prototype"></span><span id="index-1"></span><h3><span class="section-number">1.4.5. </span>Build Risk Reduction Prototype<a class="headerlink" href="#build-risk-reduction-prototype" title="Permalink to this headline">¶</a></h3>
+<p>The development team creating FossXO is new to the Rust programming language
+and the available Rust libraries for game development. To help mitigate this
+risk, a throwaway prototype game is created early in the project that explores
+various technical aspects.</p>
+<p>Using the lessons learned from the prototype also helps the development team
+design a code base that is easily expandable and modifiable per the above
+objective.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="rogers"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>The structure of this document is based on <a class="reference internal" href="singlepage.html#rogers-2014" id="id6"><span>[Rogers-2014]</span></a>.</p>
+</dd>
+<dt class="label" id="ounceofrust"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>For details on the Ounce of Rust project see the
+<a class="reference external" href="https://j-richey.github.io/project-documentation/ounce-of-rust/">Ounce of Rust Project Manual</a></p>
+</dd>
+<dt class="label" id="opentttlib"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">open_ttt_lib</span></code> is available at <a class="reference external" href="https://crates.io/crates/open_ttt_lib">https://crates.io/crates/open_ttt_lib</a>
+and source code is hosted at <a class="reference external" href="https://github.com/j-richey/open_ttt_lib">https://github.com/j-richey/open_ttt_lib</a></p>
+</dd>
+<dt class="label" id="rustconf"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>For details on RustConf see their website: <a class="reference external" href="https://rustconf.com/">https://rustconf.com/</a></p>
+</dd>
+<dt class="label" id="limitedscope"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>To help meet the target release date, the initial release of
+the game might contain a subset of the environments described in this
+document.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<span id="document-gameplay"></span><div class="section" id="gameplay">
+<h1><span class="section-number">2. </span>Gameplay<a class="headerlink" href="#gameplay" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="rules-of-tic-tac-toe">
+<span id="ref-gameplay-rules-of-tic-tac-toe"></span><span id="index-0"></span><h2><span class="section-number">2.1. </span>Rules of Tic-tac-toe<a class="headerlink" href="#rules-of-tic-tac-toe" title="Permalink to this headline">¶</a></h2>
+<p>Tic-tac-toe is a game of strategy where two players, X and O, take turns placing
+their mark in a 3 x 3 gird. The rules for tic-tac-toe used for each game mode
+are as follows:</p>
+<ol class="arabic">
+<li><p>Play occurs on a board composed of a 3 x 3 grid of squares. The board starts
+empty with no marks.</p></li>
+<li><p>The first player places their mark in one of the grid’s squares. Traditionally,
+the mark is the letter <em>X</em>.</p></li>
+<li><p>The second player places their mark in one of the grid’s empty squares. A square
+that already contains a mark cannot be updated or altered. Traditionally, the
+second player uses the letter <em>O</em> as their mark.</p></li>
+<li><p>Turns alternate between the players until the game is over.</p></li>
+<li><p>The first player to get three of their marks in a line wins the game.
+That is: they have three marks in a row, column, or diagonally.
+Examples of winning games are shown in <a class="reference internal" href="#fig-example-wining-games"><span class="std std-numref">Figure 2.1</span></a>.</p>
+<div class="figure align-default" id="id2">
+<span id="fig-example-wining-games"></span><img alt="Examples of winning tic-tac-toe games." src="_images/example-wining-games.svg" /><p class="caption"><span class="caption-number">Figure 2.1 </span><span class="caption-text">Examples of winning tic-tac-toe games showing player X winning by getting
+three marks a row, diagonal, and column. The red line shows the squares
+that contributed to the win. Notice that it is possible to get multiple
+sets of three marks in a row.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+</li>
+<li><p>The game ends in a draw, known as a <span class="target" id="index-1"></span>cat’s game, if no more empty
+squares remain and a player has failed to get three marks in a line.
+Examples of cat’s games are shown in <a class="reference internal" href="#fig-example-cats-games"><span class="std std-numref">Figure 2.2</span></a>.</p>
+<div class="figure align-default" id="id3">
+<span id="fig-example-cats-games"></span><img alt="Examples of tic-tac-toe cat's games." src="_images/example-cats-games.svg" /><p class="caption"><span class="caption-number">Figure 2.2 </span><span class="caption-text">Examples of tic-tac-toe games ending in a cat’s game. No player managed
+to get three marks in a line.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+</li>
+<li><p>The steps above are repeated for a series of games. The starting player
+alternates between games. For example, the second game player <em>O</em> gets to
+make the first move.</p></li>
+</ol>
+</div>
+<div class="section" id="single-player-mode">
+<span id="ref-gameplay-single-player-mode"></span><span id="index-2"></span><h2><span class="section-number">2.2. </span>Single-player Mode<a class="headerlink" href="#single-player-mode" title="Permalink to this headline">¶</a></h2>
+<p>In single-player mode the player battles a computer controlled opponent. There
+are three difficulty settings: <strong>easy</strong>, <strong>medium</strong>, and <strong>hard</strong>.</p>
+<p>Easy difficulty is targeted at players who are new to tic-tac-toe and/or
+computer games. The computer picks random squares allowing players to learn the
+game’s controls and rules.</p>
+<p>Medium difficulty is for players who have some experience with tic-tac-toe. The
+computer provides a challenge to the player but games are still winnable.</p>
+<p>At hard difficulty the computer plays almost perfect games. The player must
+capitalize on rare mistakes made by the computer to win. This is the recommended
+difficulty for experienced tic-tac-toe players.</p>
+</div>
+<div class="section" id="two-player-mode">
+<span id="ref-gameplay-two-player-mode"></span><span id="index-3"></span><h2><span class="section-number">2.3. </span>Two Player Mode<a class="headerlink" href="#two-player-mode" title="Permalink to this headline">¶</a></h2>
+<p>In two player mode two players take turns placing their marks according to the
+rules of tic-tac-toe previously described.</p>
+</div>
+<div class="section" id="speedrun-mode">
+<span id="ref-gameplay-speed-run-mode"></span><span id="index-4"></span><h2><span class="section-number">2.4. </span>Speedrun Mode<a class="headerlink" href="#speedrun-mode" title="Permalink to this headline">¶</a></h2>
+<p>A speedrun mode provides an additional challenge for experienced players.
+Players battle a flawless computer opponent through ten environments completing
+the games as fast as possible. At the end of the run the total time is
+displayed along with the previous best times. <a class="footnote-reference brackets" href="#timecalculation" id="id1">1</a></p>
+<p>The player is disqualified and the run halted if the player loses a game.
+Since the computer opponent never makes a mistake, each game in the speedrun
+ends in a cat’s game. In other words, each speedrun requires the same total
+number of moves to complete.</p>
+<p>Unnecessary animations are disabled in speedrun mode so they do not get in the
+way of the speedup gameplay. Additionally, speedrun mode has its own dramatic
+music that replaces the music tracks of each environment — environments are
+played so fast there is not sufficient time to appreciate their individual sound
+tracks.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="timecalculation"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>The time it takes the computer to pick a square is not counted
+towards the player’s time. This ensures times are consistent between
+slower and faster computers.</p>
+</dd>
+</dl>
+</div>
+</div>
+<span id="document-gui"></span><div class="section" id="user-interface">
+<h1><span class="section-number">3. </span>User Interface<a class="headerlink" href="#user-interface" title="Permalink to this headline">¶</a></h1>
+<p>This chapter describes the user interface of FossXO. This includes the main
+game board, controls, and all game menus.</p>
+<div class="section" id="game-board">
+<span id="ref-ui-game-board"></span><h2><span class="section-number">3.1. </span>Game Board<a class="headerlink" href="#game-board" title="Permalink to this headline">¶</a></h2>
+<p>The game board is where players spend the majority of their time. Additionally,
+the game loads directly to this view ensuring players get to gameplay as quickly
+as possible without menus getting in the way. <a class="footnote-reference brackets" href="#firstview" id="id1">1</a> A concept drawing of
+the game board is shown in <a class="reference internal" href="#fig-ui-game-board"><span class="std std-numref">Figure 3.1</span></a>.</p>
+<div class="figure align-default" id="id8">
+<span id="fig-ui-game-board"></span><img alt="_images/game-board.svg" src="_images/game-board.svg" /><p class="caption"><span class="caption-number">Figure 3.1 </span><span class="caption-text">Game board concept drawing.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+<p>The game board contains the following items of interest:</p>
+<ol class="arabic simple">
+<li><p>The marks and grid. The appearance of these depend on the current environment
+being played. However, the marks for all environments use the same center
+point and have the same selectable hot spot. This ensures consistency between
+environments when using the mouse.</p></li>
+<li><p>The background of the game board depends on the current environment.</p></li>
+<li><p>The hamburger button opens the <a class="reference internal" href="#ref-ui-main-menu"><span class="std std-ref">Main Menu</span></a>.</p></li>
+<li><p>Status text indicates who gets to make the next move and the outcome of
+the game. Once the game is over buttons to play the next game or return to
+the menu also appear in this area. The text is outlined or shaded such that
+it is visible over any possible background.</p></li>
+</ol>
+<p>A major focus of the game is playing tic-tac-toe in variety of stunning
+environments that control how the marks, grid, and background look. Thus, a
+minimalist approach is used for the game board view. The only UI widgets are a
+menu button and some status text.</p>
+<div class="section" id="speedrun">
+<span id="ref-ui-speedrun-game-board"></span><h3><span class="section-number">3.1.1. </span>Speedrun<a class="headerlink" href="#speedrun" title="Permalink to this headline">¶</a></h3>
+<p>Additional UI widgets are added to the game board to facilitate speedrun mode.
+<a class="reference internal" href="#fig-ui-speedrun-game-board"><span class="std std-numref">Figure 3.2</span></a> shows the speedrun game board.</p>
+<div class="figure align-default" id="id9">
+<span id="fig-ui-speedrun-game-board"></span><img alt="_images/speedrun-game-board.svg" src="_images/speedrun-game-board.svg" /><p class="caption"><span class="caption-number">Figure 3.2 </span><span class="caption-text">Speedrun game board concept drawing.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+<p>Items of interest are:</p>
+<ol class="arabic simple">
+<li><p>The speedrun status display prominently shows the elapsed time of the run.
+This helps give the player a sense of urgency and lets them see if they are
+on track to get a best time.</p></li>
+<li><p>Splits for each game are additionally displayed. Dashes or other marks are
+used for games that have yet to be played. This allows players to quickly
+visually gauge how many games remain.</p></li>
+<li><p>Opening the game’s menu ends the run. The run is disqualified.</p></li>
+<li><p>Status text indicates the current turn. If the player loses a game, the
+status text notes that the run is disqualified and the player is invited
+to try the run again or return to the Speedrun menu. <a class="footnote-reference brackets" href="#speedrunloss" id="id2">2</a></p></li>
+</ol>
+<p>When a game is competed successfully the next game starts immediately allowing
+players to go as fast as possible through the games.</p>
+</div>
+</div>
+<div class="section" id="controls">
+<span id="ref-ui-controls"></span><h2><span class="section-number">3.2. </span>Controls<a class="headerlink" href="#controls" title="Permalink to this headline">¶</a></h2>
+<p>The game can be fully played with either a mouse or keyboard. New or casual
+players may prefer to use a mouse whereas speedrun players may prefer to use
+the keyboard.</p>
+<div class="section" id="mouse">
+<span id="index-0"></span><h3><span class="section-number">3.2.1. </span>Mouse<a class="headerlink" href="#mouse" title="Permalink to this headline">¶</a></h3>
+<p>Mouse left click is used to select free squares and press menu buttons. Right
+click and other mouse buttons are unused.</p>
+</div>
+<div class="section" id="key-bindings">
+<span id="index-1"></span><h3><span class="section-number">3.2.2. </span>Key Bindings<a class="headerlink" href="#key-bindings" title="Permalink to this headline">¶</a></h3>
+<p>The game supports being played using the keyboard. <a class="footnote-reference brackets" href="#keyboardaccessibility" id="id3">3</a>
+<a class="reference internal" href="#fig-ui-keybindings"><span class="std std-numref">Figure 3.3</span></a> shows the game’s keybindings for selecting squares.</p>
+<div class="figure align-default" id="id10">
+<span id="fig-ui-keybindings"></span><img alt="_images/keybindings.svg" src="_images/keybindings.svg" /><p class="caption"><span class="caption-number">Figure 3.3 </span><span class="caption-text">Keybindings for selecting squares.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</div>
+<p>The <kbd class="kbd docutils literal notranslate">numpad</kbd> keys are available for right handed players and the <kbd class="kbd docutils literal notranslate">QWE</kbd>
+set of keys are available for left handed players.</p>
+<p>The <kbd class="kbd docutils literal notranslate">arrow</kbd>, <kbd class="kbd docutils literal notranslate">ESC</kbd>, <kbd class="kbd docutils literal notranslate">Enter</kbd>, and <kbd class="kbd docutils literal notranslate">Space</kbd> keys
+allow users to navigate the game’s menus.</p>
+</div>
+</div>
+<div class="section" id="menus">
+<h2><span class="section-number">3.3. </span>Menus<a class="headerlink" href="#menus" title="Permalink to this headline">¶</a></h2>
+<p>The game’s menus allow players to select the various game modes and to
+customize the game. The <a class="reference internal" href="#ref-ui-screen-flowchart"><span class="std std-ref">Screen Flowchart</span></a> provides details on how
+the menus and views connect.</p>
+<p>Each menu is described in the following sections.</p>
+<div class="section" id="general">
+<h3><span class="section-number">3.3.1. </span>General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h3>
+<p>Unless otherwise noted, the information in this section applies to all menus.</p>
+<p>A dedicated music track is played while the game menus are open. The menus share
+a stylized background that fits in with the game’s theme.</p>
+</div>
+<div class="section" id="main-menu">
+<span id="ref-ui-main-menu"></span><span id="index-2"></span><h3><span class="section-number">3.3.2. </span>Main Menu<a class="headerlink" href="#main-menu" title="Permalink to this headline">¶</a></h3>
+<p>The main menu provides a central point for users to navigate to the game’s
+various modes and settings. <a class="reference internal" href="#fig-ui-main-menu"><span class="std std-numref">Figure 3.4</span></a> shows the main menu.</p>
+<div class="figure align-default" id="id11">
+<span id="fig-ui-main-menu"></span><img alt="_images/main-menu.svg" src="_images/main-menu.svg" /><p class="caption"><span class="caption-number">Figure 3.4 </span><span class="caption-text">Main menu concept drawing.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
+<ol class="arabic simple">
+<li><p>The title of the game is prominently displayed at the top of the menu.</p></li>
+<li><p>New game buttons. The <span class="guilabel">Single-player</span> button navigates to the
+while the <a class="reference internal" href="#ref-ui-single-player"><span class="std std-ref">Single-player</span></a> screen while the
+<span class="guilabel">Multiplayer</span> button immediately starts a new multiplayer game.
+<a class="footnote-reference brackets" href="#resumegame" id="id4">4</a></p></li>
+<li><p>Miscellaneous buttons to open the <a class="reference internal" href="#ref-ui-options"><span class="std std-ref">Options</span></a>,
+<a class="reference internal" href="#ref-ui-credits"><span class="std std-ref">Credits</span></a>, <a class="reference internal" href="#ref-ui-help"><span class="std std-ref">Help</span></a> screens.</p></li>
+<li><p><span class="guilabel">Exit</span> closes the game and returns the user to their desktop.</p></li>
+</ol>
+</div>
+<div class="section" id="single-player">
+<span id="ref-ui-single-player"></span><span id="index-3"></span><h3><span class="section-number">3.3.3. </span>Single-player<a class="headerlink" href="#single-player" title="Permalink to this headline">¶</a></h3>
+<p>The single-player menu, shown in <a class="reference internal" href="#fig-ui-single-player"><span class="std std-numref">Figure 3.5</span></a>, allows players
+start new single-player games.</p>
+<div class="figure align-default" id="id12">
+<span id="fig-ui-single-player"></span><img alt="_images/single-player.svg" src="_images/single-player.svg" /><p class="caption"><span class="caption-number">Figure 3.5 </span><span class="caption-text">Single-player menu concept drawing.</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</div>
+<ol class="arabic simple">
+<li><p>The <span class="guilabel">Play as</span> selector allows players to select the mark they
+wish to use throughout the games.</p></li>
+<li><p>The difficulty buttons select the difficulty then start a new single player
+game. Selecting one of these buttons closes the menu and launches a new
+single-player game with the requested settings.</p></li>
+<li><p>The <span class="guilabel">Speedrun</span> button navigates to the <a class="reference internal" href="#ref-ui-speedrun"><span class="std std-ref">Speedrun</span></a> menu.</p></li>
+<li><p>The <span class="guilabel">Back</span> button returns to the main menu.</p></li>
+</ol>
+</div>
+<div class="section" id="ref-ui-speedrun">
+<span id="index-4"></span><span id="id5"></span><h3><span class="section-number">3.3.4. </span>Speedrun<a class="headerlink" href="#ref-ui-speedrun" title="Permalink to this headline">¶</a></h3>
+<p>The speedrun menu allows players to start a new speedrun and view best times of
+previous runs. <a class="reference internal" href="#fig-ui-speedrun-start"><span class="std std-numref">Figure 3.6</span></a> shows the speedrun menu.</p>
+<div class="figure align-default" id="id13">
+<span id="fig-ui-speedrun-start"></span><img alt="_images/speedrun-start.svg" src="_images/speedrun-start.svg" /><p class="caption"><span class="caption-number">Figure 3.6 </span><span class="caption-text">Speedrun menu concept drawing.</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</div>
+<p>The speedrun menu contains the following items of interest:</p>
+<ol class="arabic simple">
+<li><p>Instructional text that provides a short overview of the speedrun rules.
+Once the run is completed this text is replaced with the run’s result and
+invites the player to play again.</p></li>
+<li><p><span class="guilabel">Start</span> begins the run. This navigates to the
+<a class="reference internal" href="#ref-ui-speedrun-game-board"><span class="std std-ref">Speedrun</span></a> game board.</p></li>
+<li><p>Table of previous best times sorted from fastest to slowest.</p></li>
+<li><p>The <span class="guilabel">Back</span> button returns to the single-player menu.</p></li>
+</ol>
+<p>When the speedrun starts, the game board is shown, a prominent three second
+countdown begins, and dramatic music starts to swell. Once the timer elapses
+the speed run begins.</p>
+<p>Once the run is completed the speedrun menu is displayed and shows the result
+of the run.</p>
+<p>If the player gets a new best time the dialog shown in
+<a class="reference internal" href="#fig-ui-speedrun-best-time"><span class="std std-numref">Figure 3.7</span></a> is presented to the user.</p>
+<div class="figure align-default" id="id14">
+<span id="fig-ui-speedrun-best-time"></span><img alt="_images/speedrun-best-time.svg" src="_images/speedrun-best-time.svg" /><p class="caption"><span class="caption-number">Figure 3.7 </span><span class="caption-text">Speedrun best time dialog concept drawing.</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</div>
+<p>The best time dialog contains the following items:</p>
+<ol class="arabic simple">
+<li><p>The speedrun time time.</p></li>
+<li><p>The <span class="guilabel">Initials</span> text box allows players to enter their initials
+so their best time is differentiated from other players that happen to use
+the same computer. The field remembers the last set of initials entered so
+players do not have to retype their initials.</p></li>
+<li><p>The <span class="guilabel">Close</span> button hides the dialog allowing the speedrun menu
+to be fully visible.</p></li>
+</ol>
+</div>
+<div class="section" id="options">
+<span id="ref-ui-options"></span><span id="index-5"></span><h3><span class="section-number">3.3.5. </span>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<p>The options screen contains all of the game’s player configurable options.
+<a class="reference internal" href="#fig-ui-options"><span class="std std-numref">Figure 3.8</span></a> shows this screen.</p>
+<div class="figure align-default" id="id15">
+<span id="fig-ui-options"></span><img alt="_images/options.svg" src="_images/options.svg" /><p class="caption"><span class="caption-number">Figure 3.8 </span><span class="caption-text">Options screen concept drawing.</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</div>
+<ol class="arabic simple">
+<li><p><span class="guilabel">Music Volume</span> and <span class="guilabel">Sound FX Volume</span> sliders to control
+the volume of these items. This allows players to mute some or all of the
+in-game sounds.</p></li>
+<li><p><span class="guilabel">Reset to Defaults</span> resets all options to their default values.</p></li>
+<li><p>The <span class="guilabel">Back</span> button returns to the main menu.</p></li>
+</ol>
+</div>
+<div class="section" id="credits">
+<span id="ref-ui-credits"></span><span id="index-6"></span><h3><span class="section-number">3.3.6. </span>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h3>
+<p>The credits screen displays information the game’s developers and helps fulfill
+the <a class="reference internal" href="singlepage.html#ref-distribution-license-compliance"><span class="std std-ref">Third Party License Compliance</span></a> obligations. The credits screen
+is shown in <a class="reference internal" href="#fig-ui-credits"><span class="std std-numref">Figure 3.9</span></a>.</p>
+<div class="figure align-default" id="id16">
+<span id="fig-ui-credits"></span><img alt="_images/credits.svg" src="_images/credits.svg" /><p class="caption"><span class="caption-number">Figure 3.9 </span><span class="caption-text">Credits screen concept drawing.</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+</div>
+<p>The credits screen contains the following items:</p>
+<ol class="arabic simple">
+<li><p>List of developers and other people directly involved in the creation
+of the game.</p></li>
+<li><p>The open-source community is thanked and links are provided to all of the
+third party libraries and assets used in the game. Selecting one of these
+links opens corresponding page in the game’s <a class="reference internal" href="#ref-ui-help"><span class="std std-ref">Help</span></a>.</p></li>
+<li><p><span class="guilabel">Back</span> returns to the <a class="reference internal" href="#ref-ui-main-menu"><span class="std std-ref">Main Menu</span></a>.</p></li>
+</ol>
+<p>The credits screen uses a different background and soundtrack than the other
+menus. The background consists of one or more tic-tac-toe games being played
+in a variety of environments. Each environment is clearly visible — blurring
+and other effects are not used on this screen. The environments are changed
+several times per game. This showcases the many environments of the game.</p>
+<p>The credits screen has its own sound track. The music and sound FX of the
+individual environments are not used.</p>
+</div>
+<div class="section" id="loading-screen">
+<span id="ref-ui-loading-screen"></span><span id="index-7"></span><h3><span class="section-number">3.3.7. </span>Loading Screen<a class="headerlink" href="#loading-screen" title="Permalink to this headline">¶</a></h3>
+<p>If necessary for technical reasons, the loading screen provides feedback to the
+player while assets are loaded. <a class="footnote-reference brackets" href="#loadtime" id="id6">5</a> This screen is only shown when the
+game first loads.</p>
+</div>
+<div class="section" id="help">
+<span id="ref-ui-help"></span><span id="index-8"></span><h3><span class="section-number">3.3.8. </span>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h3>
+<p>The game’s help provides information on how to play tic-tac-toe, the different
+game modes, the application version, how to report bugs, and
+<a class="reference internal" href="singlepage.html#ref-distribution-license-compliance"><span class="std std-ref">Third Party License Compliance</span></a> information.</p>
+<p>To minimize the complexity of the game’s menus, the help is displayed using the
+user’s default web browser. All information is hosted locally; no internet
+access is required. <a class="footnote-reference brackets" href="#localhelp" id="id7">6</a></p>
+</div>
+</div>
+<div class="section" id="screen-flowchart">
+<span id="ref-ui-screen-flowchart"></span><h2><span class="section-number">3.4. </span>Screen Flowchart<a class="headerlink" href="#screen-flowchart" title="Permalink to this headline">¶</a></h2>
+<p>The flow chart in <a class="reference internal" href="#uml-screen-flowchart"><span class="std std-numref">Figure 3.10</span></a> visually shows how the screens
+and menus are connected.</p>
+<div class="figure align-default" id="id17">
+<span id="uml-screen-flowchart"></span><p class="plantuml">
+<img src="_images/plantuml-5ebdeb1c6127f2a05c456ce28a226564b735b7bf.svg" alt="hide empty description
+
+' Create aliases for state names with spaces
+state &quot;Tic-tac-toe Board&quot; as game_board
+state &quot;Main Menu&quot; as main_menu
+state &quot;Single-player&quot; as singleplayer
+state &quot;Speedrun&quot; as speedrun
+state &quot;Speedrun Board&quot; as speedrun_game_board
+state &quot;New Best Time!&quot; as speedrun_best_time
+
+Loading --&gt; game_board
+game_board --&gt; main_menu : Menu / ESC
+
+main_menu --&gt; game_board : Multiplayer
+main_menu --&gt; singleplayer : Single-player
+main_menu --&gt; Help : Help
+
+singleplayer --&gt; game_board : Easy \n Medium \n Hard
+singleplayer --&gt; speedrun : Speedrun
+singleplayer --&gt; main_menu : Back
+
+speedrun --&gt; singleplayer : Back
+speedrun --&gt; speedrun_game_board : Start
+speedrun_game_board --&gt; speedrun : Non Best Time
+speedrun_game_board --&gt; speedrun_best_time
+speedrun_best_time --&gt; speedrun : Close"/></p>
+<p class="caption"><span class="caption-number">Figure 3.10 </span><span class="caption-text">Connections between FossXO’s menus and screens.</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+</div>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="firstview"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>The loaded game is a single-player game using the last
+difficulty and player mark settings. The defaults for these are Medium
+difficulty and X marks.</p>
+</dd>
+<dt class="label" id="speedrunloss"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>If the player loses a speedrun game, the board remains
+visible so the player can see where they made mistakes. This allows them
+to adjust their strategy for next time.</p>
+</dd>
+<dt class="label" id="keyboardaccessibility"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Keyboard support helps improve the game’s
+accessibility by allowing custom controllers to emulate to the game’s
+key mapping.</p>
+</dd>
+<dt class="label" id="resumegame"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>Many games a have a <em>resume game</em> button to go back to an
+progress game. However, tic-tac-toe games are very short and require
+little pre-game configuration. Therefore, having resume game
+functionality adds unnecessary complexity for this game.</p>
+</dd>
+<dt class="label" id="loadtime"><span class="brackets"><a class="fn-backref" href="#id6">5</a></span></dt>
+<dd><p>The loading screen is needed if the load time exceeds one second
+on the minimum supported system listed in
+<a class="reference internal" href="singlepage.html#table-min-system-requirements"><span class="std std-numref">Table 5.1</span></a>.</p>
+</dd>
+<dt class="label" id="localhelp"><span class="brackets"><a class="fn-backref" href="#id7">6</a></span></dt>
+<dd><p>The <a class="reference internal" href="singlepage.html#ref-objective-free-of-charge"><span class="std std-ref">Provide Free of Charge and Under an Open-Source License</span></a> objective mentions not
+tracking players. Websites often contain trackers, advertisements, and
+other items that violate this objective.</p>
+</dd>
+</dl>
+</div>
+</div>
+<span id="document-environments"></span><div class="section" id="environments">
+<h1><span class="section-number">4. </span>Environments<a class="headerlink" href="#environments" title="Permalink to this headline">¶</a></h1>
+<p>One of the main defining features of FossXO over other tic-tac-toe games is the
+use of multiple environments. Each environment has a strong visual theme and
+complementary soundtrack. <a class="footnote-reference brackets" href="#hiddenfox" id="id1">1</a></p>
+<div class="section" id="environment-selection">
+<h2><span class="section-number">4.1. </span>Environment Selection<a class="headerlink" href="#environment-selection" title="Permalink to this headline">¶</a></h2>
+<p>Each game takes place on a different environment. Environments are selected using
+a shuffling algorithm. <a class="footnote-reference brackets" href="#shuffelalgorithms" id="id2">2</a> This ensures players get to
+experience each environment in a random order.</p>
+</div>
+<div class="section" id="list-of-environments">
+<h2><span class="section-number">4.2. </span>List of Environments<a class="headerlink" href="#list-of-environments" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="blueprint">
+<span id="ref-environment-blueprint"></span><span id="index-0"></span><h3><span class="section-number">4.2.1. </span>Blueprint<a class="headerlink" href="#blueprint" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-default" id="id3">
+<a class="reference internal image-reference" href="_images/blueprint.svg"><img alt="_images/blueprint.svg" height="288px" src="_images/blueprint.svg" /></a>
+<p class="caption"><span class="caption-number">Figure 4.1 </span><span class="caption-text">Concept art for the Blueprint environment.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<p class="rubric">Marks and Grid</p>
+<p>The blueprint uses white text for the marks and white lines for the grid.</p>
+<p>The grid is a series of empty boxes. The interior lines are more prominent
+than the exterior lines.</p>
+<p>Hovering over an empty square shows a dotted version of the mark that would
+be drawn. Clicking places the mark without further animation.</p>
+<p>Winning the game causes a “Winning Marks” label to be placed with arrows
+pointing to the corresponding marks.</p>
+<p class="rubric">Background Scenery</p>
+<p>The background is predominantly deep blue. Additional, details are included
+in white.</p>
+<p>There is a title block with the game’s name, author, version number, etc.</p>
+<p>Measurement lines indicate the unit less distance between features.</p>
+<p>The grid, squares, marks, etc are pointed to by arrows with labels.
+Additional notes describe the music being played or point out the key
+bindings.</p>
+<p class="rubric">Music Theme</p>
+<p>Background or thinking music.</p>
+<p class="rubric">Additional Details</p>
+<p>This environment provides an opportunity to point out features of the game
+that might be overlooked by players such as keyboard support.</p>
+</div>
+<div class="section" id="notebook-paper-and-pencil">
+<span id="ref-environment-notebook-paper-and-pencil"></span><span id="index-1"></span><h3><span class="section-number">4.2.2. </span>Notebook Paper and Pencil<a class="headerlink" href="#notebook-paper-and-pencil" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-default" id="id4">
+<a class="reference internal image-reference" href="_images/paper.jpg"><img alt="_images/paper.jpg" src="_images/paper.jpg" style="height: 288px;" /></a>
+<p class="caption"><span class="caption-number">Figure 4.2 </span><span class="caption-text">Concept art for the Notebook Paper and Pencil environment.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and grid are dark graphite from a #2 pencil. Each mark is
+slightly different and the grid lines are not perfectly straight to give
+it a hand drawn look. Likewise, mark placement is animated like one writing
+an X or O while a corresponding pencil sound FX is played.</p>
+<p>A line is drawn through the winning marks.</p>
+<p class="rubric">Background Scenery</p>
+<p>The background consists of notebook or engineering paper. Notebook paper is
+white with gray or blue lines. Often times there also a vertical red margin
+line. Engineering paper is yellow with gray grid lines.</p>
+<p>There are doodles, text, or other drawings to give the environment character.
+The engineering paper is more likely to have nerdy drawings.</p>
+<p class="rubric">Music Theme</p>
+<p>Mild background music.</p>
+</div>
+<div class="section" id="pen-on-scrap-paper">
+<span id="ref-environment-pen-on-scrap-paper"></span><span id="index-2"></span><h3><span class="section-number">4.2.3. </span>Pen on Scrap Paper<a class="headerlink" href="#pen-on-scrap-paper" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and grid are created from blue or red ink. Like the
+<em>Notebook Paper and Pencil</em> environment, each mark is hand drawn with
+corresponding animations and sound FX.</p>
+<p>A line is drawn through the winning marks.</p>
+<p class="rubric">Background Scenery</p>
+<p>Various bits of scrap paper are used for the background. This can include
+but is not limited to bank deposit slip, various store receipts, or any
+other paper someone might have in their purse.</p>
+<p>Text on the paper should be gray, faded black, or otherwise not interfere
+with the visibility of the marks.</p>
+<p class="rubric">Music Theme</p>
+<p>Something with a gospel / church vibe</p>
+<p class="rubric">Additional Details</p>
+<p>The mark / grid color and the background image is randomly selected each
+time the environment is played. Blue and red ink is used so the marks stand
+out from the background.</p>
+<p>The inspiration from this environment comes from me not paying attention in
+church and drawing on scrap paper my mom happened to have.</p>
+</div>
+<div class="section" id="neon-lights">
+<span id="ref-environment-neon-lights"></span><span id="index-3"></span><h3><span class="section-number">4.2.4. </span>Neon Lights<a class="headerlink" href="#neon-lights" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-default" id="id5">
+<a class="reference internal image-reference" href="_images/neon.jpg"><img alt="_images/neon.jpg" src="_images/neon.jpg" style="height: 288px;" /></a>
+<p class="caption"><span class="caption-number">Figure 4.3 </span><span class="caption-text">Concept art for the Neon Lights environment.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and grid are created from luminescent orange, pink and / or blue
+neon lights. Selecting a square causes the mark to illuminate with a
+flickering animation and an electric buzzing sound FX.</p>
+<p>All winning marks flash on and off with a mild electric buzz sound FX.</p>
+<p>When the environment first loads in non-speedrun mode the lights are not
+illuminated. Then the grid flickers on as if the transformer is starting to
+fail.</p>
+<p class="rubric">Background Scenery</p>
+<p>The background is a brick wall holding the neon lights. The wall is
+illuminated by the lights. E.g. when a mark is selected the brick wall
+behind the mark gains some illumination as shown in the concept art.</p>
+<p class="rubric">Music Theme</p>
+<p>80’s electronic</p>
+<p class="rubric">Additional Details</p>
+<p>This environment provides an opportunity to show off the game’s graphics
+including lighting FX.</p>
+</div>
+<div class="section" id="early-computer">
+<span id="ref-environment-early-computer"></span><span id="index-4"></span><h3><span class="section-number">4.2.5. </span>Early Computer<a class="headerlink" href="#early-computer" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-default" id="id6">
+<a class="reference internal image-reference" href="_images/computer.png"><img alt="_images/computer.png" src="_images/computer.png" style="height: 288px;" /></a>
+<p class="caption"><span class="caption-number">Figure 4.4 </span><span class="caption-text">Concept art for the Early Computer environment.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and grid are green or amber ASCII characters displayed on a low
+resolution monochrome computer screen. E.g. individual pixels are
+distinguishable. The marks in winning squares blink on and off.</p>
+<p>A blinking cursor is shown when players mouse hover over a empty squares.
+The cursor is the full width and height of a character, e.g like the modern
+insert cursor. A cliché beeping sound FX is played when squares are placed.</p>
+<p>When the environment loads in non-speedrun mode each line of ASCII text is
+drawn as if the game was being loaded over a 300 baud modem.</p>
+<p class="rubric">Background Scenery</p>
+<p>The background is a monochrome computer monitor with the an off white bezel
+and red LED near the power button. The background color is dark green or
+dark amber with perhaps the dark pixels still visible.</p>
+<p class="rubric">Music Theme</p>
+<p>8-bit electronic</p>
+<p class="rubric">Additional Details</p>
+<p>Additional FX include animated scan lines due to a poor connection between
+the monitor and computer.</p>
+</div>
+<div class="section" id="sidewalk">
+<span id="ref-environment-sidewalk"></span><span id="index-5"></span><h3><span class="section-number">4.2.6. </span>Sidewalk<a class="headerlink" href="#sidewalk" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-default" id="id7">
+<a class="reference internal image-reference" href="_images/sidewalk.jpg"><img alt="_images/sidewalk.jpg" src="_images/sidewalk.jpg" style="height: 288px;" /></a>
+<p class="caption"><span class="caption-number">Figure 4.5 </span><span class="caption-text">Concept art for the Sidewalk environment.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and grid are created from pastel sidewalk chalk. The lines are
+thick and hand drawn with similar animations as the <em>Notebook Paper and Pencil</em>
+environment.</p>
+<p>Pastel colors include red, blue, yellow, pink, green, and orange. The X, O,
+and grid use different colors that are randomly selected each game.</p>
+<p>A line is drawn through the winning squares.</p>
+<p class="rubric">Background Scenery</p>
+<p>The background is a gray sidewalk or black asphalt. Imperfections such as
+cracks and twigs are visible. There might even be bits of other chalk
+drawings visible.</p>
+<p class="rubric">Music Theme</p>
+<p>Hip Hob / R&amp;B</p>
+</div>
+<div class="section" id="papyrus-paper-and-fancy-calligraphy">
+<span id="ref-environment-papyrus-paper-and-fancy-calligraphy"></span><span id="index-6"></span><h3><span class="section-number">4.2.7. </span>Papyrus Paper and Fancy Calligraphy<a class="headerlink" href="#papyrus-paper-and-fancy-calligraphy" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and grid are drawn from a quill pen with deliberate, fancy strokes.
+Thick black ink is used. The grind lines and marks are precise but the
+stroke pressure varies as the mark is being made, thus the lines are thinner
+near the starting and ending points.</p>
+<p>Creating of the marks and grid are animated. A line is drawn through the
+winning squares.</p>
+<p class="rubric">Background Scenery</p>
+<p>The marks and grid are drawn on a faded tan papyrus paper. The paper’s rough
+texture is clearly visible.</p>
+<p>The tic-tac-toe game could be part of a scroll or book. E.g. there is Latin
+text and one of those fancy first characters of the paragraph.</p>
+<p class="rubric">Music Theme</p>
+<p>Snooty classical music.</p>
+</div>
+<div class="section" id="bathroom-stall">
+<span id="ref-environment-bathroom-stall"></span><span id="index-7"></span><h3><span class="section-number">4.2.8. </span>Bathroom Stall<a class="headerlink" href="#bathroom-stall" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and grid are scratched into the bathroom stall divider. This
+reveals the metal underneath the paint. Each scratch is a fairly straight
+line but it takes several attempts to form a line thus there are “whiskers”
+hanging off the lines. The O marks are especially problematic resulting in
+malformed O’s.</p>
+<p>A metal scraping sound FX is played when the marks are being created.</p>
+<p>A line is scratched through the winning marks.</p>
+<p class="rubric">Background Scenery</p>
+<p>The background is a pail blue, green, or gray stall divider. There is
+additional graffiti written in ink or scratched into the paint that one
+would find in a truck stop bathroom. Nothing inappropriate but adults should
+find it funny.</p>
+<p class="rubric">Music Theme</p>
+<p>Truck stop music; perhaps a country vibe.</p>
+<p class="rubric">Additional Details</p>
+<p>There is bathroom humor a Easter egg in this environment. A “straining”
+sound FX is played after a minute or two; past the length of a typical game.
+Think of that one scene from Austin Powers. The situation becomes more
+desperate as time goes on. Finally it resolves itself with a large plop /
+splash sound and a big sigh of relief.</p>
+</div>
+<div class="section" id="chalkboard">
+<span id="ref-environment-chalkboard"></span><span id="index-8"></span><h3><span class="section-number">4.2.9. </span>Chalkboard<a class="headerlink" href="#chalkboard" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-default" id="id8">
+<a class="reference internal image-reference" href="_images/chalkboard.jpg"><img alt="_images/chalkboard.jpg" src="_images/chalkboard.jpg" style="height: 288px;" /></a>
+<p class="caption"><span class="caption-number">Figure 4.6 </span><span class="caption-text">Concept art for the Chalkboard environment.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and grid are created from hand drawn white chalk. A stereotypical
+chalk sound FX is used when the marks are being drawn.</p>
+<p>A line is drawn through winning marks.</p>
+<p class="rubric">Background Scenery</p>
+<p>A black or dark green chalkboard is used as the background. The chalkboard
+is well used; there is a lot of chalk dust marks left from the eraser.</p>
+<p>To reinforce the chalkboard theme, the tray containing the eraser and extra
+chalk is visible.</p>
+<p class="rubric">Music Theme</p>
+<p>To be determined later by the environment artist.</p>
+</div>
+<div class="section" id="whiteboard">
+<span id="ref-environment-whiteboard"></span><span id="index-9"></span><h3><span class="section-number">4.2.10. </span>Whiteboard<a class="headerlink" href="#whiteboard" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and grid are created from various colors of dry erase markers.
+Typical colors include, blue, green, black, red, and purple. The grid and
+each mark are hand drawn in different colors.</p>
+<p>A squeaking sound is made when marks are being drawn.</p>
+<p>Winning marks are circled to both give a more professional look to the
+environment and differentiate it from the chalkboard environment.</p>
+<p class="rubric">Background Scenery</p>
+<p>The background is a white dry erase board. The board does not erase well so
+faded physics equations is still visible in the background.</p>
+<p>To reinforce the whiteboard theme, the tray containing the eraser and extra
+markers is visible.</p>
+<p class="rubric">Music Theme</p>
+<p>To be determined later by the environment artist.</p>
+<p class="rubric">Additional Details</p>
+<p>Easter egg opportunity: selecting one of the extra markers changes the mark
+color of the current player.</p>
+</div>
+<div class="section" id="ancient-alien-ruins">
+<span id="ref-environment-ancient-alien-ruins"></span><span id="index-10"></span><h3><span class="section-number">4.2.11. </span>Ancient Alien Ruins<a class="headerlink" href="#ancient-alien-ruins" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and lines are glyphs carved into rock with glowing light coming
+from the glyphs.</p>
+<p>At first there is a grid, X, and O carvings in the rock. Mouse hovering over
+a free square causes some mild blue illumination. Placing the mark results
+in brighter illumination and the surrounding grid to illuminate too.</p>
+<p>When the game ends in a win, the wining marks illuminate very brightly and
+even change color. The grid takes on a uniform illumination. A cats game or
+single player loss results in the grid to go dark and all the marks to go
+back to a mild illumination, as if the power has been cut and they are
+slowly fading away.</p>
+<p>A strange alien sound FX is used when marks are placed.</p>
+<p class="rubric">Background Scenery</p>
+<p>The background is gray rock that would be found in a cave deep in the jungle.
+There are various glyphs carved into the rock. There might even be some moss,
+vines, or other deep green plants on the rock.</p>
+<p class="rubric">Music Theme</p>
+<p>SciFi</p>
+</div>
+<div class="section" id="dirty-car-window">
+<span id="ref-environment-dirty-car-window"></span><span id="index-11"></span><h3><span class="section-number">4.2.12. </span>Dirty Car Window<a class="headerlink" href="#dirty-car-window" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and grid are drawn in the window’s dust reviling the shiny tinted
+glass underneath. The marks are fairly fat and despite being hand drawn are
+mostly straight.</p>
+<p>A mild swooshing sound FX is used when marks are drawn. A line is used to
+indicate wining marks.</p>
+<p class="rubric">Background Scenery</p>
+<p>The background is a dusty car window. The dust is a brown dirt color.
+Stickers such as the “my family” are trying to peak out from underneath the
+dust. The back windshield wiper reinforces the car theme.</p>
+<p class="rubric">Music Theme</p>
+<p>Hip Hop with rattling door sounds.</p>
+</div>
+<div class="section" id="x4-lcd-display">
+<span id="ref-environment-16x4-lcd-display"></span><span id="index-12"></span><h3><span class="section-number">4.2.13. </span>16x4 LCD Display<a class="headerlink" href="#x4-lcd-display" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and grid are black or white LCD pixels. Black is used with the
+green background and white is used with the blue background.</p>
+<p>Mousing over a free location causes a cursor, the underscore character (<code class="docutils literal notranslate"><span class="pre">_</span></code>),
+to blink in that location.</p>
+<p>Asterisk characters are placed next to winning marks.</p>
+<p class="rubric">Background Scenery</p>
+<p>The background is green or blue backlit 16x4 LCD display that is mounted on
+a green circuit board. There are other electrical components, wires, and
+even LEDs around.</p>
+<p class="rubric">Music Theme</p>
+<p>8 bit</p>
+<p class="rubric">Additional Details</p>
+<p>Some artistic liberty with regards to the 16x4 LCD display might need to
+occur to ensure the mark’s center points are in the correct locations.</p>
+</div>
+<div class="section" id="ancient-egypt-tomb">
+<span id="ref-environment-ancient-egypt-tomb"></span><span id="index-13"></span><h3><span class="section-number">4.2.14. </span>Ancient Egypt Tomb<a class="headerlink" href="#ancient-egypt-tomb" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and grid are carved into the limestone wall background. A
+chiseling sound FX is played when marks are being carved. The grid and
+marks are chiseled with skill, that is they are straight and precise.</p>
+<p>A line is chiseled through the winning marks.</p>
+<p class="rubric">Background Scenery</p>
+<p>A limestone wall covered in hieroglyphs is used as the background.</p>
+<p class="rubric">Music Theme</p>
+<p>Something with an ancient vibe.</p>
+</div>
+<div class="section" id="beach">
+<span id="ref-environment-beach"></span><span id="index-14"></span><h3><span class="section-number">4.2.15. </span>Beach<a class="headerlink" href="#beach" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and grid are hand drawn into sand at the beach. A light swooshing
+sound FX is played when marks are created.</p>
+<p>A line is drawn through the winning marks.</p>
+<p class="rubric">Background Scenery</p>
+<p>Wet stand is used as the background. There are seashells and other shore
+debris.</p>
+<p class="rubric">Music Theme</p>
+<p>Tropical / Jamaican / steal drums.</p>
+</div>
+<div class="section" id="rgb-led-grid">
+<span id="ref-environment-rgb-led-grid"></span><span id="index-15"></span><h3><span class="section-number">4.2.16. </span>RGB Led Grid<a class="headerlink" href="#rgb-led-grid" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-default" id="id9">
+<a class="reference internal image-reference" href="_images/led-grid.jpg"><img alt="_images/led-grid.jpg" src="_images/led-grid.jpg" style="height: 288px;" /></a>
+<p class="caption"><span class="caption-number">Figure 4.7 </span><span class="caption-text">Concept art for the RGB Led Grid environment.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and grid are displayed on a 64x32 RGB LED grid. The marks and grid
+each use their own colors. This includes primary and secondary colors.</p>
+<p>Placing a mark displays an cheesy animation such as stacking up block to
+form the mark. Winning squares flash between normal and inverted color where
+the background is illuminated instead of the foreground.</p>
+<p class="rubric">Background Scenery</p>
+<p>The background is the unilluminated LEDs and the plastic material that
+separates the LEDs. The LEDs are a lighter color than the almost black
+spacer material. Occasionally there may be various animations or other FXs
+played on the LEDs outside the play area.</p>
+<p class="rubric">Music Theme</p>
+<p>Modern 8 bit or techno.</p>
+</div>
+<div class="section" id="electroluminescence">
+<span id="ref-environment-electroluminescence"></span><span id="index-16"></span><h3><span class="section-number">4.2.17. </span>Electroluminescence<a class="headerlink" href="#electroluminescence" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-default" id="id10">
+<a class="reference internal image-reference" href="_images/electroluminescence.png"><img alt="_images/electroluminescence.png" src="_images/electroluminescence.png" style="height: 288px;" /></a>
+<p class="caption"><span class="caption-number">Figure 4.8 </span><span class="caption-text">Concept art for the Electroluminescence environment.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</div>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and grid are composed of either cyan or orange colored
+electroluminescent wire. X is assigned one color, and O the other. Placing a
+mark causes the border of the grid to pick up the marks color.</p>
+<p>All of the marks and grid take on the winner’s color after a brief flashing
+transition.</p>
+<p class="rubric">Background Scenery</p>
+<p>Black with a faint blue or cyan grid pattern. Pulses of light could
+occasionally travel down the grids.</p>
+<p class="rubric">Music Theme</p>
+<p>Techno</p>
+</div>
+<div class="section" id="crayon">
+<span id="ref-environment-crayon"></span><span id="index-17"></span><h3><span class="section-number">4.2.18. </span>Crayon<a class="headerlink" href="#crayon" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and grid are hand drawn with different colors of crayons.</p>
+<p>A line is drawn through the winning marks.</p>
+<p class="rubric">Background Scenery</p>
+<p>The game is played on drywall. A light switch or electrical outlet is
+visible to reinforce the location. There are other rudimentary drawings of
+flowers, houses, or trucks visible.</p>
+<p class="rubric">Music Theme</p>
+<p>To be determined later by the environment artist.</p>
+</div>
+<div class="section" id="oil-painting">
+<span id="ref-environment-oil-painting"></span><span id="index-18"></span><h3><span class="section-number">4.2.19. </span>Oil Painting<a class="headerlink" href="#oil-painting" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Marks and Grid</p>
+<p>Thick oil based paint forms the marks and grid. The brush strokes are
+clearly visible. Strokes are deliberate resulting in fairly straight lines.
+Stereotypical paint stroke FXs are used where lines from individual bristles
+are visible as the stroke is letting up.</p>
+<p>Various vibrant colors are used; the marks and grid each get their own color.</p>
+<p>A line is drawn through the winning squares.</p>
+<p class="rubric">Background Scenery</p>
+<p>The painting is being drawn on white canvas. The texture is clearly visible.
+Part of the wooden easel is also visible.</p>
+<p class="rubric">Music Theme</p>
+<p>Phone hold music, e.g. light modern classical.</p>
+</div>
+<div class="section" id="bacteria">
+<span id="ref-environment-bacteria"></span><span id="index-19"></span><h3><span class="section-number">4.2.20. </span>Bacteria<a class="headerlink" href="#bacteria" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Marks and Grid</p>
+<p>The grid is composed of rod bacteria viewed under a microscope. The X and O
+marks are likewise formed from bacteria of the corresponding shape.</p>
+<p>The bacteria can appear purple in color due to Gram staining or as red.</p>
+<p>The winning squares are marked by the bacteria inside the multiplying rapidly.</p>
+<p class="rubric">Background Scenery</p>
+<p>The background is the fluid the bacteria is living in. There are
+imperfections in the fluid that seem to wander around, many out of focus.</p>
+<p class="rubric">Music Theme</p>
+<p>To be determined later by the environment artist.</p>
+</div>
+<div class="section" id="app">
+<span id="ref-environment-app"></span><span id="index-20"></span><h3><span class="section-number">4.2.21. </span>App<a class="headerlink" href="#app" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Marks and Grid</p>
+<p>The marks and grid are made up of simple clean lines. The marks are solid
+red or blue. The grid is solid gray in color. Animations are not used or
+used lightly.</p>
+<p>A line is drawn through the winning marks. The line is the same color as
+the marks.</p>
+<p class="rubric">Background Scenery</p>
+<p>The game is being played on a smart phone that is rotated 90 degrees. The
+background of the play area is solid white.</p>
+<p>Additionally. the phone’s bezel, speaker, and status bar are all visible.
+The status bar includes signal level, power level, and time on the right
+side. The left contains annoying advertisements that advertise fictional
+products, poke fun at data stealing apps, and promote the other environments
+in the game. The advertisements are rotated 90 degrees like the phone.</p>
+<p class="rubric">Music Theme</p>
+<p>Casual</p>
+<p class="rubric">Additional Details</p>
+<p>There is an Easter egg opportunity with the advertisements where clicking on
+one advertising a different level switches the environment to that level.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="hiddenfox"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>To play off of the game’s name, FossXO, environment artists are
+encouraged to hid a reference to a fox someplace in the environment.</p>
+</dd>
+<dt class="label" id="shuffelalgorithms"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Wikipedia’s <a class="reference external" href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher–Yates shuffle</a>
+article contains details on various shuffling algorithms.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<span id="document-misc/index"></span><div class="section" id="additional-considerations">
+<h1><span class="section-number">5. </span>Additional Considerations<a class="headerlink" href="#additional-considerations" title="Permalink to this headline">¶</a></h1>
+<p>This chapter contains additional information about FossXO.</p>
+<div class="toctree-wrapper compound">
+<span id="document-misc/audience"></span><div class="section" id="target-audience">
+<h2><span class="section-number">5.1. </span>Target Audience<a class="headerlink" href="#target-audience" title="Permalink to this headline">¶</a></h2>
+<p>FossXO is targeted at casual gamers. There are three general groups that
+might find the game interesting: new PC gamers, bored adults, and modders.</p>
+<div class="section" id="new-pc-gamers">
+<h3><span class="section-number">5.1.1. </span>New PC Gamers<a class="headerlink" href="#new-pc-gamers" title="Permalink to this headline">¶</a></h3>
+<p>FossXO can be played by young or older players that do not have much PC
+gaming experience. The game requires basic strategy and has simple inputs. As
+players become more comfortable with the game mechanics they can try
+<a class="reference internal" href="singlepage.html#ref-gameplay-speed-run-mode"><span class="std std-ref">Speedrun Mode</span></a>.</p>
+</div>
+<div class="section" id="players-filling-time">
+<h3><span class="section-number">5.1.2. </span>Players Filling Time<a class="headerlink" href="#players-filling-time" title="Permalink to this headline">¶</a></h3>
+<p>Office workers or people stuck on an airplane can play FossXO to make
+the time pass. The regular game modes do not demand much attention so players
+can let their minds wonder while playing. The variety of environments should
+keep players entertained for at least a little while.</p>
+</div>
+<div class="section" id="computer-science-students-modders">
+<h3><span class="section-number">5.1.3. </span>Computer Science Students / Modders<a class="headerlink" href="#computer-science-students-modders" title="Permalink to this headline">¶</a></h3>
+<p>FossXO is open-source and is developed so that others can add their own
+environments or extend the game. FossXO is a simple, but non-trivial
+application where people learning to program might find it an interesting
+code base to examine.</p>
+</div>
+</div>
+<span id="document-misc/platforms"></span><div class="section" id="target-platforms">
+<h2><span class="section-number">5.2. </span>Target Platforms<a class="headerlink" href="#target-platforms" title="Permalink to this headline">¶</a></h2>
+<p>FossXO runs on a variety of popular desktop operating systems including
+Windows, macOS, and Linux. Being a casual game, it does not require a beefy
+video card or fast processor. <a class="reference internal" href="#table-min-system-requirements"><span class="std std-numref">Table 5.1</span></a> lists
+the minimum system requirements.</p>
+<span id="table-min-system-requirements"></span><table class="docutils align-default" id="id2">
+<caption><span class="caption-number">Table 5.1 </span><span class="caption-text">FossXO minimum system requirements</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 66%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>OS</p></td>
+<td><p>Windows 10, Linux <a class="footnote-reference brackets" href="#linux" id="id1">1</a>, macOS</p></td>
+</tr>
+<tr class="row-even"><td><p>Processor</p></td>
+<td><p>1GHz dual core</p></td>
+</tr>
+<tr class="row-odd"><td><p>RAM</p></td>
+<td><p>4GB</p></td>
+</tr>
+<tr class="row-even"><td><p>Disk</p></td>
+<td><p>500 MB available space</p></td>
+</tr>
+<tr class="row-odd"><td><p>Graphics</p></td>
+<td><p>OpenGL compatible graphics adapter</p></td>
+</tr>
+<tr class="row-even"><td><p>Display</p></td>
+<td><p>800 x 600 pixel display or larger</p></td>
+</tr>
+<tr class="row-odd"><td><p>Network</p></td>
+<td><p>The game is played fully offline</p></td>
+</tr>
+</tbody>
+</table>
+<p>A system with the above requirements listed in
+<a class="reference internal" href="#table-min-system-requirements"><span class="std std-numref">Table 5.1</span></a> can render the game at an average of at
+least 30 frames per second.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="linux"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>FossXO is tested on the latest releases of Debian and Fedora.
+It should work on other popular distributions including Ubuntu. However,
+testing on other distributions is outside the scope of this project.</p>
+</dd>
+</dl>
+</div>
+<span id="document-misc/licensing-and-distribution"></span><div class="section" id="licensing-and-distribution">
+<h2><span class="section-number">5.3. </span>Licensing and Distribution<a class="headerlink" href="#licensing-and-distribution" title="Permalink to this headline">¶</a></h2>
+<p>This section describes how the game is licensed, distributed, and other related
+details of getting the game into player’s hands.</p>
+<div class="section" id="game-s-license">
+<span id="index-0"></span><h3><span class="section-number">5.3.1. </span>Game’s License<a class="headerlink" href="#game-s-license" title="Permalink to this headline">¶</a></h3>
+<p>The game is dual licensed under the MIT <a class="footnote-reference brackets" href="#mitlicense" id="id1">1</a> and
+Apache-2.0 <a class="footnote-reference brackets" href="#apachelicense" id="id2">2</a> licenses. This is the same licensing scheme used
+for the Rust language. <a class="footnote-reference brackets" href="#rustlanglicense" id="id3">3</a> Under these licenses users are free
+to obtain, modify, and redistribute the source code for both private and
+commercial use.</p>
+<p>Any original game assets are licensed under the CC-BY-4.0 license. <a class="footnote-reference brackets" href="#ccbylicense" id="id4">4</a></p>
+</div>
+<div class="section" id="distribution">
+<span id="ref-distribution"></span><h3><span class="section-number">5.3.2. </span>Distribution<a class="headerlink" href="#distribution" title="Permalink to this headline">¶</a></h3>
+<p>The game is directly distributed to players via the internet. There are two main
+ways to acquire a copy of the game: downloading a platform specific package, or
+building the game from source.</p>
+<div class="section" id="platform-packages">
+<span id="index-1"></span><h4><span class="section-number">5.3.2.1. </span>Platform Packages<a class="headerlink" href="#platform-packages" title="Permalink to this headline">¶</a></h4>
+<p>Platform specific packages can be downloaded from the game’s website.
+In particular, Windows users expect an installer to install the game on their
+system. They do not have ready access to compilers or other tools to build
+software from source. Finally, Windows is the most widely used operating system
+so a Windows installer is a requirement for this project to be successful.</p>
+<p>Linux and Mac users have easier access to compilers but they still appreciate
+packages for their convenience. Packages for these platforms are created on a
+best effort basis.</p>
+</div>
+<div class="section" id="build-from-source">
+<h4><span class="section-number">5.3.2.2. </span>Build from Source<a class="headerlink" href="#build-from-source" title="Permalink to this headline">¶</a></h4>
+<p>Because the game is open-source anyone can build the game from source. This
+involves cloning the game’s source code repository and following the build
+instructions documented in the README file. <a class="footnote-reference brackets" href="#cratessizelimit" id="id5">5</a></p>
+</div>
+</div>
+<div class="section" id="monetization">
+<h3><span class="section-number">5.3.3. </span>Monetization<a class="headerlink" href="#monetization" title="Permalink to this headline">¶</a></h3>
+<p>There is no intention to generate revenue from FossXO. The is released
+free of charge. There are no advertisements, microtransactions, or data
+stealing spyware that is found in other <em>free</em> games.</p>
+</div>
+<div class="section" id="third-party-license-compliance">
+<span id="ref-distribution-license-compliance"></span><h3><span class="section-number">5.3.4. </span>Third Party License Compliance<a class="headerlink" href="#third-party-license-compliance" title="Permalink to this headline">¶</a></h3>
+<p>FossXO makes extensive use of third party software libraries and game
+assets to help reduce the development effort. To use these resources, the game
+must comply with their various licensing terms. Additionally, the game can only
+use any third party resources that have licenses that are compatible with the
+game’s license.</p>
+<div class="section" id="software-libraries">
+<h4><span class="section-number">5.3.4.1. </span>Software Libraries<a class="headerlink" href="#software-libraries" title="Permalink to this headline">¶</a></h4>
+<p>Rust libraries that have the following licenses can be used by the game:</p>
+<ul class="simple">
+<li><p>MIT</p></li>
+<li><p>BSD-2-Clause, BSD-3-Clause, and similar (FTL, ISC, Zlib)</p></li>
+<li><p>Apache-2.0</p></li>
+<li><p>MPL-2.0 <a class="footnote-reference brackets" href="#mpl2license" id="id6">6</a></p></li>
+<li><p>CC0 and The Unlicense</p></li>
+</ul>
+<p>Additionally, the game can dynamically link to libraries with the above licenses
+plus libraries that are licensed under the LGPL.</p>
+<p>A software bill of materials is included in the game’s user documentation. This
+ensures the game complies with the required copyright notices. Also, users can
+see exactly what is included in the software.</p>
+<p>The software bill of materials includes the following information about each
+library:</p>
+<ul class="simple">
+<li><p>Name</p></li>
+<li><p>Version number</p></li>
+<li><p>License</p></li>
+<li><p>Link to website or source code repository</p></li>
+</ul>
+</div>
+<div class="section" id="game-assets">
+<h4><span class="section-number">5.3.4.2. </span>Game Assets<a class="headerlink" href="#game-assets" title="Permalink to this headline">¶</a></h4>
+<p>The game can freely use or remix third party music, sound FX, and textures that
+have the following licenses: <a class="footnote-reference brackets" href="#ccbysa" id="id7">7</a></p>
+<ul class="simple">
+<li><p>CC0</p></li>
+<li><p>CC-BY</p></li>
+<li><p>CC-BY-NC <a class="footnote-reference brackets" href="#ccbync" id="id8">8</a></p></li>
+</ul>
+<p>A list of third party assets used is accessible from the game’s credits or user
+documentation to fulfill the attribution requirements. The following information
+is included for each asset:</p>
+<ul class="simple">
+<li><p>Title - title of the work.</p></li>
+<li><p>Author - name or handle of the author.</p></li>
+<li><p>License - the specific CC license the work is published under.</p></li>
+<li><p>Copyright notice - some works include a copyright notice supplied by the
+author that must be included in the attribution.</p></li>
+<li><p>Source - link to website the asset was obtained from.</p></li>
+<li><p>Is derivative - Mention if the work was modified from the original and
+provide a short summary of changes.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="internationalization-and-localization">
+<h3><span class="section-number">5.3.5. </span>Internationalization and Localization<a class="headerlink" href="#internationalization-and-localization" title="Permalink to this headline">¶</a></h3>
+<p>The game is initially released in American English. However, localizations are
+accepted from contributors to include in future releases. This helps the game be
+more accessible to a wider audience. To make it easy to add various
+localizations, the game is designed with internationalization support.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="mitlicense"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://choosealicense.com/licenses/mit/">Choose an open source license - MIT License</a></p>
+</dd>
+<dt class="label" id="apachelicense"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p><a class="reference external" href="https://choosealicense.com/licenses/apache-2.0/">Choose an open source license - Apache License 2.0</a></p>
+</dd>
+<dt class="label" id="rustlanglicense"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>See Rust’s <a class="reference external" href="https://github.com/rust-lang/rust#license">README</a>
+for licensing details.</p>
+</dd>
+<dt class="label" id="ccbylicense"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p><a class="reference external" href="https://choosealicense.com/licenses/cc-by-4.0/">Choose an open source license - Creative Commons Attribution 4.0 International</a></p>
+</dd>
+<dt class="label" id="cratessizelimit"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>Cargo, the Rust package manager, can download and build
+applications hosted on crates.io. However, crates.io has a 10MB size
+limit that is too small to host this game.</p>
+</dd>
+<dt class="label" id="mpl2license"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p><a class="reference external" href="https://choosealicense.com/licenses/mpl-2.0/">Choose an open source license - Mozilla Public License 2.0</a>
+summary indicates it is OK to distribute programs that use unmodified
+MPL-2.0 libraries under different terms.</p>
+</dd>
+<dt class="label" id="ccbysa"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p>The CC-BY-SA is incompatible with the the game’s licensing terms.
+It is this author’s understanding that a game is considered a derivative
+work and thus must also be licensed under CC-BY-SA if it were to use
+CC-BY-SA assets.</p>
+</dd>
+<dt class="label" id="ccbync"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
+<dd><p>Per the monetization section, the game is being released for free
+and is not intended to produce a revenue stream.</p>
+</dd>
+</dl>
+</div>
+</div>
+<span id="document-misc/similar-games"></span><div class="section" id="similar-games">
+<h2><span class="section-number">5.4. </span>Similar Games<a class="headerlink" href="#similar-games" title="Permalink to this headline">¶</a></h2>
+<p>Tic-tac-toe is a popular paper and pencil game that has been played since
+the times of ancient Egypt. Sandy Douglas’ 1952 take on tic-tac-toe, called OXO,
+was one of the first computer games. <a class="footnote-reference brackets" href="#wikittt" id="id1">1</a></p>
+<p>However, the major inspiration for this variant of tic-tac-toe comes from James
+Richey’s 2004 <a class="reference external" href="https://www.imaginaryphase.com/ttt.html">Tic Tac Toe</a> shown in
+<a class="reference internal" href="#fig-ttt-screen-shot"><span class="std std-numref">Figure 5.1</span></a>.</p>
+<div class="figure align-default" id="id2">
+<span id="fig-ttt-screen-shot"></span><img alt="Screen shot of the Tic Tac Toe computer game." src="_images/ttt-2004-screen-shot.png" />
+<p class="caption"><span class="caption-number">Figure 5.1 </span><span class="caption-text">Screen shot of James Richey’s 2004 Tic Tac Toe.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>James developed his version of while learning the C++ programming language.
+Tic-tac-toe provides a fun challenge for learning a new language: it requires
+both algorithmic and graphical components to implement a small but nontrivial
+application.</p>
+<p>When thinking of a project to use to help learn the Rust programming language,
+creating a tic-tac-toe game is a fun choice.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="wikittt"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>See Wikipedia’s <a class="reference external" href="https://en.wikipedia.org/wiki/Tic-tac-toe">Tic-tac-toe</a>
+article for additional information about the history of tic-tac-toe.</p>
+</dd>
+</dl>
+</div>
+<span id="document-misc/future-enhancements"></span><div class="section" id="future-enhancements">
+<h2><span class="section-number">5.5. </span>Future Enhancements<a class="headerlink" href="#future-enhancements" title="Permalink to this headline">¶</a></h2>
+<p>There are some additional features that can be considered for future versions of
+the game. These are described below.</p>
+<div class="section" id="network-multiplayer">
+<h3><span class="section-number">5.5.1. </span>Network Multiplayer<a class="headerlink" href="#network-multiplayer" title="Permalink to this headline">¶</a></h3>
+<p>Network based multiplayer allows players to remotely battle each other. Network
+based multiplayer is preferable to local multiplayer in many situations such as
+friends who live in different states, office environments, or players trying to
+avoid a zombie apocalypse. <a class="footnote-reference brackets" href="#covid19" id="id1">1</a></p>
+<p>There are different network multiplayer modes.</p>
+<dl class="simple">
+<dt>Normal</dt><dd><p>The normal mode is <a class="reference internal" href="singlepage.html#ref-gameplay-two-player-mode"><span class="std std-ref">Two Player Mode</span></a> but played over the
+network instead of locally.</p>
+</dd>
+<dt>Speedrun</dt><dd><p>Speedrun multiplayer is a two player version of <a class="reference internal" href="singlepage.html#ref-gameplay-speed-run-mode"><span class="std std-ref">Speedrun Mode</span></a>
+where the players compete to see who can play 10 games the fastest without
+loosing. If a player wins one of the games, the speedrun is over and that
+player is the winner. If all ten games are cat’s games, then the player with
+the fastest overall time wins.</p>
+</dd>
+<dt>King of the Hill</dt><dd><p>King of the hill allows more than two people to battle. From the pool of
+available players two are chosen to battle. The round consists of playing
+two games. The player first to win any game, or in the case of all cat’s
+games has the fastest overall time, wins the round. They stay in the game
+and another challenger is selected from the pool of players. This continues
+until a victory condition is met, such as the first player to win X number
+of rounds.</p>
+</dd>
+</dl>
+<p>Regardless of the mode, the players always see the same environment to ensure
+a consistent play experience.</p>
+</div>
+<div class="section" id="achievements">
+<h3><span class="section-number">5.5.2. </span>Achievements<a class="headerlink" href="#achievements" title="Permalink to this headline">¶</a></h3>
+<p>Achievements provide players goals outside the usual <a class="reference internal" href="singlepage.html#document-gameplay"><span class="doc">Gameplay</span></a> rules.
+These provide more depth to the game and encourage players to try different
+approaches to the game.</p>
+<p>A future enhancement is to add achievements to the game. Some achievement might
+include the following.</p>
+<ul class="simple">
+<li><p>Win a game</p></li>
+<li><p>Play a game in every environment</p></li>
+<li><p>Win a hard game</p></li>
+<li><p>Win a game on every environment</p></li>
+<li><p>Win a hard game on every environment</p></li>
+<li><p>Complete a speed run</p></li>
+<li><p>Complete a speed run in less than X seconds</p></li>
+<li><p>Complete a speed run in less than 1 second!!</p></li>
+</ul>
+</div>
+<div class="section" id="additional-environments">
+<h3><span class="section-number">5.5.3. </span>Additional Environments<a class="headerlink" href="#additional-environments" title="Permalink to this headline">¶</a></h3>
+<p>A major focus of FossXO is the ability to play tic-tac-toe in a variety
+of <a class="reference internal" href="singlepage.html#document-environments"><span class="doc">Environments</span></a>. Future versions of the game can add even more
+environments. Some environments to consider are listed below.</p>
+<ul class="simple">
+<li><p>Lasers. Perhaps a laser cutter or some other use of lasers.</p></li>
+<li><p>Shower door or bathroom mirror.</p></li>
+<li><p>Futuristic dystopian or cyber punk theme.</p></li>
+<li><p>Some playgrounds have a 3x3 grid of squares for playing tic-tac-toe.</p></li>
+<li><p>Winter / snow / frozen lake theme.</p></li>
+<li><p>Food theme.</p></li>
+<li><p>Light board, like those found in ships or submarines.</p></li>
+<li><p>OXO oscilloscope throwback theme.</p></li>
+<li><p>Metal or glass forge with lots of glowing hot liquids.</p></li>
+<li><p>Clone of James’ 2004 Tic Tac Toe.</p></li>
+<li><p>Outer space theme with stars, nebulas, and planets.</p></li>
+</ul>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="covid19"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/2019%E2%80%9320_coronavirus_pandemic">2019–20 coronavirus pandemic</a></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<span id="document-technical-design/index"></span><div class="section" id="technical-design">
+<h1><span class="section-number">6. </span>Technical Design<a class="headerlink" href="#technical-design" title="Permalink to this headline">¶</a></h1>
+<p>The technical design of FossXO is described in this chapter.</p>
+<div class="toctree-wrapper compound">
+<span id="document-technical-design/engine-overview"></span><div class="section" id="engine-overview">
+<h2><span class="section-number">6.1. </span>Engine Overview<a class="headerlink" href="#engine-overview" title="Permalink to this headline">¶</a></h2>
+<p>FossXO is developed using the Rust programming language per the
+<a class="reference internal" href="singlepage.html#ref-objective-create-ttt-game-with-rust"><span class="std std-ref">Create Tic-tac-toe Game with Rust</span></a> objective. To help reduce the
+development effort, and avoid creating a game engine from the ground up, FossXO
+built on top of the Amethyst game engine and makes extensive use of other
+existing Rust libraries.</p>
+<div class="section" id="amethyst">
+<span id="index-0"></span><h3><span class="section-number">6.1.1. </span>Amethyst<a class="headerlink" href="#amethyst" title="Permalink to this headline">¶</a></h3>
+<p>FossXO uses <a class="reference external" href="https://github.com/amethyst/amethyst/tree/v0.15.0">Amethyst v0.15.0</a>
+as the game’s engine. <a class="footnote-reference brackets" href="#otherengines" id="id1">1</a>  Amethyst is a data-driven game engine
+written in Rust. Amethyst uses a entity component system
+(ECS) architecture where entity represents a single object in the game.
+Components store data about one aspect of the object. Systems contain logic that
+is executed on collections of components every loop. Amethyst also
+contains support for game states, resources, and events.</p>
+<p>In addition to the ECS architecture, Amethyst provides a rendering engine that
+supports various backends including Vulkan, a basic UI framework, audio support,
+and IO utilities.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>FossXO makes extensive use of the features provided by Amethyst. It is
+highly recommended to read the
+<a class="reference external" href="https://book.amethyst.rs/stable/concepts/intro.html">Concepts behind Amethyst</a>
+chapter of The Amethyst Engine book (<a class="reference internal" href="singlepage.html#amethyst-book" id="id2"><span>[Amethyst-book]</span></a>) that
+introduces the fundamental concepts in Amethyst that this game is built
+around. <a class="footnote-reference brackets" href="#amethystguide" id="id3">2</a></p>
+</div>
+<p>The <a class="reference internal" href="singlepage.html#document-technical-design/states"><span class="doc">Game States</span></a>, <a class="reference internal" href="singlepage.html#document-technical-design/systems"><span class="doc">Systems</span></a>, and <a class="reference internal" href="singlepage.html#document-technical-design/components-resources-entities"><span class="doc">Components, Resources, and Entities</span></a>
+sections describe the details of how the game is built on top of Amethyst.</p>
+</div>
+<div class="section" id="open-ttt-lib">
+<span id="index-1"></span><h3><span class="section-number">6.1.2. </span>open_ttt_lib<a class="headerlink" href="#open-ttt-lib" title="Permalink to this headline">¶</a></h3>
+<p>FossXO uses the <code class="docutils literal notranslate"><span class="pre">open_ttt_lib</span></code> library to manage the game rules and AI
+algorithms per the <a class="reference internal" href="singlepage.html#ref-objective-create-ttt-game-with-rust"><span class="std std-ref">Create Tic-tac-toe Game with Rust</span></a> objective.</p>
+</div>
+<div class="section" id="modules">
+<h3><span class="section-number">6.1.3. </span>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h3>
+<p>Rust applications and libraries use modules to organize their functionality.
+An overview of the game’s modules is shown in <a class="reference internal" href="#uml-modules-overview"><span class="std std-numref">Figure 6.1</span></a>.</p>
+<div class="figure align-default" id="id5">
+<span id="uml-modules-overview"></span><p class="plantuml">
+<img src="_images/plantuml-7a37bcce49e052e99a8d842755f74338d8ed77c6.svg" alt="!include rust_types.uml
+hide empty members
+
+package &quot;&lt;fossxo crate&gt;&quot; { }
+package states { }
+package systems { }
+package file_io { }
+package events { }
+package environments { }
+package components { }
+package resources { }
+
+&quot;&lt;fossxo crate&gt;&quot; &lt;-- states
+&quot;&lt;fossxo crate&gt;&quot; &lt;-- systems
+states &lt;-- file_io
+states &lt;-- environments
+states &lt;-- events
+states &lt;-- resources
+
+systems &lt;-- components
+systems &lt;-- resources
+systems &lt;-- events
+environments &lt;-- components"/></p>
+<p class="caption"><span class="caption-number">Figure 6.1 </span><span class="caption-text">FossXO’s major modules and their relationships.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<p>A brief description of each module follows:</p>
+<dl class="simple">
+<dt>&lt;fossxo crate&gt;</dt><dd><p>Contains the entry point of the application. This initializes the engine,
+parses command line arguments, loads any required data to start the game,
+starts the game’s systems, and finally sets the first game state to run.</p>
+</dd>
+<dt>states</dt><dd><p>Contains the game’s states that are described in the <a class="reference internal" href="singlepage.html#document-technical-design/states"><span class="doc">Game States</span></a> section.</p>
+</dd>
+<dt>systems</dt><dd><p>Contains the game’s systems that are described in the <a class="reference internal" href="singlepage.html#document-technical-design/systems"><span class="doc">Systems</span></a>
+section. This also provides system bundles for convenient access to groups
+of systems.</p>
+</dd>
+<dt>environments</dt><dd><p>Contains the game’s environments including the <a class="reference internal" href="singlepage.html#ref-environments-resource"><span class="std std-ref">Environments Resource</span></a>.</p>
+</dd>
+<dt>resources</dt><dd><p>Contains the games public resources, with the exception of the
+<a class="reference internal" href="singlepage.html#ref-environments-resource"><span class="std std-ref">Environments Resource</span></a>.</p>
+</dd>
+<dt>components</dt><dd><p>Contains the game’s components.</p>
+</dd>
+<dt>events</dt><dd><p>All events sent by the game are contained in the <code class="docutils literal notranslate"><span class="pre">events</span></code> module. This
+includes the <code class="docutils literal notranslate"><span class="pre">EventData</span></code> enum in <a class="reference internal" href="singlepage.html#uml-event-data-enum"><span class="std std-numref">Figure 6.3</span></a>.</p>
+</dd>
+<dt>file_io</dt><dd><p>Holds functionality related to loading and saving the games custom files.</p>
+</dd>
+</dl>
+<p>Developers are encouraged to add additional modules if needed to help with the
+maintainability of the project. <a class="footnote-reference brackets" href="#utilsmodule" id="id4">3</a></p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="otherengines"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>See the <a class="reference internal" href="singlepage.html#document-technical-design/prototype"><span class="doc">Prototype Lessons Learned</span></a> section for why Amethyst was chosen
+over other popular Rust game engines.</p>
+</dd>
+<dt class="label" id="amethystguide"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>Readers might also find this unofficial
+<a class="reference external" href="https://github.com/bonsairobo/amethyst-architecture-guidelines">Amethyst Architectural Guidelines</a>
+<a class="reference external" href="https://web.archive.org/web/20200807215439/https://github.com/bonsairobo/amethyst-architecture-guidelines">(archive)</a>
+useful, especially when designing game states, systems, components, and resources.</p>
+</dd>
+<dt class="label" id="utilsmodule"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dd><p>One such additional module could be the <code class="docutils literal notranslate"><span class="pre">utils</span></code> module for
+holding functionality that is required by a many of the other modules.</p>
+</dd>
+</dl>
+</div>
+</div>
+<span id="document-technical-design/states"></span><div class="section" id="game-states">
+<h2><span class="section-number">6.2. </span>Game States<a class="headerlink" href="#game-states" title="Permalink to this headline">¶</a></h2>
+<p>A game state is a general and global part of the game. The active state is
+updated every game loop, has access to the world’s entities and resources, and
+can receive events. States can also request a transition to a different state.</p>
+<div class="section" id="state-trait">
+<span id="index-0"></span><h3><span class="section-number">6.2.1. </span>State Trait<a class="headerlink" href="#state-trait" title="Permalink to this headline">¶</a></h3>
+<p>In Amethyst states implement the <a class="reference external" href="https://docs.amethyst.rs/stable/amethyst/trait.State.html">State trait</a>.
+A summary of the State trait is shown in <a class="reference internal" href="#uml-state-trait"><span class="std std-numref">Figure 6.2</span></a>.</p>
+<div class="figure align-default" id="id4">
+<span id="uml-state-trait"></span><p class="plantuml">
+<img src="_images/plantuml-ecf66c7892ae744bbd72dc1ba037f2ca4ee0adcf.svg" alt="!include rust_types.uml
+hide empty members
+
+trait(State) {
+    +on_start(StateData)
+    +on_stop(StateData)
+    +on_pause(StateData)
+    +on_resume(StateData)
+    +handle_event(StateData, EventData) -&gt; Trans
+    +update(StateData) -&gt; Trans
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.2 </span><span class="caption-text">Notable methods provided by the State trait.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<p>Each method is provided a <code class="docutils literal notranslate"><span class="pre">StateData</span></code> structure that provide’s access to the
+world’s entities and resources. Additionally, <code class="docutils literal notranslate"><span class="pre">handle_event()</span></code> is provided an
+<code class="docutils literal notranslate"><span class="pre">EventData</span></code> enum, shown in <a class="reference internal" href="#uml-event-data-enum"><span class="std std-numref">Figure 6.3</span></a>, that aggregates the
+different types of events available to the states.</p>
+<div class="figure align-default" id="id5">
+<span id="uml-event-data-enum"></span><p class="plantuml">
+<img src="_images/plantuml-0ff48b9bf9afb9d22af501cc40f6e8e8abf45520.svg" alt="!include rust_types.uml
+hide empty members
+
+enum(EventData) {
+    Window(WindowEvent)
+    Ui(UiEvent)
+    Input(InputEvent)
+    Player(PlayerEvent)
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.3 </span><span class="caption-text">Event data available to states.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<p>The window, UI, and input events are generated by various Amethyst subsystems.
+The remaining variants hold custom events generated by the game that states wish
+to receive.</p>
+</div>
+<div class="section" id="state-diagram">
+<h3><span class="section-number">6.2.2. </span>State Diagram<a class="headerlink" href="#state-diagram" title="Permalink to this headline">¶</a></h3>
+<p>The state diagram in <a class="reference internal" href="#uml-game-state-diagram"><span class="std std-numref">Figure 6.4</span></a> shows each state and their
+state transitions. <a class="footnote-reference brackets" href="#screenflowchart" id="id1">1</a></p>
+<div class="figure align-default" id="id6">
+<span id="uml-game-state-diagram"></span><p class="plantuml">
+<img src="_images/plantuml-0fbeec44cbf58fa4480efb471a13c2165bdfebb7.svg" alt="hide empty description
+
+[*] --&gt; Loading
+Loading --&gt; Game
+Game --&gt; MainMenu
+
+MainMenu --&gt; Game
+MainMenu --&gt; SinglePlayerMenu
+MainMenu --&gt; OptionsMenu
+MainMenu --&gt; CreditsMenu
+MainMenu --&gt; [*]
+
+OptionsMenu --&gt; MainMenu
+CreditsMenu --&gt; MainMenu
+
+SinglePlayerMenu --&gt; Game
+SinglePlayerMenu --&gt; SpeedrunMenu
+SinglePlayerMenu --&gt; MainMenu
+
+SpeedrunMenu --&gt; SinglePlayerMenu
+SpeedrunMenu --&gt; SpeedrunGame
+SpeedrunGame --&gt; SpeedrunMenu
+SpeedrunMenu --&gt; SpeedrunBestTimeMenu
+SpeedrunBestTimeMenu --&gt; SpeedrunMenu"/></p>
+<p class="caption"><span class="caption-number">Figure 6.4 </span><span class="caption-text">State diagram for the game states.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="game-state">
+<span id="ref-game-state"></span><span id="index-1"></span><h3><span class="section-number">6.2.3. </span>Game State<a class="headerlink" href="#game-state" title="Permalink to this headline">¶</a></h3>
+<p>The game state is used for <a class="reference internal" href="singlepage.html#ref-gameplay-single-player-mode"><span class="std std-ref">Single-player Mode</span></a> and
+<a class="reference internal" href="singlepage.html#ref-gameplay-two-player-mode"><span class="std std-ref">Two Player Mode</span></a> games. The responsibilities of this state
+are:</p>
+<ul class="simple">
+<li><p>Spawn the player and AI opponent entities for playing the game.</p></li>
+<li><p>Handle player events for when marks are placed.</p></li>
+<li><p>Manage the game resource.</p></li>
+<li><p>Show the game environment with the <a class="reference internal" href="singlepage.html#ref-environments-resource"><span class="std std-ref">Environments Resource</span></a>.</p></li>
+<li><p>Show the <a class="reference internal" href="singlepage.html#ref-ui-game-board"><span class="std std-ref">Game Board</span></a> widgets including the menu button and
+status text.</p></li>
+<li><p>Navigate to the main menu state.</p></li>
+</ul>
+<p>When the game state is started, the options to use are provided. This includes
+if the game is single-player or multiplayer. For single-player, this is the
+difficulty level and if the player is using X or O marks.</p>
+</div>
+<div class="section" id="speedrun-game-state">
+<span id="ref-speedrun-game-state"></span><span id="index-2"></span><h3><span class="section-number">6.2.4. </span>Speedrun Game State<a class="headerlink" href="#speedrun-game-state" title="Permalink to this headline">¶</a></h3>
+<p>The speedrun game state is used for <a class="reference internal" href="singlepage.html#ref-gameplay-speed-run-mode"><span class="std std-ref">Speedrun Mode</span></a> games.
+<a class="footnote-reference brackets" href="#speedrunstatedifference" id="id2">2</a> The responsibilities of this state are:</p>
+<ul class="simple">
+<li><p>Spawn the player and AI opponent entities for playing the game.</p></li>
+<li><p>Handle player events for when marks are placed.</p></li>
+<li><p>Manage the game resource.</p></li>
+<li><p>Keep track of the total speedrun time and time for each game.</p></li>
+<li><p>Show the <a class="reference internal" href="singlepage.html#ref-ui-speedrun-game-board"><span class="std std-ref">Speedrun</span></a> widgets including the menu
+button and status text.</p></li>
+<li><p>Navigate to the best time menu state providing the results of the speedrun.
+The results include a successful game along with the run’s time, a
+lost game, or an aborted game from the player opening the menu.</p></li>
+</ul>
+</div>
+<div class="section" id="loading-state">
+<span id="index-3"></span><h3><span class="section-number">6.2.5. </span>Loading State<a class="headerlink" href="#loading-state" title="Permalink to this headline">¶</a></h3>
+<p>The loading state is the first state run when the game starts. The
+responsibilities are:</p>
+<ul class="simple">
+<li><p>Show the <a class="reference internal" href="singlepage.html#ref-ui-loading-screen"><span class="std std-ref">Loading Screen</span></a> widgets.</p></li>
+<li><p>Queue the resources to load with asset loader.</p></li>
+<li><p>Monitor and optionally report the loading progress.</p></li>
+<li><p>Launch the game state when resource loading is complete. The
+single player game options last used are provided. <a class="footnote-reference brackets" href="#firstgamesettings" id="id3">3</a></p></li>
+</ul>
+<p>The loading state asks the <a class="reference internal" href="singlepage.html#ref-environments-resource"><span class="std std-ref">Environments Resource</span></a> and any other
+resources to queue the assets that need loaded. It then monitors the loading
+progress and transitions to the game state when complete.</p>
+</div>
+<div class="section" id="main-menu-state">
+<span id="ref-main-menu-state"></span><span id="index-4"></span><h3><span class="section-number">6.2.6. </span>Main Menu State<a class="headerlink" href="#main-menu-state" title="Permalink to this headline">¶</a></h3>
+<p>The main menu state allows uses to navigate to the other states.
+Responsibilities include:</p>
+<ul class="simple">
+<li><p>Show the <a class="reference internal" href="singlepage.html#ref-ui-main-menu"><span class="std std-ref">Main Menu</span></a> widgets.</p></li>
+<li><p>Navigate to the single-player menu state.</p></li>
+<li><p>Launch the game state with the multiplayer game flag.</p></li>
+<li><p>Navigate to the options menu state.</p></li>
+<li><p>Navigate to the credits menu state.</p></li>
+<li><p>Open the game’s user manual in an external browser.</p></li>
+<li><p>Go to the quit state to exit the game.</p></li>
+</ul>
+</div>
+<div class="section" id="single-player-menu-state">
+<span id="ref-single-player-menu-state"></span><span id="index-5"></span><h3><span class="section-number">6.2.7. </span>Single-player Menu State<a class="headerlink" href="#single-player-menu-state" title="Permalink to this headline">¶</a></h3>
+<p>The single-player menu state shows the UI for configuring single-player games.
+The responsibilities are:</p>
+<ul class="simple">
+<li><p>Show the <a class="reference internal" href="singlepage.html#ref-ui-single-player"><span class="std std-ref">Single-player</span></a> menu widgets.</p></li>
+<li><p>Launch the game state providing the single-player options
+selected by the player.</p></li>
+<li><p>Navigate to the speed run menu state, forwarding the player mark option.</p></li>
+<li><p>Go back to the main menu state.</p></li>
+</ul>
+</div>
+<div class="section" id="speedrun-menu-state">
+<span id="ref-speedrun-menu-state"></span><span id="index-6"></span><h3><span class="section-number">6.2.8. </span>Speedrun Menu State<a class="headerlink" href="#speedrun-menu-state" title="Permalink to this headline">¶</a></h3>
+<p>The speedrun menu state is the entry point to speed run games. The
+responsibilities are:</p>
+<ul class="simple">
+<li><p>Show the <a class="reference internal" href="singlepage.html#ref-ui-speedrun"><span class="std std-ref">Speedrun</span></a> menu widgets.</p></li>
+<li><p>Query best speed run times from the <a class="reference internal" href="singlepage.html#ref-user-data-file"><span class="std std-ref">User Data File</span></a>.</p></li>
+<li><p>Launch the speedrun game state using the the player mark option.</p></li>
+<li><p>Go to the best time menu state if the user got a best time. The user’s time
+and other speedrun information is provided.</p></li>
+<li><p>Go back to the single-player menu state.</p></li>
+</ul>
+<p>When the speedrun menu state is started, it is optionally provided the result of
+the speedrun game. It uses this information to know if it should show the
+instructional text, show the game results, or navigate to the best time menu.</p>
+</div>
+<div class="section" id="speedrun-best-time-menu-state">
+<span id="ref-speedrun-best-time-menu-state"></span><span id="index-7"></span><h3><span class="section-number">6.2.9. </span>Speedrun Best Time Menu State<a class="headerlink" href="#speedrun-best-time-menu-state" title="Permalink to this headline">¶</a></h3>
+<p>The speedrun best time menu state allows users to view and record a best
+speedrun time. The responsibilities are:</p>
+<ul class="simple">
+<li><p>Show the speed run best time dialog widgets described in the
+<a class="reference internal" href="singlepage.html#ref-ui-speedrun"><span class="std std-ref">Speedrun</span></a> menu.</p></li>
+<li><p>Save the best time information to the <a class="reference internal" href="singlepage.html#ref-user-data-file"><span class="std std-ref">User Data File</span></a>.</p></li>
+<li><p>Navigate to the speedrun menu state.</p></li>
+</ul>
+</div>
+<div class="section" id="credits-menu-state">
+<span id="ref-credits-menu-state"></span><span id="index-8"></span><h3><span class="section-number">6.2.10. </span>Credits Menu State<a class="headerlink" href="#credits-menu-state" title="Permalink to this headline">¶</a></h3>
+<p>The credits menu state shows the game’s credits along with demoing the various
+games environments. The responsibilities are:</p>
+<ul class="simple">
+<li><p>Show the <a class="reference internal" href="singlepage.html#ref-ui-credits"><span class="std std-ref">Credits</span></a> menu widgets.</p></li>
+<li><p>Open the game’s licence compliance information contained in the user manual
+in an external browser.</p></li>
+<li><p>Demonstrate different in progress games.</p></li>
+<li><p>Go back to the main menu state.</p></li>
+</ul>
+<p>The credits menu demonstrates the various game environments. It does this by
+creating two AI players that battle while occasionally switching the current
+environment using the <a class="reference internal" href="singlepage.html#ref-environments-resource"><span class="std std-ref">Environments Resource</span></a>.</p>
+</div>
+<div class="section" id="options-menu-state">
+<span id="ref-options-menu-state"></span><span id="index-9"></span><h3><span class="section-number">6.2.11. </span>Options Menu State<a class="headerlink" href="#options-menu-state" title="Permalink to this headline">¶</a></h3>
+<p>The options menu state shows the various options related widgets and saves the
+games options. Its responsibilities are:</p>
+<ul class="simple">
+<li><p>Show the <a class="reference internal" href="singlepage.html#ref-ui-options"><span class="std std-ref">Options</span></a> menu widgets.</p></li>
+<li><p>Apply the user provided options and save the
+<a class="reference internal" href="singlepage.html#ref-game-configuration-file"><span class="std std-ref">Game Configuration File</span></a> to disk.</p></li>
+<li><p>Allow resetting options to default values.</p></li>
+<li><p>Go back to the main menu state.</p></li>
+</ul>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="screenflowchart"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>The game state diagram is similar, but not identical, to
+the <a class="reference internal" href="singlepage.html#ref-ui-screen-flowchart"><span class="std std-ref">Screen Flowchart</span></a> shown in <a class="reference internal" href="singlepage.html#uml-screen-flowchart"><span class="std std-numref">Figure 3.10</span></a>.
+Some notable differences include how the speedrun game state always
+transitions back to the speedrun menu state.</p>
+</dd>
+<dt class="label" id="speedrunstatedifference"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>At first glance the speedrun game state has
+similar responsibilities the game state. However, the speedrun games use
+different rules, show additional widgets, and transition to different
+states. Thus it this mode gets its own state.</p>
+</dd>
+<dt class="label" id="firstgamesettings"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>The <a class="reference internal" href="singlepage.html#ref-ui-game-board"><span class="std std-ref">Game Board</span></a> section further describes
+the behavior of the game when first started.</p>
+</dd>
+</dl>
+</div>
+</div>
+<span id="document-technical-design/systems"></span><div class="section" id="systems">
+<h2><span class="section-number">6.3. </span>Systems<a class="headerlink" href="#systems" title="Permalink to this headline">¶</a></h2>
+<p>Systems contain small pieces of the game’s logic that is applied to collections
+of components or resources. The systems can be grouped into bundles that provide
+a specific game feature.</p>
+<p>This section describes how systems are constructed and provides details about
+the core systems used by the game.</p>
+<div class="section" id="system-trait">
+<span id="index-0"></span><h3><span class="section-number">6.3.1. </span>System Trait<a class="headerlink" href="#system-trait" title="Permalink to this headline">¶</a></h3>
+<p>In Amethyst systems implement the <a class="reference external" href="https://docs.amethyst.rs/stable/specs/trait.System.html">System trait</a>.
+A summary of the System trait is shown in <a class="reference internal" href="#uml-system-trait"><span class="std std-numref">Figure 6.5</span></a>.</p>
+<div class="figure align-default" id="id1">
+<span id="uml-system-trait"></span><p class="plantuml">
+<img src="_images/plantuml-71160edc216dc60a748f2290712e2cf68d547a70.svg" alt="!include rust_types.uml
+hide empty members
+
+trait(System) {
+    +SystemData: type
+    +run(SystemData)
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.5 </span><span class="caption-text">Notable methods provided by the System trait.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">SystemData</span></code> type specifies what types of components and resources the
+system operates on. The <code class="docutils literal notranslate"><span class="pre">run()</span></code> method is provided the specified system data
+every time it is called. This is typically once per game loop.</p>
+</div>
+<div class="section" id="system-design-considerations">
+<h3><span class="section-number">6.3.2. </span>System Design Considerations<a class="headerlink" href="#system-design-considerations" title="Permalink to this headline">¶</a></h3>
+<p>The game contains additional systems that are not described in this document.
+However, these systems are designed around the following considerations.</p>
+<ul class="simple">
+<li><p>Systems contain small pieces of functionality. For example in a Pong type
+game, one system would be responsible for moving the ball and a second
+system for moving the paddles.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">run()</span></code> method often uses database like queries when accessing
+components using the <code class="docutils literal notranslate"><span class="pre">join()</span></code> method. For example, a Pong move ball system
+would join the <code class="docutils literal notranslate"><span class="pre">Ball</span></code> and <code class="docutils literal notranslate"><span class="pre">Transform</span></code> components.</p></li>
+<li><p>Systems should not assume the number of components they are operating on.
+For example, the Pong move ball system should not assume there is exactly
+one ball. This ensures new gameplay modes can be easily added in the future.</p></li>
+<li><p>Systems should be designed with re-usability in mind. For example, if making
+a system to move spark particles, consider making a generic particle system
+that can be used for other particle types.</p></li>
+<li><p>Systems should not store any data in as a local field.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Even though systems are implemented as structures, they should not store any
+data in local fields. If a system needs private data, store the data
+in a resource object that has private fields. In fact, the next major
+version of Amethyst uses loose functions for systems and the System trait is
+removed.</p>
+</div>
+</div>
+<div class="section" id="core-systems">
+<h3><span class="section-number">6.3.3. </span>Core Systems<a class="headerlink" href="#core-systems" title="Permalink to this headline">¶</a></h3>
+<p>There are several notable systems the game uses to provide the game’s core
+functionality. This includes getting player input and managing AI opponents.
+Additional systems for environment specific features are added as needed.</p>
+<div class="section" id="local-player-system">
+<span id="index-1"></span><h4><span class="section-number">6.3.3.1. </span>Local Player System<a class="headerlink" href="#local-player-system" title="Permalink to this headline">¶</a></h4>
+<p>The local player system is responsible for translating mouse clicks and keyboard
+button presses into player events that indicate where the player would like to
+move.</p>
+<p>The pseudocode in <a class="reference internal" href="#code-local-player-system-pseudocode"><span class="std std-numref">Listing 6.1</span></a> describes the
+local player system logic.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<span id="code-local-player-system-pseudocode"></span><div class="code-block-caption"><span class="caption-number">Listing 6.1 </span><span class="caption-text">Local player system pseudocode.</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>For each local player:
+    Get the any active button presses from the input bindings.
+    For keyboard buttons, extract the direct mappings to the board position.
+    For mouse buttons, translate the coordinates to the board position.
+    Send the request move player event with the indicated position.
+</pre></div>
+</div>
+</div>
+<p>The local player system allows players to request moves even when it is not
+their turn — it delegates filtering invalid moves to other systems. Checking
+the keyboard bindings takes prescience over the mouse.</p>
+</div>
+<div class="section" id="ai-player-system">
+<span id="index-2"></span><h4><span class="section-number">6.3.3.2. </span>AI Player System<a class="headerlink" href="#ai-player-system" title="Permalink to this headline">¶</a></h4>
+<p>The AI player system generates player events for the AI opponents.</p>
+<p><a class="reference internal" href="#code-ai-player-system-pseudocode"><span class="std std-numref">Listing 6.2</span></a> shows the pseudocode that describes
+the AI player system logic.</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<span id="code-ai-player-system-pseudocode"></span><div class="code-block-caption"><span class="caption-number">Listing 6.2 </span><span class="caption-text">AI player system pseudocode.</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>For each AI player:
+    Check to see if is the player&#39;s turn, if not skip the player.
+    Check the AI&#39;s move delay to see if sufficient time has elapsed since
+        the last game move.
+    Get the position the AI wishes to mark using it&#39;s opponent field.
+    Send the request move player event with the indicated position.
+</pre></div>
+</div>
+</div>
+<p>To prevent burning CPU cycles evaluating positions that will not be used the
+AI system skips players if it is not the player’s turn.</p>
+</div>
+</div>
+<div class="section" id="builtin-amethyst-systems">
+<h3><span class="section-number">6.3.4. </span>Builtin Amethyst Systems<a class="headerlink" href="#builtin-amethyst-systems" title="Permalink to this headline">¶</a></h3>
+<p>Amethyst provides several system bundles that are used by the game:</p>
+<dl class="simple">
+<dt>TransformBundle</dt><dd><p>Handles updating transform component’s position matrix.</p>
+</dd>
+<dt>InputBundle</dt><dd><p>Provides access to OS input events and is required for the UI systems.</p>
+</dd>
+<dt>AudioBundle</dt><dd><p>Provides basic audio playing support.</p>
+</dd>
+<dt>UiBundle</dt><dd><p>Provides support for rendering user interfaces and processing UI input events.</p>
+</dd>
+<dt>RenderingBundle</dt><dd><p>Provides the game’s rendering support.</p>
+</dd>
+</dl>
+<p>See the Amethyst documentation for details on each of these bundles and the
+systems they provide.</p>
+</div>
+</div>
+<span id="document-technical-design/components-resources-entities"></span><div class="section" id="components-resources-and-entities">
+<h2><span class="section-number">6.4. </span>Components, Resources, and Entities<a class="headerlink" href="#components-resources-and-entities" title="Permalink to this headline">¶</a></h2>
+<p>The game’s data is organized as components, resources, and entities. An entity
+represents a single object in the game. A component represents one aspect of an
+entity and store the data related to that aspect. Entities do not store any
+actual data but instead are associated with one or more components.</p>
+<p>For example, a Pong type game might have a ball entity that is composed of a
+position component, sprint component and a ball component.</p>
+<p>Resources store global data that is not specific to any one entity. For example,
+the score in a pong game is global to the entire game.</p>
+<p>This section describes the notable components, resources, entities, and
+supporting types used in the game. Additional components, resources, and
+entities are created for environment specific features as needed.</p>
+<div class="section" id="environments-resource">
+<span id="ref-environments-resource"></span><span id="index-0"></span><h3><span class="section-number">6.4.1. </span>Environments Resource<a class="headerlink" href="#environments-resource" title="Permalink to this headline">¶</a></h3>
+<p>A major feature of FossXO is its many environments. Environments are responsible
+for managing required assets and spawning / destroying entities as the game
+progresses. This is similar responsibility as <em>maps</em> in other games.</p>
+<p>The Environments resource is responsible for providing access and managing the
+all of the environments. <a class="reference internal" href="#uml-environments-struct"><span class="std std-numref">Figure 6.6</span></a> shows the
+Environments resource.</p>
+<div class="figure align-default" id="id1">
+<span id="uml-environments-struct"></span><p class="plantuml">
+<img src="_images/plantuml-2ff6c46b3aaf497ab61594e80fcdf9dccf5a7d94.svg" alt="!include rust_types.uml
+hide empty members
+
+struct(Environments) {
+    + new()
+    + debug(debug_options)
+    + load()
+    + spawn_random(options)
+    + delete_current()
+    + spawn_mark(player, position)
+    + spawn_game_over(winning_positions, outcome_affinity)
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.6 </span><span class="caption-text">Environments resource.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>The methods of the Environments resource are described below.</p>
+<dl class="simple">
+<dt>new</dt><dd><p>Creates the Environments resource.</p>
+</dd>
+<dt>debug</dt><dd><p>Allows usage of the special debug environment. When the debug environment
+is enabled, grid lines, marks, and other annotations are drawn on top of the
+current environment.</p>
+</dd>
+<dt>load</dt><dd><p>Loads assets required for all the environments.</p>
+</dd>
+<dt>spawn_random</dt><dd><p>Spawns a random environment. If there is a current alive environment, it is
+deleted before the new environment is spawned. A shuffle short is used that
+ensures every environment is spawned once. The provided options include the
+current game state to show and if extraneous entities should be avoided.</p>
+</dd>
+<dt>delete_current</dt><dd><p>Deletes the current environment and all its owned entities. This is useful
+when switching to the game menu.</p>
+</dd>
+<dt>spawn_mark</dt><dd><p>Spawns a mark for the indicated player at the given position. This must be
+called after the game is updated to keep the environment state synchronized
+with the game.</p>
+</dd>
+<dt>spawn_game_over</dt><dd><p>Spawns the game over related entities. The winning positions, if any, are
+provided. The outcome affinity is useful for single player games allowing
+environments to react to the player winning or losing. The neutral affinity
+is used or multiplayer games or cat’s games.</p>
+</dd>
+</dl>
+<p>The Environments resource requires each environment to implement the
+<span class="target" id="index-1"></span>Environment trait shown in <a class="reference internal" href="#uml-environment-trait"><span class="std std-numref">Figure 6.7</span></a>.</p>
+<div class="figure align-default" id="id2">
+<span id="uml-environment-trait"></span><p class="plantuml">
+<img src="_images/plantuml-4a7fdfd51e6cf5ebfd1e558878babc59b038f884.svg" alt="!include rust_types.uml
+hide empty members
+
+trait(Environment) {
+    + spawn(options)
+    + delete()
+    + is_alive()
+    + spawn_mark(player, position)
+    + spawn_game_over(winning_positions, outcome_affinity)
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.7 </span><span class="caption-text">Environment trait.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>The trait methods are:</p>
+<dl class="simple">
+<dt>spawn</dt><dd><p>Spawns the initial set of entities for the environment using the provided
+options. This typically includes a background, grid, decorations, and
+initial set of marks if there is already a game in progress.</p>
+</dd>
+<dt>delete</dt><dd><p>Deletes all entities from the environment.</p>
+</dd>
+<dt>is_alive</dt><dd><p>Indicates if the environment is alive, that is has at least one entity.</p>
+</dd>
+<dt>spawn_mark</dt><dd><p>Spawns a mark for the indicated player at the provided position.</p>
+</dd>
+<dt>spawn_game_over</dt><dd><p>Spawns the game over related entities.</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Many environments highlight or provide a special graphic for an available
+square the user is hovering over. This concept is not fully explored by the
+design proposed here. The debug environment can be used to explore this
+feature and reduce its risk.</p>
+</div>
+</div>
+<div class="section" id="other-resources">
+<h3><span class="section-number">6.4.2. </span>Other Resources<a class="headerlink" href="#other-resources" title="Permalink to this headline">¶</a></h3>
+<p>In addition to environments, there are a other notable resources used by the
+game.</p>
+<p>The <span class="target" id="index-2"></span>game resource provides access to the underlying tic-tac-toe game
+logic and the last time a move was done on the game. Helper methods are provided
+to make tasks such as seeing if it is a given player’s turn. The game resource
+is shown in <a class="reference internal" href="#uml-game-resource"><span class="std std-numref">Figure 6.8</span></a>.</p>
+<div class="figure align-default" id="id3">
+<span id="uml-game-resource"></span><p class="plantuml">
+<img src="_images/plantuml-3ed7808eb4bd5748fceb22557775de3240c17395.svg" alt="!include rust_types.uml
+hide empty members
+
+struct(Game) {
+    + game: ttt::Game
+    + last_move_time
+    + is_players_move(player) -&gt; bool
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.8 </span><span class="caption-text">Game resource.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<p>The <span class="target" id="index-3"></span>grid resource, shown in <a class="reference internal" href="#uml-grid-resource"><span class="std std-numref">Figure 6.9</span></a> provides access
+to the grid and methods to convert between screen coordinates and tic-tac-toe
+positions.</p>
+<div class="figure align-default" id="id4">
+<span id="uml-grid-resource"></span><p class="plantuml">
+<img src="_images/plantuml-eeba1ee7bcc41834b06c81372e63e954dbb12fa9.svg" alt="!include rust_types.uml
+hide empty members
+
+struct(Grid) {
+    + origin: Point
+    + size: Point
+    + center_points() -&gt; vec&lt;Point&gt;
+    + to_position(Point) -&gt; Optional&lt;Position&gt;
+    + cell(Position) -&gt; (origin, size)
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.9 </span><span class="caption-text">Grid resource.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<p>Additional conversion methods are added as needed to the grid resource.</p>
+</div>
+<div class="section" id="notable-components">
+<span id="index-4"></span><h3><span class="section-number">6.4.3. </span>Notable Components<a class="headerlink" href="#notable-components" title="Permalink to this headline">¶</a></h3>
+<p>There are several main components used by the game. These are shown in
+<a class="reference internal" href="#uml-core-components"><span class="std std-numref">Figure 6.10</span></a>.</p>
+<div class="figure align-default" id="id5">
+<span id="uml-core-components"></span><p class="plantuml">
+<img src="_images/plantuml-178fcdb2ccf1c06933bf6d178bde7a8f7d1e7207.svg" alt="!include rust_types.uml
+hide empty members
+
+enum(Player) {
+    + X
+    + O
+}
+
+struct(LocalPlayer)
+
+struct(Ai) {
+    + ai_opponent
+    + move_delay
+}
+
+struct(Mark) {
+    + owner: Player
+    + position: Board::Position
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.10 </span><span class="caption-text">Notable game components.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<dl class="simple">
+<dt>Player</dt><dd><p>The Player component stores if the player is playing as X or as O.</p>
+</dd>
+<dt>LocalPlayer</dt><dd><p>Tag component that indicates the player is local, e.g. using the keyboard
+and mouse to make mark selections.</p>
+</dd>
+<dt>Mark</dt><dd><p>The Mark component indicates the owner of a given position on the board.</p>
+</dd>
+<dt>Ai</dt><dd><p>The AI component provides the underlying AI opponent to use when selecting
+positions. Additionally, a delay can be specified to prevent the AI from
+instantly selecting a position.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="amethyst-provided-components">
+<h3><span class="section-number">6.4.4. </span>Amethyst Provided Components<a class="headerlink" href="#amethyst-provided-components" title="Permalink to this headline">¶</a></h3>
+<p>Amethyst provides several components that are used when building game entities.
+Some notable ones that are used by the game are listed below.</p>
+<dl class="simple">
+<dt>Camera</dt><dd><p>Represents the game’s camera. Contains the projection matrix from world
+coordinates to screen coordinates.</p>
+</dd>
+<dt>SpriteRender</dt><dd><p>Provides information for rendering a sprite.</p>
+</dd>
+<dt>Transform</dt><dd><p>Stores local position, rotation, and scale.</p>
+</dd>
+</dl>
+<p>See the Amethyst documentation for details about these components and their
+fields.</p>
+</div>
+</div>
+<span id="document-technical-design/file-formats"></span><div class="section" id="file-formats">
+<h2><span class="section-number">6.5. </span>File Formats<a class="headerlink" href="#file-formats" title="Permalink to this headline">¶</a></h2>
+<p>This section describes the various types of files used by FossXO including
+details of the data format and considerations such as what happens if the file
+cannot be loaded.</p>
+<div class="section" id="game-asset-files">
+<span id="index-0"></span><h3><span class="section-number">6.5.1. </span>Game Asset Files<a class="headerlink" href="#game-asset-files" title="Permalink to this headline">¶</a></h3>
+<p>The game uses many different assets such as textures, fonts, and audio.
+The supported types of asset files are listed in
+<a class="reference internal" href="#table-supported-asset-file-types"><span class="std std-numref">Table 6.1</span></a>.</p>
+<span id="table-supported-asset-file-types"></span><table class="docutils align-default" id="id5">
+<caption><span class="caption-number">Table 6.1 </span><span class="caption-text">Supported asset file types.</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 28%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Asset Type</p></th>
+<th class="head"><p>Extension</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Texture</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.png</span></code></p></td>
+<td><p>24 bit RGB or 32 bit RGBA PNGs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sound FX</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.flac</span></code> / <code class="docutils literal notranslate"><span class="pre">.ogg</span></code></p></td>
+<td><p>FLAC is used for short sounds,
+Ogg Vorbis for longer sounds. <a class="footnote-reference brackets" href="#shortsounds" id="id1">1</a>
+Mono or stereo. FLAC is 16 bit.
+44.1 kHz or 48 kHz sample rate.</p></td>
+</tr>
+<tr class="row-even"><td><p>Music</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.ogg</span></code></p></td>
+<td><p>Mono or stereo Ogg Vorbis at
+44.1 kHz or 48 kHz.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Font</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.ttf</span></code></p></td>
+<td><p>TrueType font.</p></td>
+</tr>
+<tr class="row-even"><td><p>Prefab</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.ron</span></code></p></td>
+<td><p>Entity definitions in Rusty Object
+Notation.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The asset files are located in the <code class="docutils literal notranslate"><span class="pre">assets/</span></code> directory that is next to the
+game’s executable. Each type of asset is organized in subdirectories as shown in
+<a class="reference internal" href="#code-asset-dir-organization"><span class="std std-numref">Listing 6.3</span></a>. <a class="footnote-reference brackets" href="#environmentsubdirs" id="id2">2</a></p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<span id="code-asset-dir-organization"></span><div class="code-block-caption"><span class="caption-number">Listing 6.3 </span><span class="caption-text">Organization of the assets directory.</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>assets/
+├── fonts
+├── music
+├── prefab
+├── shaders
+├── sound_fx
+├── textures
+└── ui
+</pre></div>
+</div>
+</div>
+<p>If needed, further subdirectories can be created, e.g. the <code class="docutils literal notranslate"><span class="pre">textures</span></code>
+directory could contain <code class="docutils literal notranslate"><span class="pre">backgrounds</span></code> and <code class="docutils literal notranslate"><span class="pre">sprites</span></code> subdirectories.</p>
+<p>The game requires read access to its asset files. If an asset file used by an
+environment cannot be accessed, the environment will not be used and an error
+is emitted to the game’s log. If a asset required by the game’s menu or other
+core systems cannot be loaded the game exits with a user facing error message.
+Additionally, if all environments fail to find their required resources, the
+debug environment is used as it does not require any special resources but still
+provides access to the core game mechanics.</p>
+<p>To avoid unnecessary files from accidentally being included in the game, the
+game emits a warning if unused files are found in the assets directory.</p>
+</div>
+<div class="section" id="game-configuration-file">
+<span id="ref-game-configuration-file"></span><span id="index-1"></span><h3><span class="section-number">6.5.2. </span>Game Configuration File<a class="headerlink" href="#game-configuration-file" title="Permalink to this headline">¶</a></h3>
+<p>The game’s settings and options are stored in the game configuration file. This
+is a TOML file named <code class="docutils literal notranslate"><span class="pre">config.toml</span></code> and is stored in the user’s local data
+directory. <a class="footnote-reference brackets" href="#userdata" id="id3">3</a></p>
+<p>The file contains the following keys in the global section:</p>
+<dl class="simple">
+<dt>music_volume</dt><dd><p>The volume to play the environments, speedrun, and menu music. This is a
+float value from 0.0 to 1.0 where 1.0 is full volume. The default value is 1.0.</p>
+</dd>
+<dt>sound_fx_volume</dt><dd><p>The volume to play sound FX. This is a float value from 0.0 to 1.0 where 1.0
+is full volume. The default value is 1.0.</p>
+</dd>
+</dl>
+<p>The <code class="docutils literal notranslate"><span class="pre">single-player</span></code> section provides the single-player settings to use when
+the game is first loaded or default to when starting a new single-single player
+game.</p>
+<dl class="simple">
+<dt>difficulty</dt><dd><p>The difficulty to use. Default is medium.</p>
+</dd>
+<dt>mark</dt><dd><p>The player’s mark, X or O. Default is X.</p>
+</dd>
+</dl>
+<p>If the file does not exist, the game creates a new file using the default values.
+If there is a problem reading or parsing this file, default values are used.</p>
+</div>
+<div class="section" id="user-data-file">
+<span id="ref-user-data-file"></span><span id="index-2"></span><h3><span class="section-number">6.5.3. </span>User Data File<a class="headerlink" href="#user-data-file" title="Permalink to this headline">¶</a></h3>
+<p>The user data file stores various pieces of user data including best speedrun
+times or unlocked achievements. This file is a SQLite database stored in the
+user’s data directory. <a class="footnote-reference brackets" href="#userdata" id="id4">3</a> The file is created if it does not exist.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">speedruns</span></code> table whose schema is shown in
+<a class="reference internal" href="#code-user-data-speedruns-table"><span class="std std-numref">Listing 6.4</span></a>, stores the best speedrun times.</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<span id="code-user-data-speedruns-table"></span><div class="code-block-caption"><span class="caption-number">Listing 6.4 </span><span class="caption-text">The user data file speedruns table schema.</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Stores the results of speedruns</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">speedruns</span> <span class="p">(</span>
+    <span class="c1">-- The initials of the user who completed the run.</span>
+    <span class="n">initials</span> <span class="nb">TEXT</span><span class="p">,</span>
+
+    <span class="c1">-- The total time of the run.</span>
+    <span class="n">total_time</span> <span class="n">duration</span><span class="p">,</span>
+
+    <span class="c1">-- The time of the fastest game during the run.</span>
+    <span class="n">fastest_game</span> <span class="n">duration</span><span class="p">,</span>
+
+    <span class="c1">-- The date and time of the run.</span>
+    <span class="nb">date</span> <span class="n">datetime</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">duration</span></code> and <code class="docutils literal notranslate"><span class="pre">datetime</span></code> custom SQLite types are mapped to Rust types
+such as <code class="docutils literal notranslate"><span class="pre">chrono::Duration</span></code> and <code class="docutils literal notranslate"><span class="pre">chrono::DateTime</span></code> from the
+<a class="reference external" href="https://crates.io/crates/chrono">chrono crate</a>.</p>
+<p>The SQLite <code class="docutils literal notranslate"><span class="pre">user_version</span></code> value is set to 1 allowing future versions of the
+game to load and migrate existing user data.</p>
+<p>If the file cannot be initially created, an existing file fails to load, or if
+the <code class="docutils literal notranslate"><span class="pre">user_version</span></code> value is greater than 1, the functionality provided is
+disabled. E.g. the best speedrun times are not displayed.</p>
+</div>
+<div class="section" id="asset-license-info-files">
+<span id="ref-asset-license-info-files"></span><span id="index-3"></span><h3><span class="section-number">6.5.4. </span>Asset License Info Files<a class="headerlink" href="#asset-license-info-files" title="Permalink to this headline">¶</a></h3>
+<p>To ensure <a class="reference internal" href="singlepage.html#ref-distribution-license-compliance"><span class="std std-ref">Third Party License Compliance</span></a> the license information of
+every asset file is tracked using license info files. Every <code class="docutils literal notranslate"><span class="pre">assets</span></code>
+subdirectory contains a <code class="docutils literal notranslate"><span class="pre">license-info.yaml</span></code> file that contains the required
+licensing information.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">license-info.yaml</span></code> is a YAML format text file that contains a list of
+license info objects where each license info object contains the following
+keys.</p>
+<dl class="simple">
+<dt>files</dt><dd><p>List of files relative to the <code class="docutils literal notranslate"><span class="pre">license-info.yaml</span></code> for which the
+licencing information applies. Glob patterns are accepted.</p>
+</dd>
+<dt>title</dt><dd><p>Title of the work.</p>
+</dd>
+<dt>author</dt><dd><p>Name or handle of the author who created the files.</p>
+</dd>
+<dt>license</dt><dd><p>The specific license the work is published under. Examples include CC0-1.0
+or CC-BY-4.0. See <a class="reference external" href="https://spdx.org/licenses/">https://spdx.org/licenses/</a> for a complete listing of
+allowed license identifiers.</p>
+</dd>
+<dt>source</dt><dd><p>Link to website the resource was obtained from.</p>
+</dd>
+<dt>copyright</dt><dd><p>Optional. Some works include a copyright notice supplied by the author that
+must be included in the attribution.</p>
+</dd>
+<dt>modifications</dt><dd><p>Optional. If the work was modified from the original provide a short summary
+of changes.</p>
+</dd>
+</dl>
+<p>When a new asset is added to the game, it is the responsibility of the
+developer or artist adding the resource to update the license info files.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="shortsounds"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Short sounds are around 5 seconds or less.</p>
+</dd>
+<dt class="label" id="environmentsubdirs"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>An alternate way to organize the <code class="docutils literal notranslate"><span class="pre">assets</span></code>
+directory is create subdirectories for each environment. However,
+environments may share various resources such as sound FX or brush
+textures. In fact, programmers are encouraged to extract common
+components from environments to promote their reuse. Thus, to prevent
+developers and artists of thinking assets belong to specific
+environments, an alternate approach is taken of organizing resources by
+asset type.</p>
+</dd>
+<dt class="label" id="userdata"><span class="brackets">3</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id4">2</a>)</span></dt>
+<dd><p>The user data directory is <code class="docutils literal notranslate"><span class="pre">~/.local/share/fossxo/</span></code> on Linux
+and <code class="docutils literal notranslate"><span class="pre">Documents/My</span> <span class="pre">Games/FossXO</span></code> on Windows. The game needs read and
+write access to this directory.</p>
+</dd>
+</dl>
+</div>
+</div>
+<span id="document-technical-design/user-manual"></span><div class="section" id="user-manual">
+<h2><span class="section-number">6.6. </span>User Manual<a class="headerlink" href="#user-manual" title="Permalink to this headline">¶</a></h2>
+<p>The user manual provides information about how to play the game, different
+gameplay modes, and contains content to fulfill the
+<a class="reference internal" href="singlepage.html#ref-distribution-license-compliance"><span class="std std-ref">Third Party License Compliance</span></a> requirements.</p>
+<div class="section" id="user-manual-topics">
+<span id="index-0"></span><h3><span class="section-number">6.6.1. </span>User Manual Topics<a class="headerlink" href="#user-manual-topics" title="Permalink to this headline">¶</a></h3>
+<p>The list of topics included in user manual are:</p>
+<ul class="simple">
+<li><p>How to play tic-tac-toe and the <a class="reference internal" href="singlepage.html#ref-gameplay-rules-of-tic-tac-toe"><span class="std std-ref">Rules of Tic-tac-toe</span></a>.</p></li>
+<li><p>The different <a class="reference internal" href="singlepage.html#document-gameplay"><span class="doc">Gameplay</span></a> modes of FossXO.</p></li>
+<li><p>The <a class="reference internal" href="singlepage.html#ref-ui-controls"><span class="std std-ref">Controls</span></a> and key bindings available.</p></li>
+<li><p>How to get support. <a class="footnote-reference brackets" href="#githubissues" id="id1">1</a> To help with support requests the
+manual includes information such as the game’s version number. This cold
+also include information on how to resolve common issues.</p></li>
+<li><p>The game’s credits.</p></li>
+<li><p>Software bill of materials that provides a concise overview of the
+libraries used by the game.</p></li>
+<li><p>Licenses information for third party software and assets.</p></li>
+</ul>
+<p>To help users quickly find the information they are looking for each section is
+kept short and pictures are used to demonstrate concepts.</p>
+</div>
+<div class="section" id="html-generation-suggestions">
+<h3><span class="section-number">6.6.2. </span>HTML Generation Suggestions<a class="headerlink" href="#html-generation-suggestions" title="Permalink to this headline">¶</a></h3>
+<p>As the <a class="reference internal" href="singlepage.html#ref-ui-help"><span class="std std-ref">Help</span></a> menu describes, local HTML files store the user
+manual. There are some tools worth considering for creating the user manual.</p>
+<div class="section" id="mdbook">
+<span id="index-1"></span><h4><span class="section-number">6.6.2.1. </span>mdBook<a class="headerlink" href="#mdbook" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://github.com/rust-lang/mdBook">mdBook</a> is a Rust based tool for
+generating HTML based books from Markdown files. This tool both popular in the
+Rust community and is used for other game manuals. <a class="footnote-reference brackets" href="#openrabook" id="id2">2</a></p>
+</div>
+<div class="section" id="cargo-about">
+<span id="index-2"></span><h4><span class="section-number">6.6.2.2. </span>cargo-about<a class="headerlink" href="#cargo-about" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://crates.io/crates/cargo-about">cargo-about</a> is a Cargo plugin for
+generating a listing of all creates used by the application. It uses a
+templating engine to render the output listing allowing for Markdown or HTML
+output which can then be included in the manual.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A similar technique can be used for generating the third party asset
+license information.</p>
+</div>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="githubissues"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>For example, provide links to the GitHub issue tracker.</p>
+</dd>
+<dt class="label" id="openrabook"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>The <a class="reference external" href="https://github.com/OpenRA/book">OpenRA book</a> is mdBook
+based.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<span id="document-technical-design/packaging"></span><div class="section" id="packages-and-source-builds">
+<h2><span class="section-number">6.7. </span>Packages and Source Builds<a class="headerlink" href="#packages-and-source-builds" title="Permalink to this headline">¶</a></h2>
+<p>The game is <a class="reference internal" href="singlepage.html#ref-distribution"><span class="std std-ref">distributed</span></a> as either a precompiled
+package for their platform or users can build the game from source.</p>
+<div class="section" id="inno-setup-windows-installer">
+<span id="index-0"></span><h3><span class="section-number">6.7.1. </span>Inno Setup Windows Installer<a class="headerlink" href="#inno-setup-windows-installer" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://jrsoftware.org/isinfo.php">Inno Setup</a> is used to create Windows
+packages. Inno Setup has been around for many years, is straight forward to
+create setup script files, and provides excellent documentation on how to use.</p>
+<p>Installer has typical behavior for Windows setup programs:</p>
+<ul class="simple">
+<li><p>The executable and game assets are stored in the user’s program files
+directory. <a class="footnote-reference brackets" href="#autoconstants" id="id1">1</a></p></li>
+<li><p>The game’s configuration and user data is stored in the user’s games directory.</p></li>
+<li><p>Shortcuts are placed in the start menu and optionally on the desktop.</p></li>
+<li><p>The game is listed in the Programs &amp; Features control panel so it can easily
+be uninstalled.</p></li>
+<li><p>The version number listed in the installer and control panel match that of
+the game. <a class="footnote-reference brackets" href="#getenv" id="id2">2</a></p></li>
+</ul>
+<p>The game might require some additional Windows specific resources to run, such
+as the Microsoft Visual C++ redistributable. These items are included in the
+installer or listed as prerequisites on a case by case basis.</p>
+</div>
+<div class="section" id="appimage-linux-package">
+<span id="index-1"></span><h3><span class="section-number">6.7.2. </span>AppImage Linux Package<a class="headerlink" href="#appimage-linux-package" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://appimage.org/">AppImage</a> is a way to package applications into a
+standalone file that can run on many different Linux distributions. <a class="footnote-reference brackets" href="#openra" id="id3">3</a>
+Therefore, this makes its use ideal for this project.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>AppImage package include libraries traditionally installed system wide.
+These included libraries and their versions are included as part of the
+software bill of materials.</p>
+</div>
+</div>
+<div class="section" id="build-from-source">
+<h3><span class="section-number">6.7.3. </span>Build from Source<a class="headerlink" href="#build-from-source" title="Permalink to this headline">¶</a></h3>
+<p>The game is open-source thus users can build the game themselves. Several steps
+are taken to help users build the game with minimal friction.</p>
+<ul class="simple">
+<li><p>The repository’s default branch is the <code class="docutils literal notranslate"><span class="pre">release</span></code> branch. Code on this
+branch has been tested, tagged, and is ready for release. Development
+occurs on a different branch. This allows users to clone and build the
+repository without having to remember to check out a specific tag or branch.</p></li>
+<li><p>The README file contains clear instructions on how to build the game
+including any dependencies that need to be installed. These steps are
+targeted specifically at end users. For example, build steps that typically
+occur during development, such as running unit tests or lint tools are
+omitted.</p></li>
+<li><p>The build steps are automated as much as possible to reduce the possibility
+of mistakes being made.</p></li>
+</ul>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="autoconstants"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>See Inno Setup’s <em>Auto Constants</em> feature for automatically
+selecting the correct directories to place files.</p>
+</dd>
+<dt class="label" id="getenv"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Inno Setup’s <code class="docutils literal notranslate"><span class="pre">GetEnv</span></code> preprocessor can get environmental
+variables — this is likely a useful way of passing data to Inno
+including the applications version number.</p>
+</dd>
+<dt class="label" id="openra"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>OpenRA is an example of a game that uses AppImage.</p>
+</dd>
+</dl>
+</div>
+</div>
+<span id="document-technical-design/security"></span><div class="section" id="system-and-data-security">
+<h2><span class="section-number">6.8. </span>System and Data Security<a class="headerlink" href="#system-and-data-security" title="Permalink to this headline">¶</a></h2>
+<p>Software security is an important consideration of any application, including
+games. This section lists potential security risks the game poses to users’
+systems and the steps taken to minimize those risks.</p>
+<div class="section" id="supply-chain-attack">
+<span id="index-0"></span><h3><span class="section-number">6.8.1. </span>Supply Chain Attack<a class="headerlink" href="#supply-chain-attack" title="Permalink to this headline">¶</a></h3>
+<p>A supply chain attack is where cyber-attacker compromises libraries or other
+dependencies of an application to attack systems that use the application.
+The game makes extensive use of third party libraries, thus at an elevated risk
+for this type of attack. It only takes one of the dependent libraries being
+compromised for the user’s system to be put at risk.</p>
+<p>To mitigate this risk several steps are taken including generating a software
+bill of materials and using tools to automate package auditing.</p>
+<div class="section" id="software-bill-of-materials">
+<span id="index-1"></span><h4><span class="section-number">6.8.1.1. </span>Software Bill of Materials<a class="headerlink" href="#software-bill-of-materials" title="Permalink to this headline">¶</a></h4>
+<p>The <a class="reference internal" href="singlepage.html#document-technical-design/user-manual"><span class="doc">User Manual</span></a> contains a listing of every library used by the game.
+The software BOM is specific for each release of the game. <a class="footnote-reference brackets" href="#offlinebom" id="id1">1</a></p>
+<p>The software BOM ensures developers and users alike know exactly what version of
+each library is being used. The list can be audited for libraries that have
+known vulnerabilities or other issues.</p>
+</div>
+<div class="section" id="rustsec-advisory-database">
+<span id="index-2"></span><h4><span class="section-number">6.8.1.2. </span>RustSec Advisory Database<a class="headerlink" href="#rustsec-advisory-database" title="Permalink to this headline">¶</a></h4>
+<p>The <a class="reference external" href="https://github.com/RustSec/advisory-db/">RustSec Advisory Database</a> is a
+repository of security advisories for Rust crates. Tools such as
+<a class="reference external" href="https://crates.io/crates/cargo-deny">cargo-deny</a> use this repository to
+automatically warn when a Rust application is using problematic version of a
+crate. Ideally, this check is part of the game’s build process.</p>
+</div>
+<div class="section" id="package-sources">
+<h4><span class="section-number">6.8.1.3. </span>Package Sources<a class="headerlink" href="#package-sources" title="Permalink to this headline">¶</a></h4>
+<p>FossXO and its dependent libraries are open-source: anyone can send a pull
+request to modify the codes functionality. Unfortunately, even with a careful
+code reviews, it is possible to sneak in alternate versions of libraries. <a class="footnote-reference brackets" href="#trustedsource" id="id3">2</a>
+The cargo-deny tool can also be used to detect when packages are pulled in from
+sources other than crates.io.</p>
+</div>
+<div class="section" id="game-assets">
+<span id="index-3"></span><h4><span class="section-number">6.8.1.4. </span>Game Assets<a class="headerlink" href="#game-assets" title="Permalink to this headline">¶</a></h4>
+<p>It is possible a cyber-attacker create a special crafted game asset file that
+when loaded by FossXO triggers a bug in one of the asset loading libraries used
+by the game. This type of attack is less probable than attacking a package
+source as an attacker would have to create an asset where the vulnerable library
+successfully loads its main content yet provides the attacker some benefit such
+as running arbitrary code contained in the asset. <a class="footnote-reference brackets" href="#assetattack" id="id4">3</a></p>
+<p>Usage of the RustSec Advisory Database should help mitigate this attack by
+identifying bugs in the asset loading libraries. Furthermore, assets provided
+in an untrusted pull request are carefully scrutinized to prevent a targeted
+attack against the game. <a class="footnote-reference brackets" href="#pngcheck" id="id5">4</a></p>
+</div>
+</div>
+<div class="section" id="direct-attacks">
+<span id="index-4"></span><h3><span class="section-number">6.8.2. </span>Direct Attacks<a class="headerlink" href="#direct-attacks" title="Permalink to this headline">¶</a></h3>
+<p>FossXO does not connect to internet servers for any reason or even have local
+network multiplayer. The game does not allow users to open arbitrary files.
+Finally, the game does not require any special or elevated permissions to run. <a class="footnote-reference brackets" href="#install" id="id6">5</a>
+Therefore, its direct attack surface should be minimal to would be attackers.</p>
+<p>Regardless, the following steps are taken to help reduce the risk of compromise
+to a user’s system.</p>
+<ul class="simple">
+<li><p>The Amethyst networking functionality is optional and not needed by this game.
+Therefore, the amethyst_network feature is disabled.</p></li>
+<li><p>User input is sanitized, in particular the user’s initials in the speedrun
+best times table. <a class="reference internal" href="#fig-exploits-of-a-mom"><span class="std std-numref">Figure 6.11</span></a> shows a famous example
+of this type of attack.</p></li>
+<li><p>Unsafe Rust is used only when needed, in the smallest scope possible, and
+each unsafe block is thoroughly reviewed.</p></li>
+<li><p>Standard software best practices are followed to help minimize potential
+bugs or unexpected software behavior. Lint tools are used to help enforce
+these best practices. <a class="footnote-reference brackets" href="#codecomplete" id="id7">6</a></p></li>
+</ul>
+<div class="figure align-default" id="id8">
+<span id="fig-exploits-of-a-mom"></span><img alt="_images/exploits_of_a_mom.png" src="_images/exploits_of_a_mom.png" />
+<p class="caption"><span class="caption-number">Figure 6.11 </span><span class="caption-text">XKCD’s <a class="reference external" href="https://xkcd.com/327/">Exploits of a Mom</a> is a famous example of
+an SQL injection attack.
+<a class="reference external" href="https://xkcd.com/license.html">Comic copyright xkcd.com under the CC BY-NC 2.5 license</a>.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="personal-data">
+<h3><span class="section-number">6.8.3. </span>Personal Data<a class="headerlink" href="#personal-data" title="Permalink to this headline">¶</a></h3>
+<p>The game uses the user’s initials when displaying the <a class="reference internal" href="singlepage.html#ref-ui-speedrun"><span class="std std-ref">Speedrun</span></a>
+best times. This data is stored in the <a class="reference internal" href="singlepage.html#ref-user-data-file"><span class="std std-ref">User Data File</span></a>. The game does
+not use or store any other personal data.</p>
+<p>No personal data leave’s the users system. This includes ensuring personal data
+is not included in the game’s <a class="reference internal" href="singlepage.html#ref-dev-tools-logging"><span class="std std-ref">log file</span></a> as users
+may attach log files to bug reports.</p>
+<p>Examples of data that is excluded from log files includes:</p>
+<ul class="simple">
+<li><p>User’s initials</p></li>
+<li><p>User’s computer account name</p></li>
+<li><p>The computer name</p></li>
+<li><p>WiFi access point names</p></li>
+<li><p>Names of applications installed on the system</p></li>
+</ul>
+<p>Non personal data that can be included in the logs files:</p>
+<ul class="simple">
+<li><p>FossXO version</p></li>
+<li><p>Operating system version</p></li>
+<li><p>Graphics driver provider and version</p></li>
+<li><p>Game settings</p></li>
+</ul>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="offlinebom"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Users might have old versions of the game installed on their
+system. Including an offline software bill of materials in the user
+manual ensures the BOM is accurate for the version of the game
+they are actually using.</p>
+</dd>
+<dt class="label" id="trustedsource"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>For details on how malicious packages can be injected in
+pull requests see
+<a class="reference external" href="https://snyk.io/blog/why-npm-lockfiles-can-be-a-security-blindspot-for-injecting-malicious-modules/">Why npm lockfiles can be a security blindspot for injecting malicious modules</a></p>
+</dd>
+<dt class="label" id="assetattack"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dd><p>If the asset fails to load the main content is very unlikely
+to still be included in a game. E.g. if the brick texture fails to show
+up a different brick texture will be used in place of the broken one.</p>
+</dd>
+<dt class="label" id="pngcheck"><span class="brackets"><a class="fn-backref" href="#id5">4</a></span></dt>
+<dd><p>Tools such as <code class="docutils literal notranslate"><span class="pre">PNGcheck</span></code> can help detect corrupted asset files.</p>
+</dd>
+<dt class="label" id="install"><span class="brackets"><a class="fn-backref" href="#id6">5</a></span></dt>
+<dd><p>Ideally, the application does not require elevated permissions to
+install.</p>
+</dd>
+<dt class="label" id="codecomplete"><span class="brackets"><a class="fn-backref" href="#id7">6</a></span></dt>
+<dd><p>McConnell (2004) <em>Code Complete: A Practical Handbook of Software Construction, Second Edition</em>
+provides a detailed guide to software best practices.</p>
+</dd>
+</dl>
+</div>
+</div>
+<span id="document-technical-design/development-tools"></span><div class="section" id="development-tools">
+<h2><span class="section-number">6.9. </span>Development Tools<a class="headerlink" href="#development-tools" title="Permalink to this headline">¶</a></h2>
+<p>This section describes the tools used to help with the development of the game
+and to ensure future maintainability.</p>
+<div class="section" id="debug-environment">
+<span id="index-0"></span><h3><span class="section-number">6.9.1. </span>Debug Environment<a class="headerlink" href="#debug-environment" title="Permalink to this headline">¶</a></h3>
+<p>The debug environment shows the canonical location of the grid, marks, and hit
+boxes. This can can optionally be overlaid on the current environment allowing
+developers to ensure the positioning of their entities is correct. <a class="footnote-reference brackets" href="#firstenv" id="id1">1</a></p>
+<p>Features of the debug environment include:</p>
+<ul class="simple">
+<li><p>Showing the grid.</p></li>
+<li><p>Showing X and O marks.</p></li>
+<li><p>Showing winning positions.</p></li>
+<li><p>Highlighting the current position being hovered over by the mouse.</p></li>
+</ul>
+</div>
+<div class="section" id="building-and-packaging-workflows">
+<span id="index-1"></span><h3><span class="section-number">6.9.2. </span>Building and Packaging Workflows<a class="headerlink" href="#building-and-packaging-workflows" title="Permalink to this headline">¶</a></h3>
+<p>There are several step to building and packing the game. This includes, but is
+not limited to compiling the application, running tests, rendering the user
+manual, and running the packaging process. Additionally, the details of some of
+these steps are different depending the target platform.</p>
+<p><a class="reference external" href="https://crates.io/crates/cargo-make">cargo-make</a> is a tool that allows build
+steps and workflow to be managed. Workflows can include:</p>
+<ul class="simple">
+<li><p>Preform a user build from source. This can include building the application
+in release mode and launching it when finished. Items such as running tests
+are not needed.</p></li>
+<li><p>Prepare the system for development. E.g. automatically acquire build
+dependencies.</p></li>
+<li><p>Do a development build. This includes running the lint checks, formatting
+checks, and unit tests.</p></li>
+<li><p>Run the full test suite, including slow tests.</p></li>
+<li><p>Package the game for the target platform.</p></li>
+</ul>
+</div>
+<div class="section" id="continuous-integration">
+<h3><span class="section-number">6.9.3. </span>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permalink to this headline">¶</a></h3>
+<p>A continuous integration system is used to build and test every commit
+allowing potential problems to be found as soon as possible. This allows
+developers to work right on the <code class="docutils literal notranslate"><span class="pre">development</span></code> branch and have confidence their
+changes are not breaking existing functionality.</p>
+</div>
+<div class="section" id="automated-license-checks">
+<span id="index-2"></span><h3><span class="section-number">6.9.4. </span>Automated License Checks<a class="headerlink" href="#automated-license-checks" title="Permalink to this headline">¶</a></h3>
+<p>Automated tools are used to quickly and accurately check the
+<a class="reference internal" href="singlepage.html#ref-distribution-license-compliance"><span class="std std-ref">Third Party License Compliance</span></a>. An existing tool for checking
+library licenses is <a class="reference external" href="https://crates.io/crates/cargo-deny">cargo-deny</a> .
+A similar approach using information in the <a class="reference internal" href="singlepage.html#ref-asset-license-info-files"><span class="std std-ref">Asset License Info Files</span></a>
+is taken for the third party assets.</p>
+<p>These tools are part of the development, test, and continuous integration
+workflows.</p>
+</div>
+<div class="section" id="logging">
+<span id="ref-dev-tools-logging"></span><h3><span class="section-number">6.9.5. </span>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
+<p>Logging is used to help developers and users troubleshoot potential issues with
+the game.</p>
+<p>The available logging levels are:</p>
+<dl class="simple">
+<dt>error</dt><dd><p>Used when there is a problem executing part of the application. One such
+example is being unable to load an asset file.</p>
+</dd>
+<dt>warn</dt><dd><p>Warns of an unexpected event in the application.</p>
+</dd>
+<dt>info</dt><dd><p>Provides information about the system the application is running on and the
+games general flow. Examples include the application’s version and
+transitions of <a class="reference internal" href="singlepage.html#document-technical-design/states"><span class="doc">Game States</span></a>.</p>
+</dd>
+<dt>debug</dt><dd><p>Used to provide context when debugging potential issues. Examples include
+noting when events are processed, new environments are loaded, or when
+players switch turns.</p>
+</dd>
+<dt>trace</dt><dd><p>Not used.</p>
+</dd>
+</dl>
+<p>The log file of the current game session is stored in the user’s data directory.
+The file is overwritten each time the game is launched. This ensures the space
+taken up by logging is not too large yet ensures logging information is
+available in the event the game crashes.</p>
+<p>The default log level is <strong>info</strong>.</p>
+</div>
+<div class="section" id="command-line-options">
+<h3><span class="section-number">6.9.6. </span>Command Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h3>
+<p>The game provides command line options allowing developers to launch the game
+in different configurations without having to recompile.</p>
+<dl class="std option">
+<dt id="cmdoption-debug">
+<code class="sig-name descname">--debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables development aids including the debug environment, FPS counter, and
+any other utilities that might be useful for debugging.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-test">
+<code class="sig-name descname">--test</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a self-test of the game. The result of the test is printed to the
+console and the exit code indicates pass or fail. An example of a self-test
+would be playing a complete game on each environment while monitoring the
+logs for warning or error messages. <a class="footnote-reference brackets" href="#selftest" id="id2">2</a></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-environment">
+<code class="sig-name descname">--environment</code><code class="sig-prename descclassname"> &lt;ENVIRONMENT&gt;</code><a class="headerlink" href="#cmdoption-environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forces the game to use a specific environment instead of selecting
+environments at random. This is useful when creating new environments.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-h">
+<span id="cmdoption-help"></span><code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows the command line help. This provides a brief description of the
+application and lists the available command line options. This also lets
+users know how to find the user manual in case the user is searching for
+information on how to play the game.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-version">
+<code class="sig-name descname">--version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints the application’s version number, license, and copyright information. <a class="footnote-reference brackets" href="#cargoenv" id="id3">3</a></p>
+</dd></dl>
+
+<p>The <a class="reference internal" href="#cmdoption-h"><code class="xref std std-option docutils literal notranslate"><span class="pre">--help</span></code></a> and <a class="reference internal" href="#cmdoption-version"><code class="xref std std-option docutils literal notranslate"><span class="pre">--version</span></code></a> options are handled before the game
+attempts to load files or show windows allowing them to work from systems
+without a display server or supported graphics drivers allowing their
+information to be obtained from scripts or users trying to troubleshoot a
+crashing game.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="firstenv"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>The debug environment should be created early in the development
+process as it allows the game to be played without needing additional
+environments.</p>
+</dd>
+<dt class="label" id="selftest"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Developers can use the self-test to exercise functionally that
+cannot be exercise by unit tests such as loading game assets. This can
+also be incorporated in a larger functional test suite. Finally, users
+might consider running a self-test when troubleshooting game issues.</p>
+</dd>
+<dt class="label" id="cargoenv"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Cargo provides several
+<a class="reference external" href="https://doc.rust-lang.org/cargo/reference/environment-variables.html">Environment Variables</a>
+that can be accessed using the <code class="docutils literal notranslate"><span class="pre">std::env</span></code> macro. This is likely to be
+useful for keeping the various places that use version numbers
+synchronized.</p>
+</dd>
+</dl>
+</div>
+</div>
+<span id="document-technical-design/prototype"></span><div class="section" id="prototype-lessons-learned">
+<span id="index-0"></span><h2><span class="section-number">6.10. </span>Prototype Lessons Learned<a class="headerlink" href="#prototype-lessons-learned" title="Permalink to this headline">¶</a></h2>
+<p>The development team is new to the Rust game development ecosystem; the
+<a class="reference internal" href="singlepage.html#ref-objective-build-risk-reduction-prototype"><span class="std std-ref">Build Risk Reduction Prototype</span></a> objective allowed the team
+to explore various techniques and come up with a design that fulfills the game
+requirements listed in this document.</p>
+<p>The game’s design is influenced by the knowledge learned during the prototyping
+phase. This section describes the knowledge gathered during the prototyping
+phase including why Amethyst was chosen as the engine to base the game’s design
+around.</p>
+<div class="section" id="rust-game-engines">
+<span id="index-1"></span><h3><span class="section-number">6.10.1. </span>Rust Game Engines<a class="headerlink" href="#rust-game-engines" title="Permalink to this headline">¶</a></h3>
+<p>While doing research for the prototype three popular Rust game engines were
+considered: <a class="reference external" href="https://github.com/amethyst/amethyst/tree/v0.15.0">Amethyst v0.15.0</a>,
+<a class="reference external" href="https://github.com/ggez/ggez">ggez v0.5.1</a>, and
+<a class="reference external" href="https://github.com/PistonDevelopers/piston">Piston v0.48.0</a>. An overview of
+these engines with regards to how their features meet FossXO’s requirements
+is provided in <a class="reference internal" href="#table-rust-engines-comparison"><span class="std std-numref">Table 6.2</span></a> . <a class="footnote-reference brackets" href="#enginedisclaimer" id="id1">1</a></p>
+<span id="table-rust-engines-comparison"></span><table class="docutils align-default" id="id4">
+<caption><span class="caption-number">Table 6.2 </span><span class="caption-text">Comparison of Rust game engines with regards to meeting FossXO’s requirements.</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Amethyst</p></th>
+<th class="head"><p>ggez</p></th>
+<th class="head"><p>Piston</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>crates.io downloads</p></td>
+<td><p>50k</p></td>
+<td><p>45k</p></td>
+<td><p>190k</p></td>
+</tr>
+<tr class="row-odd"><td><p>GitHub stars</p></td>
+<td><p>5.9k</p></td>
+<td><p>2.4k</p></td>
+<td><p>3.5k</p></td>
+</tr>
+<tr class="row-even"><td><p>Tagged releases</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>Usage Model</p></td>
+<td><p>Complete engine for games large and small</p></td>
+<td><p>Complete engine for basic games</p></td>
+<td><p>Loose collection of libraries</p></td>
+</tr>
+<tr class="row-even"><td><p>Getting Started Guide</p></td>
+<td><p>Excellent</p></td>
+<td><p>Ok</p></td>
+<td><p>Disorganized</p></td>
+</tr>
+<tr class="row-odd"><td><p>API Docs</p></td>
+<td><p>OK</p></td>
+<td><p>Excellent</p></td>
+<td><p>Ok</p></td>
+</tr>
+<tr class="row-even"><td><p>Examples</p></td>
+<td><p>Excellent</p></td>
+<td><p>Excellent</p></td>
+<td><p>Poor</p></td>
+</tr>
+<tr class="row-odd"><td><p>GUI Widgets</p></td>
+<td><p>Basic</p></td>
+<td><p>No</p></td>
+<td><p>Full support via conrod</p></td>
+</tr>
+<tr class="row-even"><td><p>Wayland support</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Test support</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Unknown</p></td>
+</tr>
+<tr class="row-even"><td><p>Camera System</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Unknown</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sprite Drawing</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Unknown</p></td>
+</tr>
+<tr class="row-even"><td><p>Vector Drawing</p></td>
+<td><p>No (Debug lines only)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Audio / Sound FX</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Unknown</p></td>
+</tr>
+<tr class="row-even"><td><p>Animation System</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Unknown</p></td>
+</tr>
+<tr class="row-odd"><td><p>Special FX</p></td>
+<td><p>Lighting</p></td>
+<td><p>Can create simple custom shaders and compose multiple buffers</p></td>
+<td><p>Unknown</p></td>
+</tr>
+<tr class="row-even"><td><p>Particle Systems</p></td>
+<td><p>No, but very easy to add new systems</p></td>
+<td><p>No</p></td>
+<td><p>Unknown</p></td>
+</tr>
+<tr class="row-odd"><td><p>Keyboard / Mouse</p></td>
+<td><p>High level binding system in addison to basic access</p></td>
+<td><p>Basic access</p></td>
+<td><p>Unknown</p></td>
+</tr>
+<tr class="row-even"><td><p>Resource Management</p></td>
+<td><p>Full resource system</p></td>
+<td><p>Basic loading of resources</p></td>
+<td><p>Unknown</p></td>
+</tr>
+</tbody>
+</table>
+<p>Amethyst, ggez, and Piston are all built on top of a similar collection of
+underlying Rust libraries that handel things such as graphics, keyboard and
+mouse support, and audio. However, the engines different in the API and
+abstractions created around these libraries.</p>
+<div class="section" id="piston">
+<h4><span class="section-number">6.10.1.1. </span>Piston<a class="headerlink" href="#piston" title="Permalink to this headline">¶</a></h4>
+<p>Piston was the first engine considered for FossXO and is one of the most
+downloaded game engines from crates.io. However, its documentation and design
+as a loose collection of libraries made it hard to use as a new Rust programmer.</p>
+<p>This was especially true when looking at Piston’s examples. Different examples
+would do basic tasks like create a window in vastly different ways leading to
+confusion on why these tasks needed to be done differently or if one way was
+preferred over another.</p>
+<p>Because of Piston’s complexity it was ruled out for use in FossXO.</p>
+</div>
+<div class="section" id="ggez">
+<h4><span class="section-number">6.10.1.2. </span>ggez<a class="headerlink" href="#ggez" title="Permalink to this headline">¶</a></h4>
+<p>ggez’s goal is to allow developers to make simple games quickly. Additionally,
+it provided good getting started documentation and an excellent set of examples.
+Additionally, ggez’s core set of features work well for FossXO’s requirements.
+E.g. the easy of use of rendering lines, textures, and allowing multiple texture
+buffers to be composed for creating special FX.</p>
+<p>There were a few rough spots such as the programmer needing to know about
+details of the underlying libraries used. ggez is also very opinionated about
+where user data is saved. Additionally, ggez does not provide any UI widgets so
+those would have to be created. However, overall ggez was a strong contender for
+use with FossXO.</p>
+<p>Unfortunately, the design phase of the project exposed a major flaw with ggez:
+it does not provide any functionality or guidance on how to structure your game.
+FossXO contains multiple environments, game modes, and menus. Trying to manage
+the data, logic, relationships, and ownership of all these items quickly became
+complicated. Being new to Rust and wanting to focus on making a game and not a
+game engine it was decided to look elsewhere.</p>
+</div>
+<div class="section" id="amethyst">
+<h4><span class="section-number">6.10.1.3. </span>Amethyst<a class="headerlink" href="#amethyst" title="Permalink to this headline">¶</a></h4>
+<p>Amethyst is built around a entity component system which provides structure
+on where all the pieces of the game go. Amethyst has excellent getting started
+documentation and examples that demonstrate the engine. Additionally, Amethyst
+provides basic UI widgets which would otherwise take a fair amount of time to
+implement. <a class="footnote-reference brackets" href="#expandable" id="id2">2</a></p>
+<p>Compared to ggez, Amethyst works at a higher level. This has a few down sides
+such as it being harder, or at least not as oblivious, on how to do some basic
+tasks such as drawing lines. However, its architecture allows different
+rendering systems to be used or swapped in and out.</p>
+<p>One more unique aspect about Amethyst compared to the other engines considered
+it is the only one to tag its releases per the Rust API Guidelines. <a class="footnote-reference brackets" href="#rustapiguidelines" id="id3">3</a></p>
+<p>Therefore, of the engines considered Amethyst aligned best with FossXO’s
+requirements and made the foundation for the team to build upon.</p>
+</div>
+</div>
+<div class="section" id="entity-component-system">
+<h3><span class="section-number">6.10.2. </span>Entity Component System<a class="headerlink" href="#entity-component-system" title="Permalink to this headline">¶</a></h3>
+<p>The main feature that Amethyst provides over the other engines is its
+entity component system. The ECS model works well with Rust’s ownership model.
+This greatly simplified the game’s design.</p>
+<p>Therefore, considering using a ECS architecture for future games even if not
+using the Amethyst engine.</p>
+</div>
+<div class="section" id="wayland-issue">
+<span id="index-2"></span><h3><span class="section-number">6.10.3. </span>Wayland Issue<a class="headerlink" href="#wayland-issue" title="Permalink to this headline">¶</a></h3>
+<p>While working with both ggez and Amethyst an issue with Wayland was discovered
+due to an issue in an underlying library. To resolve the issue set the
+<code class="docutils literal notranslate"><span class="pre">WINIT_UNIX_BACKEND</span></code> environmental variable to <code class="docutils literal notranslate"><span class="pre">x11</span></code> before creating the
+game’s window. <a class="reference internal" href="#code-set-winit-unix-backend-envar"><span class="std std-numref">Listing 6.5</span></a> shows how to this
+in code.</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<span id="code-set-winit-unix-backend-envar"></span><div class="code-block-caption"><span class="caption-number">Listing 6.5 </span><span class="caption-text">Example of setting the WINIT_UNIX_BACKEND environmental variable.</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// Workaround for crash on Wayland.</span>
+<span class="n">env</span>::<span class="n">set_var</span><span class="p">(</span><span class="s">&quot;WINIT_UNIX_BACKEND&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;x11&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<p>For details see:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ggez/ggez/issues/579">https://github.com/ggez/ggez/issues/579</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rust-windowing/winit/issues/793">https://github.com/rust-windowing/winit/issues/793</a></p></li>
+</ul>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="enginedisclaimer"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>The comparison of Rust engines is based on a cursory
+examination of each engine with a focus on how they meet FossXO’s
+specific requirements. The engines might support more features than
+described here and the feasibility findings might be different if
+evaluating the engines for a different application or game.</p>
+</dd>
+<dt class="label" id="expandable"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Amethyst makes it easy to add new systems and features which
+helps with the <a class="reference internal" href="singlepage.html#ref-objective-easily-expandable-and-modifiable"><span class="std std-ref">Easily Expandable and Modifiable</span></a>
+objective.</p>
+</dd>
+<dt class="label" id="rustapiguidelines"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p><a class="reference external" href="https://rust-lang.github.io/api-guidelines/documentation.html">Rust API Guidelines: Documentation</a></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<span id="document-glossary"></span><div class="section" id="glossary">
+<h1><span class="section-number">7. </span>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h1>
+<dl class="glossary simple">
+<dt id="term-asset">asset</dt><dd><p>A game asset is a sound, texture, font, model, or other data used by
+the game.</p>
+</dd>
+<dt id="term-background-music">background music</dt><dd><p>Background music is a type of music that is not intended to be the
+primary focus of listeners. When described as the type of music for an
+<a class="reference internal" href="#term-environment"><span class="xref std std-term">environment</span></a>, it indicates the environment’s music is not a main
+focus of the environment.</p>
+</dd>
+<dt id="term-cat-s-game">cat’s game</dt><dd><p>Term used when a game of tic-tac-toe ends in a draw where there is no winner.</p>
+</dd>
+<dt id="term-component">component</dt><dd><p>In an <a class="reference internal" href="#term-entity-component-system"><span class="xref std std-term">entity component system</span></a> architecture, a component contains
+the data for one aspect of a game object. Component examples include
+color, position, or mark type.</p>
+</dd>
+<dt id="term-ECS">ECS</dt><dd><p>Acronym for <a class="reference internal" href="#term-entity-component-system"><span class="xref std std-term">entity component system</span></a>.</p>
+</dd>
+<dt id="term-entity">entity</dt><dd><p>In an <a class="reference internal" href="#term-entity-component-system"><span class="xref std std-term">entity component system</span></a> architecture, an entity represents
+a single object in the game. Entities by themselves do not store data,
+instead they identify the collection of <a class="reference internal" href="#term-component"><span class="xref std std-term">components</span></a>
+belonging to the object. Entity examples include the marks on the board
+or an AI player.</p>
+</dd>
+<dt id="term-entity-component-system">entity component system</dt><dd><p>An architecture pattern often used in game engines where
+<a class="reference internal" href="#term-entity"><span class="xref std std-term">entities</span></a> define the game’s objects.
+<a class="reference internal" href="#term-component"><span class="xref std std-term">Components</span></a> store the actual data.
+<a class="reference internal" href="#term-system"><span class="xref std std-term">Systems</span></a> contain the logic that operates on the data.</p>
+</dd>
+<dt id="term-environment">environment</dt><dd><p>An environment is a unique setting or location where tic-tac-toe is
+played.</p>
+</dd>
+<dt id="term-FOSS">FOSS</dt><dd><p>Acronym for Free and <a class="reference internal" href="#term-open-source-software"><span class="xref std std-term">open-source software</span></a>.</p>
+</dd>
+<dt id="term-hand-drawn">hand drawn</dt><dd><p>Hand drawn is a style of line that is wavy and imprecise.</p>
+</dd>
+<dt id="term-open-source-software">open-source software</dt><dd><p>Open-source software is software whose source code is available for others
+to study, modify, and redistribute.</p>
+</dd>
+<dt id="term-Rust-programming-language">Rust programming language</dt><dd><p>Rust is a systems programming language with a focus on safety and speed.
+Website: <a class="reference external" href="https://www.rust-lang.org/">https://www.rust-lang.org/</a></p>
+</dd>
+<dt id="term-RustConf">RustConf</dt><dd><p>RustConf is the annual Rust developers conference.</p>
+</dd>
+<dt id="term-speedrun">speedrun</dt><dd><p>A speed run is a play-though of a video game where the go is to complete
+the game as fast as possible.</p>
+</dd>
+<dt id="term-system">system</dt><dd><p>In an <a class="reference internal" href="#term-entity-component-system"><span class="xref std std-term">entity component system</span></a> architecture, systems contain the
+game’s logic. Each system is executed every game loop over a collection
+of <a class="reference internal" href="#term-component"><span class="xref std std-term">components</span></a>.</p>
+</dd>
+<dt id="term-throwaway-prototype">throwaway prototype</dt><dd><p>A prototype is a version of software that is created to demonstrate core
+features or techniques of a software application. A throwaway prototype
+is discarded once the features or techniques have been demonstrated.
+Throwaway prototypes allow for rapid experimentation with low risk.</p>
+</dd>
+</dl>
+</div>
+<span id="document-references"></span><div class="section" id="references">
+<h1><span class="section-number">8. </span>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h1>
+</div>
+<dl class="citation">
+<dt class="label" id="amethyst-book"><span class="brackets">Amethyst-book</span></dt>
+<dd><p><em>The Amethyst Engine</em>. Retrieved from <a class="reference external" href="https://book.amethyst.rs/stable/">https://book.amethyst.rs/stable/</a>
+(<a class="reference external" href="https://github.com/amethyst/amethyst">source on GitHub</a>)</p>
+</dd>
+<dt class="label" id="rogers-2014"><span class="brackets">Rogers-2014</span></dt>
+<dd><p>Scott Rogers (2014) <em>Level Up! The Guide to Great Video Game Design</em>.</p>
+</dd>
+</dl>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">FossXO Game Design Document</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-introduction">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-gameplay">2. Gameplay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-gui">3. User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-environments">4. Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-misc/index">5. Additional Considerations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-technical-design/index">6. Technical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-glossary">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-references">8. References</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/fossxo/fossxo-gdd">GitHub Source</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, James Richey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

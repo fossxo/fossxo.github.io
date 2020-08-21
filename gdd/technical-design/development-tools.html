@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6.9. Development Tools &#8212; FossXO Game Design Document Rev. B</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.10. Prototype Lessons Learned" href="prototype.html" />
+    <link rel="prev" title="6.8. System and Data Security" href="security.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="development-tools">
+<h1><span class="section-number">6.9. </span>Development Tools<a class="headerlink" href="#development-tools" title="Permalink to this headline">¶</a></h1>
+<p>This section describes the tools used to help with the development of the game
+and to ensure future maintainability.</p>
+<div class="section" id="debug-environment">
+<span id="index-0"></span><h2><span class="section-number">6.9.1. </span>Debug Environment<a class="headerlink" href="#debug-environment" title="Permalink to this headline">¶</a></h2>
+<p>The debug environment shows the canonical location of the grid, marks, and hit
+boxes. This can can optionally be overlaid on the current environment allowing
+developers to ensure the positioning of their entities is correct. <a class="footnote-reference brackets" href="#firstenv" id="id1">1</a></p>
+<p>Features of the debug environment include:</p>
+<ul class="simple">
+<li><p>Showing the grid.</p></li>
+<li><p>Showing X and O marks.</p></li>
+<li><p>Showing winning positions.</p></li>
+<li><p>Highlighting the current position being hovered over by the mouse.</p></li>
+</ul>
+</div>
+<div class="section" id="building-and-packaging-workflows">
+<span id="index-1"></span><h2><span class="section-number">6.9.2. </span>Building and Packaging Workflows<a class="headerlink" href="#building-and-packaging-workflows" title="Permalink to this headline">¶</a></h2>
+<p>There are several step to building and packing the game. This includes, but is
+not limited to compiling the application, running tests, rendering the user
+manual, and running the packaging process. Additionally, the details of some of
+these steps are different depending the target platform.</p>
+<p><a class="reference external" href="https://crates.io/crates/cargo-make">cargo-make</a> is a tool that allows build
+steps and workflow to be managed. Workflows can include:</p>
+<ul class="simple">
+<li><p>Preform a user build from source. This can include building the application
+in release mode and launching it when finished. Items such as running tests
+are not needed.</p></li>
+<li><p>Prepare the system for development. E.g. automatically acquire build
+dependencies.</p></li>
+<li><p>Do a development build. This includes running the lint checks, formatting
+checks, and unit tests.</p></li>
+<li><p>Run the full test suite, including slow tests.</p></li>
+<li><p>Package the game for the target platform.</p></li>
+</ul>
+</div>
+<div class="section" id="continuous-integration">
+<h2><span class="section-number">6.9.3. </span>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permalink to this headline">¶</a></h2>
+<p>A continuous integration system is used to build and test every commit
+allowing potential problems to be found as soon as possible. This allows
+developers to work right on the <code class="docutils literal notranslate"><span class="pre">development</span></code> branch and have confidence their
+changes are not breaking existing functionality.</p>
+</div>
+<div class="section" id="automated-license-checks">
+<span id="index-2"></span><h2><span class="section-number">6.9.4. </span>Automated License Checks<a class="headerlink" href="#automated-license-checks" title="Permalink to this headline">¶</a></h2>
+<p>Automated tools are used to quickly and accurately check the
+<a class="reference internal" href="../misc/licensing-and-distribution.html#ref-distribution-license-compliance"><span class="std std-ref">Third Party License Compliance</span></a>. An existing tool for checking
+library licenses is <a class="reference external" href="https://crates.io/crates/cargo-deny">cargo-deny</a> .
+A similar approach using information in the <a class="reference internal" href="file-formats.html#ref-asset-license-info-files"><span class="std std-ref">Asset License Info Files</span></a>
+is taken for the third party assets.</p>
+<p>These tools are part of the development, test, and continuous integration
+workflows.</p>
+</div>
+<div class="section" id="logging">
+<span id="ref-dev-tools-logging"></span><h2><span class="section-number">6.9.5. </span>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
+<p>Logging is used to help developers and users troubleshoot potential issues with
+the game.</p>
+<p>The available logging levels are:</p>
+<dl class="simple">
+<dt>error</dt><dd><p>Used when there is a problem executing part of the application. One such
+example is being unable to load an asset file.</p>
+</dd>
+<dt>warn</dt><dd><p>Warns of an unexpected event in the application.</p>
+</dd>
+<dt>info</dt><dd><p>Provides information about the system the application is running on and the
+games general flow. Examples include the application’s version and
+transitions of <a class="reference internal" href="states.html"><span class="doc">Game States</span></a>.</p>
+</dd>
+<dt>debug</dt><dd><p>Used to provide context when debugging potential issues. Examples include
+noting when events are processed, new environments are loaded, or when
+players switch turns.</p>
+</dd>
+<dt>trace</dt><dd><p>Not used.</p>
+</dd>
+</dl>
+<p>The log file of the current game session is stored in the user’s data directory.
+The file is overwritten each time the game is launched. This ensures the space
+taken up by logging is not too large yet ensures logging information is
+available in the event the game crashes.</p>
+<p>The default log level is <strong>info</strong>.</p>
+</div>
+<div class="section" id="command-line-options">
+<h2><span class="section-number">6.9.6. </span>Command Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
+<p>The game provides command line options allowing developers to launch the game
+in different configurations without having to recompile.</p>
+<dl class="std option">
+<dt id="cmdoption-debug">
+<code class="sig-name descname">--debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables development aids including the debug environment, FPS counter, and
+any other utilities that might be useful for debugging.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-test">
+<code class="sig-name descname">--test</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a self-test of the game. The result of the test is printed to the
+console and the exit code indicates pass or fail. An example of a self-test
+would be playing a complete game on each environment while monitoring the
+logs for warning or error messages. <a class="footnote-reference brackets" href="#selftest" id="id2">2</a></p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-environment">
+<code class="sig-name descname">--environment</code><code class="sig-prename descclassname"> &lt;ENVIRONMENT&gt;</code><a class="headerlink" href="#cmdoption-environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forces the game to use a specific environment instead of selecting
+environments at random. This is useful when creating new environments.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-h">
+<span id="cmdoption-help"></span><code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows the command line help. This provides a brief description of the
+application and lists the available command line options. This also lets
+users know how to find the user manual in case the user is searching for
+information on how to play the game.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-version">
+<code class="sig-name descname">--version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints the application’s version number, license, and copyright information. <a class="footnote-reference brackets" href="#cargoenv" id="id3">3</a></p>
+</dd></dl>
+
+<p>The <a class="reference internal" href="#cmdoption-h"><code class="xref std std-option docutils literal notranslate"><span class="pre">--help</span></code></a> and <a class="reference internal" href="#cmdoption-version"><code class="xref std std-option docutils literal notranslate"><span class="pre">--version</span></code></a> options are handled before the game
+attempts to load files or show windows allowing them to work from systems
+without a display server or supported graphics drivers allowing their
+information to be obtained from scripts or users trying to troubleshoot a
+crashing game.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="firstenv"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>The debug environment should be created early in the development
+process as it allows the game to be played without needing additional
+environments.</p>
+</dd>
+<dt class="label" id="selftest"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Developers can use the self-test to exercise functionally that
+cannot be exercise by unit tests such as loading game assets. This can
+also be incorporated in a larger functional test suite. Finally, users
+might consider running a self-test when troubleshooting game issues.</p>
+</dd>
+<dt class="label" id="cargoenv"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Cargo provides several
+<a class="reference external" href="https://doc.rust-lang.org/cargo/reference/environment-variables.html">Environment Variables</a>
+that can be accessed using the <code class="docutils literal notranslate"><span class="pre">std::env</span></code> macro. This is likely to be
+useful for keeping the various places that use version numbers
+synchronized.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">FossXO Game Design Document</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameplay.html">2. Gameplay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">3. User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../environments.html">4. Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/index.html">5. Additional Considerations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. Technical Design</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="engine-overview.html">6.1. Engine Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states.html">6.2. Game States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems.html">6.3. Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components-resources-entities.html">6.4. Components, Resources, and Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-formats.html">6.5. File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual.html">6.6. User Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html">6.7. Packages and Source Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">6.8. System and Data Security</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.9. Development Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototype.html">6.10. Prototype Lessons Learned</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">8. References</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/fossxo/fossxo-gdd">GitHub Source</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html"><span class="section-number">6. </span>Technical Design</a><ul>
+      <li>Previous: <a href="security.html" title="previous chapter"><span class="section-number">6.8. </span>System and Data Security</a></li>
+      <li>Next: <a href="prototype.html" title="next chapter"><span class="section-number">6.10. </span>Prototype Lessons Learned</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, James Richey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/technical-design/development-tools.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

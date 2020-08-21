@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5.5. Future Enhancements &#8212; FossXO Game Design Document Rev. B</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. Technical Design" href="../technical-design/index.html" />
+    <link rel="prev" title="5.4. Similar Games" href="similar-games.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="future-enhancements">
+<h1><span class="section-number">5.5. </span>Future Enhancements<a class="headerlink" href="#future-enhancements" title="Permalink to this headline">¶</a></h1>
+<p>There are some additional features that can be considered for future versions of
+the game. These are described below.</p>
+<div class="section" id="network-multiplayer">
+<h2><span class="section-number">5.5.1. </span>Network Multiplayer<a class="headerlink" href="#network-multiplayer" title="Permalink to this headline">¶</a></h2>
+<p>Network based multiplayer allows players to remotely battle each other. Network
+based multiplayer is preferable to local multiplayer in many situations such as
+friends who live in different states, office environments, or players trying to
+avoid a zombie apocalypse. <a class="footnote-reference brackets" href="#covid19" id="id1">1</a></p>
+<p>There are different network multiplayer modes.</p>
+<dl class="simple">
+<dt>Normal</dt><dd><p>The normal mode is <a class="reference internal" href="../gameplay.html#ref-gameplay-two-player-mode"><span class="std std-ref">Two Player Mode</span></a> but played over the
+network instead of locally.</p>
+</dd>
+<dt>Speedrun</dt><dd><p>Speedrun multiplayer is a two player version of <a class="reference internal" href="../gameplay.html#ref-gameplay-speed-run-mode"><span class="std std-ref">Speedrun Mode</span></a>
+where the players compete to see who can play 10 games the fastest without
+loosing. If a player wins one of the games, the speedrun is over and that
+player is the winner. If all ten games are cat’s games, then the player with
+the fastest overall time wins.</p>
+</dd>
+<dt>King of the Hill</dt><dd><p>King of the hill allows more than two people to battle. From the pool of
+available players two are chosen to battle. The round consists of playing
+two games. The player first to win any game, or in the case of all cat’s
+games has the fastest overall time, wins the round. They stay in the game
+and another challenger is selected from the pool of players. This continues
+until a victory condition is met, such as the first player to win X number
+of rounds.</p>
+</dd>
+</dl>
+<p>Regardless of the mode, the players always see the same environment to ensure
+a consistent play experience.</p>
+</div>
+<div class="section" id="achievements">
+<h2><span class="section-number">5.5.2. </span>Achievements<a class="headerlink" href="#achievements" title="Permalink to this headline">¶</a></h2>
+<p>Achievements provide players goals outside the usual <a class="reference internal" href="../gameplay.html"><span class="doc">Gameplay</span></a> rules.
+These provide more depth to the game and encourage players to try different
+approaches to the game.</p>
+<p>A future enhancement is to add achievements to the game. Some achievement might
+include the following.</p>
+<ul class="simple">
+<li><p>Win a game</p></li>
+<li><p>Play a game in every environment</p></li>
+<li><p>Win a hard game</p></li>
+<li><p>Win a game on every environment</p></li>
+<li><p>Win a hard game on every environment</p></li>
+<li><p>Complete a speed run</p></li>
+<li><p>Complete a speed run in less than X seconds</p></li>
+<li><p>Complete a speed run in less than 1 second!!</p></li>
+</ul>
+</div>
+<div class="section" id="additional-environments">
+<h2><span class="section-number">5.5.3. </span>Additional Environments<a class="headerlink" href="#additional-environments" title="Permalink to this headline">¶</a></h2>
+<p>A major focus of FossXO is the ability to play tic-tac-toe in a variety
+of <a class="reference internal" href="../environments.html"><span class="doc">Environments</span></a>. Future versions of the game can add even more
+environments. Some environments to consider are listed below.</p>
+<ul class="simple">
+<li><p>Lasers. Perhaps a laser cutter or some other use of lasers.</p></li>
+<li><p>Shower door or bathroom mirror.</p></li>
+<li><p>Futuristic dystopian or cyber punk theme.</p></li>
+<li><p>Some playgrounds have a 3x3 grid of squares for playing tic-tac-toe.</p></li>
+<li><p>Winter / snow / frozen lake theme.</p></li>
+<li><p>Food theme.</p></li>
+<li><p>Light board, like those found in ships or submarines.</p></li>
+<li><p>OXO oscilloscope throwback theme.</p></li>
+<li><p>Metal or glass forge with lots of glowing hot liquids.</p></li>
+<li><p>Clone of James’ 2004 Tic Tac Toe.</p></li>
+<li><p>Outer space theme with stars, nebulas, and planets.</p></li>
+</ul>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="covid19"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/2019%E2%80%9320_coronavirus_pandemic">2019–20 coronavirus pandemic</a></p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">FossXO Game Design Document</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameplay.html">2. Gameplay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">3. User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../environments.html">4. Environments</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">5. Additional Considerations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="audience.html">5.1. Target Audience</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platforms.html">5.2. Target Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="licensing-and-distribution.html">5.3. Licensing and Distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="similar-games.html">5.4. Similar Games</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.5. Future Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../technical-design/index.html">6. Technical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">8. References</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/fossxo/fossxo-gdd">GitHub Source</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html"><span class="section-number">5. </span>Additional Considerations</a><ul>
+      <li>Previous: <a href="similar-games.html" title="previous chapter"><span class="section-number">5.4. </span>Similar Games</a></li>
+      <li>Next: <a href="../technical-design/index.html" title="next chapter"><span class="section-number">6. </span>Technical Design</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, James Richey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/misc/future-enhancements.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

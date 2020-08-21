@@ -1,0 +1,335 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6.4. Components, Resources, and Entities &#8212; FossXO Game Design Document Rev. B</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.5. File Formats" href="file-formats.html" />
+    <link rel="prev" title="6.3. Systems" href="systems.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="components-resources-and-entities">
+<h1><span class="section-number">6.4. </span>Components, Resources, and Entities<a class="headerlink" href="#components-resources-and-entities" title="Permalink to this headline">¶</a></h1>
+<p>The game’s data is organized as components, resources, and entities. An entity
+represents a single object in the game. A component represents one aspect of an
+entity and store the data related to that aspect. Entities do not store any
+actual data but instead are associated with one or more components.</p>
+<p>For example, a Pong type game might have a ball entity that is composed of a
+position component, sprint component and a ball component.</p>
+<p>Resources store global data that is not specific to any one entity. For example,
+the score in a pong game is global to the entire game.</p>
+<p>This section describes the notable components, resources, entities, and
+supporting types used in the game. Additional components, resources, and
+entities are created for environment specific features as needed.</p>
+<div class="section" id="environments-resource">
+<span id="ref-environments-resource"></span><span id="index-0"></span><h2><span class="section-number">6.4.1. </span>Environments Resource<a class="headerlink" href="#environments-resource" title="Permalink to this headline">¶</a></h2>
+<p>A major feature of FossXO is its many environments. Environments are responsible
+for managing required assets and spawning / destroying entities as the game
+progresses. This is similar responsibility as <em>maps</em> in other games.</p>
+<p>The Environments resource is responsible for providing access and managing the
+all of the environments. <a class="reference internal" href="#uml-environments-struct"><span class="std std-numref">Figure 6.6</span></a> shows the
+Environments resource.</p>
+<div class="figure align-default" id="id1">
+<span id="uml-environments-struct"></span><p class="plantuml">
+<img src="../_images/plantuml-2ff6c46b3aaf497ab61594e80fcdf9dccf5a7d94.svg" alt="!include rust_types.uml
+hide empty members
+
+struct(Environments) {
+    + new()
+    + debug(debug_options)
+    + load()
+    + spawn_random(options)
+    + delete_current()
+    + spawn_mark(player, position)
+    + spawn_game_over(winning_positions, outcome_affinity)
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.6 </span><span class="caption-text">Environments resource.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>The methods of the Environments resource are described below.</p>
+<dl class="simple">
+<dt>new</dt><dd><p>Creates the Environments resource.</p>
+</dd>
+<dt>debug</dt><dd><p>Allows usage of the special debug environment. When the debug environment
+is enabled, grid lines, marks, and other annotations are drawn on top of the
+current environment.</p>
+</dd>
+<dt>load</dt><dd><p>Loads assets required for all the environments.</p>
+</dd>
+<dt>spawn_random</dt><dd><p>Spawns a random environment. If there is a current alive environment, it is
+deleted before the new environment is spawned. A shuffle short is used that
+ensures every environment is spawned once. The provided options include the
+current game state to show and if extraneous entities should be avoided.</p>
+</dd>
+<dt>delete_current</dt><dd><p>Deletes the current environment and all its owned entities. This is useful
+when switching to the game menu.</p>
+</dd>
+<dt>spawn_mark</dt><dd><p>Spawns a mark for the indicated player at the given position. This must be
+called after the game is updated to keep the environment state synchronized
+with the game.</p>
+</dd>
+<dt>spawn_game_over</dt><dd><p>Spawns the game over related entities. The winning positions, if any, are
+provided. The outcome affinity is useful for single player games allowing
+environments to react to the player winning or losing. The neutral affinity
+is used or multiplayer games or cat’s games.</p>
+</dd>
+</dl>
+<p>The Environments resource requires each environment to implement the
+<span class="target" id="index-1"></span>Environment trait shown in <a class="reference internal" href="#uml-environment-trait"><span class="std std-numref">Figure 6.7</span></a>.</p>
+<div class="figure align-default" id="id2">
+<span id="uml-environment-trait"></span><p class="plantuml">
+<img src="../_images/plantuml-4a7fdfd51e6cf5ebfd1e558878babc59b038f884.svg" alt="!include rust_types.uml
+hide empty members
+
+trait(Environment) {
+    + spawn(options)
+    + delete()
+    + is_alive()
+    + spawn_mark(player, position)
+    + spawn_game_over(winning_positions, outcome_affinity)
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.7 </span><span class="caption-text">Environment trait.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>The trait methods are:</p>
+<dl class="simple">
+<dt>spawn</dt><dd><p>Spawns the initial set of entities for the environment using the provided
+options. This typically includes a background, grid, decorations, and
+initial set of marks if there is already a game in progress.</p>
+</dd>
+<dt>delete</dt><dd><p>Deletes all entities from the environment.</p>
+</dd>
+<dt>is_alive</dt><dd><p>Indicates if the environment is alive, that is has at least one entity.</p>
+</dd>
+<dt>spawn_mark</dt><dd><p>Spawns a mark for the indicated player at the provided position.</p>
+</dd>
+<dt>spawn_game_over</dt><dd><p>Spawns the game over related entities.</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Many environments highlight or provide a special graphic for an available
+square the user is hovering over. This concept is not fully explored by the
+design proposed here. The debug environment can be used to explore this
+feature and reduce its risk.</p>
+</div>
+</div>
+<div class="section" id="other-resources">
+<h2><span class="section-number">6.4.2. </span>Other Resources<a class="headerlink" href="#other-resources" title="Permalink to this headline">¶</a></h2>
+<p>In addition to environments, there are a other notable resources used by the
+game.</p>
+<p>The <span class="target" id="index-2"></span>game resource provides access to the underlying tic-tac-toe game
+logic and the last time a move was done on the game. Helper methods are provided
+to make tasks such as seeing if it is a given player’s turn. The game resource
+is shown in <a class="reference internal" href="#uml-game-resource"><span class="std std-numref">Figure 6.8</span></a>.</p>
+<div class="figure align-default" id="id3">
+<span id="uml-game-resource"></span><p class="plantuml">
+<img src="../_images/plantuml-3ed7808eb4bd5748fceb22557775de3240c17395.svg" alt="!include rust_types.uml
+hide empty members
+
+struct(Game) {
+    + game: ttt::Game
+    + last_move_time
+    + is_players_move(player) -&gt; bool
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.8 </span><span class="caption-text">Game resource.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<p>The <span class="target" id="index-3"></span>grid resource, shown in <a class="reference internal" href="#uml-grid-resource"><span class="std std-numref">Figure 6.9</span></a> provides access
+to the grid and methods to convert between screen coordinates and tic-tac-toe
+positions.</p>
+<div class="figure align-default" id="id4">
+<span id="uml-grid-resource"></span><p class="plantuml">
+<img src="../_images/plantuml-eeba1ee7bcc41834b06c81372e63e954dbb12fa9.svg" alt="!include rust_types.uml
+hide empty members
+
+struct(Grid) {
+    + origin: Point
+    + size: Point
+    + center_points() -&gt; vec&lt;Point&gt;
+    + to_position(Point) -&gt; Optional&lt;Position&gt;
+    + cell(Position) -&gt; (origin, size)
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.9 </span><span class="caption-text">Grid resource.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<p>Additional conversion methods are added as needed to the grid resource.</p>
+</div>
+<div class="section" id="notable-components">
+<span id="index-4"></span><h2><span class="section-number">6.4.3. </span>Notable Components<a class="headerlink" href="#notable-components" title="Permalink to this headline">¶</a></h2>
+<p>There are several main components used by the game. These are shown in
+<a class="reference internal" href="#uml-core-components"><span class="std std-numref">Figure 6.10</span></a>.</p>
+<div class="figure align-default" id="id5">
+<span id="uml-core-components"></span><p class="plantuml">
+<img src="../_images/plantuml-178fcdb2ccf1c06933bf6d178bde7a8f7d1e7207.svg" alt="!include rust_types.uml
+hide empty members
+
+enum(Player) {
+    + X
+    + O
+}
+
+struct(LocalPlayer)
+
+struct(Ai) {
+    + ai_opponent
+    + move_delay
+}
+
+struct(Mark) {
+    + owner: Player
+    + position: Board::Position
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.10 </span><span class="caption-text">Notable game components.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<dl class="simple">
+<dt>Player</dt><dd><p>The Player component stores if the player is playing as X or as O.</p>
+</dd>
+<dt>LocalPlayer</dt><dd><p>Tag component that indicates the player is local, e.g. using the keyboard
+and mouse to make mark selections.</p>
+</dd>
+<dt>Mark</dt><dd><p>The Mark component indicates the owner of a given position on the board.</p>
+</dd>
+<dt>Ai</dt><dd><p>The AI component provides the underlying AI opponent to use when selecting
+positions. Additionally, a delay can be specified to prevent the AI from
+instantly selecting a position.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="amethyst-provided-components">
+<h2><span class="section-number">6.4.4. </span>Amethyst Provided Components<a class="headerlink" href="#amethyst-provided-components" title="Permalink to this headline">¶</a></h2>
+<p>Amethyst provides several components that are used when building game entities.
+Some notable ones that are used by the game are listed below.</p>
+<dl class="simple">
+<dt>Camera</dt><dd><p>Represents the game’s camera. Contains the projection matrix from world
+coordinates to screen coordinates.</p>
+</dd>
+<dt>SpriteRender</dt><dd><p>Provides information for rendering a sprite.</p>
+</dd>
+<dt>Transform</dt><dd><p>Stores local position, rotation, and scale.</p>
+</dd>
+</dl>
+<p>See the Amethyst documentation for details about these components and their
+fields.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">FossXO Game Design Document</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameplay.html">2. Gameplay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">3. User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../environments.html">4. Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/index.html">5. Additional Considerations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. Technical Design</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="engine-overview.html">6.1. Engine Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states.html">6.2. Game States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems.html">6.3. Systems</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.4. Components, Resources, and Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-formats.html">6.5. File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual.html">6.6. User Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html">6.7. Packages and Source Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">6.8. System and Data Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development-tools.html">6.9. Development Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototype.html">6.10. Prototype Lessons Learned</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">8. References</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/fossxo/fossxo-gdd">GitHub Source</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html"><span class="section-number">6. </span>Technical Design</a><ul>
+      <li>Previous: <a href="systems.html" title="previous chapter"><span class="section-number">6.3. </span>Systems</a></li>
+      <li>Next: <a href="file-formats.html" title="next chapter"><span class="section-number">6.5. </span>File Formats</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, James Richey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/technical-design/components-resources-entities.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3. User Interface &#8212; FossXO Game Design Document Rev. B</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="4. Environments" href="environments.html" />
+    <link rel="prev" title="2. Gameplay" href="gameplay.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="user-interface">
+<h1><span class="section-number">3. </span>User Interface<a class="headerlink" href="#user-interface" title="Permalink to this headline">¶</a></h1>
+<p>This chapter describes the user interface of FossXO. This includes the main
+game board, controls, and all game menus.</p>
+<div class="section" id="game-board">
+<span id="ref-ui-game-board"></span><h2><span class="section-number">3.1. </span>Game Board<a class="headerlink" href="#game-board" title="Permalink to this headline">¶</a></h2>
+<p>The game board is where players spend the majority of their time. Additionally,
+the game loads directly to this view ensuring players get to gameplay as quickly
+as possible without menus getting in the way. <a class="footnote-reference brackets" href="#firstview" id="id1">1</a> A concept drawing of
+the game board is shown in <a class="reference internal" href="#fig-ui-game-board"><span class="std std-numref">Figure 3.1</span></a>.</p>
+<div class="figure align-default" id="id8">
+<span id="fig-ui-game-board"></span><img alt="_images/game-board.svg" src="_images/game-board.svg" /><p class="caption"><span class="caption-number">Figure 3.1 </span><span class="caption-text">Game board concept drawing.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+<p>The game board contains the following items of interest:</p>
+<ol class="arabic simple">
+<li><p>The marks and grid. The appearance of these depend on the current environment
+being played. However, the marks for all environments use the same center
+point and have the same selectable hot spot. This ensures consistency between
+environments when using the mouse.</p></li>
+<li><p>The background of the game board depends on the current environment.</p></li>
+<li><p>The hamburger button opens the <a class="reference internal" href="#ref-ui-main-menu"><span class="std std-ref">Main Menu</span></a>.</p></li>
+<li><p>Status text indicates who gets to make the next move and the outcome of
+the game. Once the game is over buttons to play the next game or return to
+the menu also appear in this area. The text is outlined or shaded such that
+it is visible over any possible background.</p></li>
+</ol>
+<p>A major focus of the game is playing tic-tac-toe in variety of stunning
+environments that control how the marks, grid, and background look. Thus, a
+minimalist approach is used for the game board view. The only UI widgets are a
+menu button and some status text.</p>
+<div class="section" id="speedrun">
+<span id="ref-ui-speedrun-game-board"></span><h3><span class="section-number">3.1.1. </span>Speedrun<a class="headerlink" href="#speedrun" title="Permalink to this headline">¶</a></h3>
+<p>Additional UI widgets are added to the game board to facilitate speedrun mode.
+<a class="reference internal" href="#fig-ui-speedrun-game-board"><span class="std std-numref">Figure 3.2</span></a> shows the speedrun game board.</p>
+<div class="figure align-default" id="id9">
+<span id="fig-ui-speedrun-game-board"></span><img alt="_images/speedrun-game-board.svg" src="_images/speedrun-game-board.svg" /><p class="caption"><span class="caption-number">Figure 3.2 </span><span class="caption-text">Speedrun game board concept drawing.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+<p>Items of interest are:</p>
+<ol class="arabic simple">
+<li><p>The speedrun status display prominently shows the elapsed time of the run.
+This helps give the player a sense of urgency and lets them see if they are
+on track to get a best time.</p></li>
+<li><p>Splits for each game are additionally displayed. Dashes or other marks are
+used for games that have yet to be played. This allows players to quickly
+visually gauge how many games remain.</p></li>
+<li><p>Opening the game’s menu ends the run. The run is disqualified.</p></li>
+<li><p>Status text indicates the current turn. If the player loses a game, the
+status text notes that the run is disqualified and the player is invited
+to try the run again or return to the Speedrun menu. <a class="footnote-reference brackets" href="#speedrunloss" id="id2">2</a></p></li>
+</ol>
+<p>When a game is competed successfully the next game starts immediately allowing
+players to go as fast as possible through the games.</p>
+</div>
+</div>
+<div class="section" id="controls">
+<span id="ref-ui-controls"></span><h2><span class="section-number">3.2. </span>Controls<a class="headerlink" href="#controls" title="Permalink to this headline">¶</a></h2>
+<p>The game can be fully played with either a mouse or keyboard. New or casual
+players may prefer to use a mouse whereas speedrun players may prefer to use
+the keyboard.</p>
+<div class="section" id="mouse">
+<span id="index-0"></span><h3><span class="section-number">3.2.1. </span>Mouse<a class="headerlink" href="#mouse" title="Permalink to this headline">¶</a></h3>
+<p>Mouse left click is used to select free squares and press menu buttons. Right
+click and other mouse buttons are unused.</p>
+</div>
+<div class="section" id="key-bindings">
+<span id="index-1"></span><h3><span class="section-number">3.2.2. </span>Key Bindings<a class="headerlink" href="#key-bindings" title="Permalink to this headline">¶</a></h3>
+<p>The game supports being played using the keyboard. <a class="footnote-reference brackets" href="#keyboardaccessibility" id="id3">3</a>
+<a class="reference internal" href="#fig-ui-keybindings"><span class="std std-numref">Figure 3.3</span></a> shows the game’s keybindings for selecting squares.</p>
+<div class="figure align-default" id="id10">
+<span id="fig-ui-keybindings"></span><img alt="_images/keybindings.svg" src="_images/keybindings.svg" /><p class="caption"><span class="caption-number">Figure 3.3 </span><span class="caption-text">Keybindings for selecting squares.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</div>
+<p>The <kbd class="kbd docutils literal notranslate">numpad</kbd> keys are available for right handed players and the <kbd class="kbd docutils literal notranslate">QWE</kbd>
+set of keys are available for left handed players.</p>
+<p>The <kbd class="kbd docutils literal notranslate">arrow</kbd>, <kbd class="kbd docutils literal notranslate">ESC</kbd>, <kbd class="kbd docutils literal notranslate">Enter</kbd>, and <kbd class="kbd docutils literal notranslate">Space</kbd> keys
+allow users to navigate the game’s menus.</p>
+</div>
+</div>
+<div class="section" id="menus">
+<h2><span class="section-number">3.3. </span>Menus<a class="headerlink" href="#menus" title="Permalink to this headline">¶</a></h2>
+<p>The game’s menus allow players to select the various game modes and to
+customize the game. The <a class="reference internal" href="#ref-ui-screen-flowchart"><span class="std std-ref">Screen Flowchart</span></a> provides details on how
+the menus and views connect.</p>
+<p>Each menu is described in the following sections.</p>
+<div class="section" id="general">
+<h3><span class="section-number">3.3.1. </span>General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h3>
+<p>Unless otherwise noted, the information in this section applies to all menus.</p>
+<p>A dedicated music track is played while the game menus are open. The menus share
+a stylized background that fits in with the game’s theme.</p>
+</div>
+<div class="section" id="main-menu">
+<span id="ref-ui-main-menu"></span><span id="index-2"></span><h3><span class="section-number">3.3.2. </span>Main Menu<a class="headerlink" href="#main-menu" title="Permalink to this headline">¶</a></h3>
+<p>The main menu provides a central point for users to navigate to the game’s
+various modes and settings. <a class="reference internal" href="#fig-ui-main-menu"><span class="std std-numref">Figure 3.4</span></a> shows the main menu.</p>
+<div class="figure align-default" id="id11">
+<span id="fig-ui-main-menu"></span><img alt="_images/main-menu.svg" src="_images/main-menu.svg" /><p class="caption"><span class="caption-number">Figure 3.4 </span><span class="caption-text">Main menu concept drawing.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
+<ol class="arabic simple">
+<li><p>The title of the game is prominently displayed at the top of the menu.</p></li>
+<li><p>New game buttons. The <span class="guilabel">Single-player</span> button navigates to the
+while the <a class="reference internal" href="#ref-ui-single-player"><span class="std std-ref">Single-player</span></a> screen while the
+<span class="guilabel">Multiplayer</span> button immediately starts a new multiplayer game.
+<a class="footnote-reference brackets" href="#resumegame" id="id4">4</a></p></li>
+<li><p>Miscellaneous buttons to open the <a class="reference internal" href="#ref-ui-options"><span class="std std-ref">Options</span></a>,
+<a class="reference internal" href="#ref-ui-credits"><span class="std std-ref">Credits</span></a>, <a class="reference internal" href="#ref-ui-help"><span class="std std-ref">Help</span></a> screens.</p></li>
+<li><p><span class="guilabel">Exit</span> closes the game and returns the user to their desktop.</p></li>
+</ol>
+</div>
+<div class="section" id="single-player">
+<span id="ref-ui-single-player"></span><span id="index-3"></span><h3><span class="section-number">3.3.3. </span>Single-player<a class="headerlink" href="#single-player" title="Permalink to this headline">¶</a></h3>
+<p>The single-player menu, shown in <a class="reference internal" href="#fig-ui-single-player"><span class="std std-numref">Figure 3.5</span></a>, allows players
+start new single-player games.</p>
+<div class="figure align-default" id="id12">
+<span id="fig-ui-single-player"></span><img alt="_images/single-player.svg" src="_images/single-player.svg" /><p class="caption"><span class="caption-number">Figure 3.5 </span><span class="caption-text">Single-player menu concept drawing.</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</div>
+<ol class="arabic simple">
+<li><p>The <span class="guilabel">Play as</span> selector allows players to select the mark they
+wish to use throughout the games.</p></li>
+<li><p>The difficulty buttons select the difficulty then start a new single player
+game. Selecting one of these buttons closes the menu and launches a new
+single-player game with the requested settings.</p></li>
+<li><p>The <span class="guilabel">Speedrun</span> button navigates to the <a class="reference internal" href="#ref-ui-speedrun"><span class="std std-ref">Speedrun</span></a> menu.</p></li>
+<li><p>The <span class="guilabel">Back</span> button returns to the main menu.</p></li>
+</ol>
+</div>
+<div class="section" id="ref-ui-speedrun">
+<span id="index-4"></span><span id="id5"></span><h3><span class="section-number">3.3.4. </span>Speedrun<a class="headerlink" href="#ref-ui-speedrun" title="Permalink to this headline">¶</a></h3>
+<p>The speedrun menu allows players to start a new speedrun and view best times of
+previous runs. <a class="reference internal" href="#fig-ui-speedrun-start"><span class="std std-numref">Figure 3.6</span></a> shows the speedrun menu.</p>
+<div class="figure align-default" id="id13">
+<span id="fig-ui-speedrun-start"></span><img alt="_images/speedrun-start.svg" src="_images/speedrun-start.svg" /><p class="caption"><span class="caption-number">Figure 3.6 </span><span class="caption-text">Speedrun menu concept drawing.</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</div>
+<p>The speedrun menu contains the following items of interest:</p>
+<ol class="arabic simple">
+<li><p>Instructional text that provides a short overview of the speedrun rules.
+Once the run is completed this text is replaced with the run’s result and
+invites the player to play again.</p></li>
+<li><p><span class="guilabel">Start</span> begins the run. This navigates to the
+<a class="reference internal" href="#ref-ui-speedrun-game-board"><span class="std std-ref">Speedrun</span></a> game board.</p></li>
+<li><p>Table of previous best times sorted from fastest to slowest.</p></li>
+<li><p>The <span class="guilabel">Back</span> button returns to the single-player menu.</p></li>
+</ol>
+<p>When the speedrun starts, the game board is shown, a prominent three second
+countdown begins, and dramatic music starts to swell. Once the timer elapses
+the speed run begins.</p>
+<p>Once the run is completed the speedrun menu is displayed and shows the result
+of the run.</p>
+<p>If the player gets a new best time the dialog shown in
+<a class="reference internal" href="#fig-ui-speedrun-best-time"><span class="std std-numref">Figure 3.7</span></a> is presented to the user.</p>
+<div class="figure align-default" id="id14">
+<span id="fig-ui-speedrun-best-time"></span><img alt="_images/speedrun-best-time.svg" src="_images/speedrun-best-time.svg" /><p class="caption"><span class="caption-number">Figure 3.7 </span><span class="caption-text">Speedrun best time dialog concept drawing.</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</div>
+<p>The best time dialog contains the following items:</p>
+<ol class="arabic simple">
+<li><p>The speedrun time time.</p></li>
+<li><p>The <span class="guilabel">Initials</span> text box allows players to enter their initials
+so their best time is differentiated from other players that happen to use
+the same computer. The field remembers the last set of initials entered so
+players do not have to retype their initials.</p></li>
+<li><p>The <span class="guilabel">Close</span> button hides the dialog allowing the speedrun menu
+to be fully visible.</p></li>
+</ol>
+</div>
+<div class="section" id="options">
+<span id="ref-ui-options"></span><span id="index-5"></span><h3><span class="section-number">3.3.5. </span>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<p>The options screen contains all of the game’s player configurable options.
+<a class="reference internal" href="#fig-ui-options"><span class="std std-numref">Figure 3.8</span></a> shows this screen.</p>
+<div class="figure align-default" id="id15">
+<span id="fig-ui-options"></span><img alt="_images/options.svg" src="_images/options.svg" /><p class="caption"><span class="caption-number">Figure 3.8 </span><span class="caption-text">Options screen concept drawing.</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</div>
+<ol class="arabic simple">
+<li><p><span class="guilabel">Music Volume</span> and <span class="guilabel">Sound FX Volume</span> sliders to control
+the volume of these items. This allows players to mute some or all of the
+in-game sounds.</p></li>
+<li><p><span class="guilabel">Reset to Defaults</span> resets all options to their default values.</p></li>
+<li><p>The <span class="guilabel">Back</span> button returns to the main menu.</p></li>
+</ol>
+</div>
+<div class="section" id="credits">
+<span id="ref-ui-credits"></span><span id="index-6"></span><h3><span class="section-number">3.3.6. </span>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h3>
+<p>The credits screen displays information the game’s developers and helps fulfill
+the <a class="reference internal" href="misc/licensing-and-distribution.html#ref-distribution-license-compliance"><span class="std std-ref">Third Party License Compliance</span></a> obligations. The credits screen
+is shown in <a class="reference internal" href="#fig-ui-credits"><span class="std std-numref">Figure 3.9</span></a>.</p>
+<div class="figure align-default" id="id16">
+<span id="fig-ui-credits"></span><img alt="_images/credits.svg" src="_images/credits.svg" /><p class="caption"><span class="caption-number">Figure 3.9 </span><span class="caption-text">Credits screen concept drawing.</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+</div>
+<p>The credits screen contains the following items:</p>
+<ol class="arabic simple">
+<li><p>List of developers and other people directly involved in the creation
+of the game.</p></li>
+<li><p>The open-source community is thanked and links are provided to all of the
+third party libraries and assets used in the game. Selecting one of these
+links opens corresponding page in the game’s <a class="reference internal" href="#ref-ui-help"><span class="std std-ref">Help</span></a>.</p></li>
+<li><p><span class="guilabel">Back</span> returns to the <a class="reference internal" href="#ref-ui-main-menu"><span class="std std-ref">Main Menu</span></a>.</p></li>
+</ol>
+<p>The credits screen uses a different background and soundtrack than the other
+menus. The background consists of one or more tic-tac-toe games being played
+in a variety of environments. Each environment is clearly visible — blurring
+and other effects are not used on this screen. The environments are changed
+several times per game. This showcases the many environments of the game.</p>
+<p>The credits screen has its own sound track. The music and sound FX of the
+individual environments are not used.</p>
+</div>
+<div class="section" id="loading-screen">
+<span id="ref-ui-loading-screen"></span><span id="index-7"></span><h3><span class="section-number">3.3.7. </span>Loading Screen<a class="headerlink" href="#loading-screen" title="Permalink to this headline">¶</a></h3>
+<p>If necessary for technical reasons, the loading screen provides feedback to the
+player while assets are loaded. <a class="footnote-reference brackets" href="#loadtime" id="id6">5</a> This screen is only shown when the
+game first loads.</p>
+</div>
+<div class="section" id="help">
+<span id="ref-ui-help"></span><span id="index-8"></span><h3><span class="section-number">3.3.8. </span>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h3>
+<p>The game’s help provides information on how to play tic-tac-toe, the different
+game modes, the application version, how to report bugs, and
+<a class="reference internal" href="misc/licensing-and-distribution.html#ref-distribution-license-compliance"><span class="std std-ref">Third Party License Compliance</span></a> information.</p>
+<p>To minimize the complexity of the game’s menus, the help is displayed using the
+user’s default web browser. All information is hosted locally; no internet
+access is required. <a class="footnote-reference brackets" href="#localhelp" id="id7">6</a></p>
+</div>
+</div>
+<div class="section" id="screen-flowchart">
+<span id="ref-ui-screen-flowchart"></span><h2><span class="section-number">3.4. </span>Screen Flowchart<a class="headerlink" href="#screen-flowchart" title="Permalink to this headline">¶</a></h2>
+<p>The flow chart in <a class="reference internal" href="#uml-screen-flowchart"><span class="std std-numref">Figure 3.10</span></a> visually shows how the screens
+and menus are connected.</p>
+<div class="figure align-default" id="id17">
+<span id="uml-screen-flowchart"></span><p class="plantuml">
+<img src="_images/plantuml-5ebdeb1c6127f2a05c456ce28a226564b735b7bf.svg" alt="hide empty description
+
+' Create aliases for state names with spaces
+state &quot;Tic-tac-toe Board&quot; as game_board
+state &quot;Main Menu&quot; as main_menu
+state &quot;Single-player&quot; as singleplayer
+state &quot;Speedrun&quot; as speedrun
+state &quot;Speedrun Board&quot; as speedrun_game_board
+state &quot;New Best Time!&quot; as speedrun_best_time
+
+Loading --&gt; game_board
+game_board --&gt; main_menu : Menu / ESC
+
+main_menu --&gt; game_board : Multiplayer
+main_menu --&gt; singleplayer : Single-player
+main_menu --&gt; Help : Help
+
+singleplayer --&gt; game_board : Easy \n Medium \n Hard
+singleplayer --&gt; speedrun : Speedrun
+singleplayer --&gt; main_menu : Back
+
+speedrun --&gt; singleplayer : Back
+speedrun --&gt; speedrun_game_board : Start
+speedrun_game_board --&gt; speedrun : Non Best Time
+speedrun_game_board --&gt; speedrun_best_time
+speedrun_best_time --&gt; speedrun : Close"/></p>
+<p class="caption"><span class="caption-number">Figure 3.10 </span><span class="caption-text">Connections between FossXO’s menus and screens.</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+</div>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="firstview"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>The loaded game is a single-player game using the last
+difficulty and player mark settings. The defaults for these are Medium
+difficulty and X marks.</p>
+</dd>
+<dt class="label" id="speedrunloss"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>If the player loses a speedrun game, the board remains
+visible so the player can see where they made mistakes. This allows them
+to adjust their strategy for next time.</p>
+</dd>
+<dt class="label" id="keyboardaccessibility"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Keyboard support helps improve the game’s
+accessibility by allowing custom controllers to emulate to the game’s
+key mapping.</p>
+</dd>
+<dt class="label" id="resumegame"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>Many games a have a <em>resume game</em> button to go back to an
+progress game. However, tic-tac-toe games are very short and require
+little pre-game configuration. Therefore, having resume game
+functionality adds unnecessary complexity for this game.</p>
+</dd>
+<dt class="label" id="loadtime"><span class="brackets"><a class="fn-backref" href="#id6">5</a></span></dt>
+<dd><p>The loading screen is needed if the load time exceeds one second
+on the minimum supported system listed in
+<a class="reference internal" href="misc/platforms.html#table-min-system-requirements"><span class="std std-numref">Table 5.1</span></a>.</p>
+</dd>
+<dt class="label" id="localhelp"><span class="brackets"><a class="fn-backref" href="#id7">6</a></span></dt>
+<dd><p>The <a class="reference internal" href="introduction.html#ref-objective-free-of-charge"><span class="std std-ref">Provide Free of Charge and Under an Open-Source License</span></a> objective mentions not
+tracking players. Websites often contain trackers, advertisements, and
+other items that violate this objective.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">FossXO Game Design Document</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gameplay.html">2. Gameplay</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. User Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#game-board">3.1. Game Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#controls">3.2. Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#menus">3.3. Menus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#screen-flowchart">3.4. Screen Flowchart</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="environments.html">4. Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/index.html">5. Additional Considerations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical-design/index.html">6. Technical Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">8. References</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/fossxo/fossxo-gdd">GitHub Source</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="gameplay.html" title="previous chapter"><span class="section-number">2. </span>Gameplay</a></li>
+      <li>Next: <a href="environments.html" title="next chapter"><span class="section-number">4. </span>Environments</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, James Richey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/gui.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
