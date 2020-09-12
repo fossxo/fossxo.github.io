@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>6.2. Game States &#8212; FossXO Game Design Document Rev. B</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -58,7 +58,7 @@ trait(State) {
 }"/></p>
 <p class="caption"><span class="caption-number">Figure 6.2 </span><span class="caption-text">Notable methods provided by the State trait.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
-<p>Each method is provided a <code class="docutils literal notranslate"><span class="pre">StateData</span></code> structure that provide’s access to the
+<p id="index-1">Each method is provided a <code class="docutils literal notranslate"><span class="pre">StateData</span></code> structure that provide’s access to the
 world’s entities and resources. Additionally, <code class="docutils literal notranslate"><span class="pre">handle_event()</span></code> is provided an
 <code class="docutils literal notranslate"><span class="pre">EventData</span></code> enum, shown in <a class="reference internal" href="#uml-event-data-enum"><span class="std std-numref">Figure 6.3</span></a>, that aggregates the
 different types of events available to the states.</p>
@@ -113,14 +113,14 @@ SpeedrunBestTimeMenu --&gt; SpeedrunMenu"/></p>
 </div>
 </div>
 <div class="section" id="game-state">
-<span id="ref-game-state"></span><span id="index-1"></span><h2><span class="section-number">6.2.3. </span>Game State<a class="headerlink" href="#game-state" title="Permalink to this headline">¶</a></h2>
+<span id="ref-game-state"></span><span id="index-2"></span><h2><span class="section-number">6.2.3. </span>Game State<a class="headerlink" href="#game-state" title="Permalink to this headline">¶</a></h2>
 <p>The game state is used for <a class="reference internal" href="../gameplay.html#ref-gameplay-single-player-mode"><span class="std std-ref">Single-player Mode</span></a> and
 <a class="reference internal" href="../gameplay.html#ref-gameplay-two-player-mode"><span class="std std-ref">Two Player Mode</span></a> games. The responsibilities of this state
 are:</p>
 <ul class="simple">
 <li><p>Spawn the player and AI opponent entities for playing the game.</p></li>
 <li><p>Handle player events for when marks are placed.</p></li>
-<li><p>Manage the game resource.</p></li>
+<li><p>Manage the game logic resource.</p></li>
 <li><p>Show the game environment with the <a class="reference internal" href="components-resources-entities.html#ref-environments-resource"><span class="std std-ref">Environments Resource</span></a>.</p></li>
 <li><p>Show the <a class="reference internal" href="../gui.html#ref-ui-game-board"><span class="std std-ref">Game Board</span></a> widgets including the menu button and
 status text.</p></li>
@@ -131,13 +131,13 @@ if the game is single-player or multiplayer. For single-player, this is the
 difficulty level and if the player is using X or O marks.</p>
 </div>
 <div class="section" id="speedrun-game-state">
-<span id="ref-speedrun-game-state"></span><span id="index-2"></span><h2><span class="section-number">6.2.4. </span>Speedrun Game State<a class="headerlink" href="#speedrun-game-state" title="Permalink to this headline">¶</a></h2>
+<span id="ref-speedrun-game-state"></span><span id="index-3"></span><h2><span class="section-number">6.2.4. </span>Speedrun Game State<a class="headerlink" href="#speedrun-game-state" title="Permalink to this headline">¶</a></h2>
 <p>The speedrun game state is used for <a class="reference internal" href="../gameplay.html#ref-gameplay-speed-run-mode"><span class="std std-ref">Speedrun Mode</span></a> games.
 <a class="footnote-reference brackets" href="#speedrunstatedifference" id="id2">2</a> The responsibilities of this state are:</p>
 <ul class="simple">
 <li><p>Spawn the player and AI opponent entities for playing the game.</p></li>
 <li><p>Handle player events for when marks are placed.</p></li>
-<li><p>Manage the game resource.</p></li>
+<li><p>Manage the game logic resource.</p></li>
 <li><p>Keep track of the total speedrun time and time for each game.</p></li>
 <li><p>Show the <a class="reference internal" href="../gui.html#ref-ui-speedrun-game-board"><span class="std std-ref">Speedrun</span></a> widgets including the menu
 button and status text.</p></li>
@@ -147,7 +147,7 @@ lost game, or an aborted game from the player opening the menu.</p></li>
 </ul>
 </div>
 <div class="section" id="loading-state">
-<span id="index-3"></span><h2><span class="section-number">6.2.5. </span>Loading State<a class="headerlink" href="#loading-state" title="Permalink to this headline">¶</a></h2>
+<span id="index-4"></span><h2><span class="section-number">6.2.5. </span>Loading State<a class="headerlink" href="#loading-state" title="Permalink to this headline">¶</a></h2>
 <p>The loading state is the first state run when the game starts. The
 responsibilities are:</p>
 <ul class="simple">
@@ -162,7 +162,7 @@ resources to queue the assets that need loaded. It then monitors the loading
 progress and transitions to the game state when complete.</p>
 </div>
 <div class="section" id="main-menu-state">
-<span id="ref-main-menu-state"></span><span id="index-4"></span><h2><span class="section-number">6.2.6. </span>Main Menu State<a class="headerlink" href="#main-menu-state" title="Permalink to this headline">¶</a></h2>
+<span id="ref-main-menu-state"></span><span id="index-5"></span><h2><span class="section-number">6.2.6. </span>Main Menu State<a class="headerlink" href="#main-menu-state" title="Permalink to this headline">¶</a></h2>
 <p>The main menu state allows uses to navigate to the other states.
 Responsibilities include:</p>
 <ul class="simple">
@@ -171,12 +171,12 @@ Responsibilities include:</p>
 <li><p>Launch the game state with the multiplayer game flag.</p></li>
 <li><p>Navigate to the options menu state.</p></li>
 <li><p>Navigate to the credits menu state.</p></li>
-<li><p>Open the game’s user manual in an external browser.</p></li>
+<li><p>Open the game’s player manual in an external browser.</p></li>
 <li><p>Go to the quit state to exit the game.</p></li>
 </ul>
 </div>
 <div class="section" id="single-player-menu-state">
-<span id="ref-single-player-menu-state"></span><span id="index-5"></span><h2><span class="section-number">6.2.7. </span>Single-player Menu State<a class="headerlink" href="#single-player-menu-state" title="Permalink to this headline">¶</a></h2>
+<span id="ref-single-player-menu-state"></span><span id="index-6"></span><h2><span class="section-number">6.2.7. </span>Single-player Menu State<a class="headerlink" href="#single-player-menu-state" title="Permalink to this headline">¶</a></h2>
 <p>The single-player menu state shows the UI for configuring single-player games.
 The responsibilities are:</p>
 <ul class="simple">
@@ -188,7 +188,7 @@ selected by the player.</p></li>
 </ul>
 </div>
 <div class="section" id="speedrun-menu-state">
-<span id="ref-speedrun-menu-state"></span><span id="index-6"></span><h2><span class="section-number">6.2.8. </span>Speedrun Menu State<a class="headerlink" href="#speedrun-menu-state" title="Permalink to this headline">¶</a></h2>
+<span id="ref-speedrun-menu-state"></span><span id="index-7"></span><h2><span class="section-number">6.2.8. </span>Speedrun Menu State<a class="headerlink" href="#speedrun-menu-state" title="Permalink to this headline">¶</a></h2>
 <p>The speedrun menu state is the entry point to speed run games. The
 responsibilities are:</p>
 <ul class="simple">
@@ -204,7 +204,7 @@ the speedrun game. It uses this information to know if it should show the
 instructional text, show the game results, or navigate to the best time menu.</p>
 </div>
 <div class="section" id="speedrun-best-time-menu-state">
-<span id="ref-speedrun-best-time-menu-state"></span><span id="index-7"></span><h2><span class="section-number">6.2.9. </span>Speedrun Best Time Menu State<a class="headerlink" href="#speedrun-best-time-menu-state" title="Permalink to this headline">¶</a></h2>
+<span id="ref-speedrun-best-time-menu-state"></span><span id="index-8"></span><h2><span class="section-number">6.2.9. </span>Speedrun Best Time Menu State<a class="headerlink" href="#speedrun-best-time-menu-state" title="Permalink to this headline">¶</a></h2>
 <p>The speedrun best time menu state allows users to view and record a best
 speedrun time. The responsibilities are:</p>
 <ul class="simple">
@@ -215,12 +215,12 @@ speedrun time. The responsibilities are:</p>
 </ul>
 </div>
 <div class="section" id="credits-menu-state">
-<span id="ref-credits-menu-state"></span><span id="index-8"></span><h2><span class="section-number">6.2.10. </span>Credits Menu State<a class="headerlink" href="#credits-menu-state" title="Permalink to this headline">¶</a></h2>
+<span id="ref-credits-menu-state"></span><span id="index-9"></span><h2><span class="section-number">6.2.10. </span>Credits Menu State<a class="headerlink" href="#credits-menu-state" title="Permalink to this headline">¶</a></h2>
 <p>The credits menu state shows the game’s credits along with demoing the various
 games environments. The responsibilities are:</p>
 <ul class="simple">
 <li><p>Show the <a class="reference internal" href="../gui.html#ref-ui-credits"><span class="std std-ref">Credits</span></a> menu widgets.</p></li>
-<li><p>Open the game’s licence compliance information contained in the user manual
+<li><p>Open the game’s licence compliance information contained in the player manual
 in an external browser.</p></li>
 <li><p>Demonstrate different in progress games.</p></li>
 <li><p>Go back to the main menu state.</p></li>
@@ -230,7 +230,7 @@ creating two AI players that battle while occasionally switching the current
 environment using the <a class="reference internal" href="components-resources-entities.html#ref-environments-resource"><span class="std std-ref">Environments Resource</span></a>.</p>
 </div>
 <div class="section" id="options-menu-state">
-<span id="ref-options-menu-state"></span><span id="index-9"></span><h2><span class="section-number">6.2.11. </span>Options Menu State<a class="headerlink" href="#options-menu-state" title="Permalink to this headline">¶</a></h2>
+<span id="ref-options-menu-state"></span><span id="index-10"></span><h2><span class="section-number">6.2.11. </span>Options Menu State<a class="headerlink" href="#options-menu-state" title="Permalink to this headline">¶</a></h2>
 <p>The options menu state shows the various options related widgets and saves the
 games options. Its responsibilities are:</p>
 <ul class="simple">
@@ -290,12 +290,14 @@ the behavior of the game when first started.</p>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">6.2. Game States</a></li>
 <li class="toctree-l2"><a class="reference internal" href="systems.html">6.3. Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="components-resources-entities.html">6.4. Components, Resources, and Entities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file-formats.html">6.5. File Formats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual.html">6.6. User Manual</a></li>
-<li class="toctree-l2"><a class="reference internal" href="packaging.html">6.7. Packages and Source Builds</a></li>
-<li class="toctree-l2"><a class="reference internal" href="security.html">6.8. System and Data Security</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development-tools.html">6.9. Development Tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="prototype.html">6.10. Prototype Lessons Learned</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coordinate-systems.html">6.5. Coordinate Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ui.html">6.6. UI Widgets, Layout, and Styles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-formats.html">6.7. File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="player-manual.html">6.8. Player Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html">6.9. Packages and Source Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">6.10. System and Data Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development-tools.html">6.11. Development Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototype.html">6.12. Prototype Lessons Learned</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../glossary.html">7. Glossary</a></li>
@@ -346,7 +348,7 @@ the behavior of the game when first started.</p>
       &copy;2020, James Richey.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

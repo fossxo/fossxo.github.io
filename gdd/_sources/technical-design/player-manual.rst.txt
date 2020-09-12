@@ -1,18 +1,18 @@
-###########
-User Manual
-###########
+#############
+Player Manual
+#############
 
-The user manual provides information about how to play the game, different
+The player manual provides information about how to play the game, different
 gameplay modes, and contains content to fulfill the
 :ref:`ref-distribution-license-compliance` requirements.
 
 
-..  index:: user manual
+..  index:: player manual
 
-==================
-User Manual Topics
-==================
-The list of topics included in user manual are:
+====================
+Player Manual Topics
+====================
+The list of topics included in player manual are:
 
 *   How to play tic-tac-toe and the :ref:`ref-gameplay-rules-of-tic-tac-toe`.
 *   The different :doc:`../gameplay` modes of FossXO.
@@ -33,7 +33,7 @@ kept short and pictures are used to demonstrate concepts.
 HTML Generation Suggestions
 ===========================
 As the :ref:`ref-ui-help` menu describes, local HTML files store the user
-manual. There are some tools worth considering for creating the user manual.
+manual. There are some tools worth considering for creating the player manual.
 
 
 ..  index:: mdBook

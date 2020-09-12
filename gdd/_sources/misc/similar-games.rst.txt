@@ -1,3 +1,5 @@
+..  index:: Tic Tac Toe, OXO
+
 #############
 Similar Games
 #############

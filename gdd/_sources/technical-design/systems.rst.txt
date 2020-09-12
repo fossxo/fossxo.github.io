@@ -123,6 +123,32 @@ To prevent burning CPU cycles evaluating positions that will not be used the
 AI system skips players if it is not the player's turn.
 
 
+.. index:: mouse raycast system
+
+--------------------
+Mouse Raycast System
+--------------------
+The mouse raycast system is responsible for converting the mouse position from
+screen to world coordinates and grid position.
+
+:numref:`code-mouse-raycast-system` shows the pseudocode that describes the
+mouse raycast system logic for converting the mouse position to the different
+:doc:`coordinate-systems`.
+
+..  _code-mouse-raycast-system:
+..  code-block:: text
+    :caption: Mouse raycast system pseudocode.
+
+    Get the mouse position as screen coordinates.
+    Use the game's camera and screen size to convert the
+        screen coordinates to world coordinates.
+    Use the grid resource to convert the world coordinates
+        to tic-tac-toe grid position.
+    Store all results in the mouse position resource.
+
+
+.. index:: Amethyst system bundle
+
 ========================
 Builtin Amethyst Systems
 ========================
@@ -138,7 +164,8 @@ UiBundle
     Provides support for rendering user interfaces and processing UI input events.
 RenderingBundle
     Provides the game's rendering support.
+CameraOrthoSystem
+    Automatically adjusts the camera matrix when the window is resized.
 
 See the Amethyst documentation for details on each of these bundles and the
 systems they provide.
-

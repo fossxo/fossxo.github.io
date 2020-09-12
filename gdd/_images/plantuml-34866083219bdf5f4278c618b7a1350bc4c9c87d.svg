@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="169px" preserveAspectRatio="none" style="width:313px;height:169px;" version="1.1" viewBox="0 0 313 169" width="313px" zoomAndPan="magnify"><defs><filter height="300%" id="fbmke8x9tftql" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--class Grid--><rect fill="#FEFECE" filter="url(#fbmke8x9tftql)" height="150.4375" id="Grid" style="stroke: #A80036; stroke-width: 1.5;" width="296" x="6" y="8"/><ellipse cx="137.25" cy="24" fill="#FF6AD3" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M136.7344,24.5625 Q134.875,23.8594 134.2188,23.0938 Q133.5781,22.3125 133.5781,21 Q133.5781,19.3125 134.6563,18.3438 Q135.7344,17.375 137.6094,17.375 Q138.4688,17.375 139.3125,17.5781 Q140.1719,17.7656 141.0156,18.1563 L141.0156,20.5469 Q140.2344,19.9844 139.4063,19.7031 Q138.5938,19.4063 137.7969,19.4063 Q136.9219,19.4063 136.4375,19.7656 Q135.9688,20.125 135.9688,20.7813 Q135.9688,21.2969 136.3125,21.6406 Q136.6563,21.9688 137.75,22.375 L138.8125,22.7813 Q140.2969,23.3281 141,24.2344 Q141.7188,25.1406 141.7188,26.5156 Q141.7188,28.3906 140.6094,29.3125 Q139.5,30.2344 137.25,30.2344 Q136.3281,30.2344 135.4063,30.0156 Q134.4844,29.7969 133.625,29.375 L133.625,26.8438 Q134.5938,27.5313 135.5156,27.875 Q136.4375,28.2188 137.3281,28.2188 Q138.2344,28.2188 138.7344,27.8125 Q139.2344,27.3906 139.2344,26.6563 Q139.2344,26.0938 138.8906,25.6875 Q138.5625,25.2656 137.9375,25.0156 L136.7344,24.5625 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="25" x="157.75" y="28.1543">Grid</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="301" y1="40" y2="40"/><ellipse cx="17" cy="51.9023" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="68" x="26" y="54.2104">origin: Point</text><ellipse cx="17" cy="64.707" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="48" x="26" y="67.0151">size: f32</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="301" y1="73.6094" y2="73.6094"/><ellipse cx="17" cy="85.5117" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="171" x="26" y="87.8198">center_points() -&gt; vec&lt;Point&gt;</text><ellipse cx="17" cy="98.3164" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="198" x="26" y="100.6245">point_to_position(Point) -&gt; Position</text><ellipse cx="17" cy="111.1211" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="102" x="26" y="113.4292">lines() -&gt; [Line; 4]</text><ellipse cx="17" cy="123.9258" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="270" x="26" y="126.2339">wining_line(winning_positions) -&gt; Option&lt;Line&gt;</text><ellipse cx="17" cy="136.7305" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="126" x="26" y="139.0386">bounds() -&gt; Rectangle</text><ellipse cx="17" cy="149.5352" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="223" x="26" y="151.8433">position_to_square(Position) -&gt; Square</text><!--
+@startuml
+
+
+
+hide empty members
+
+class Grid << (S,#ff6ad3) >> {
+    + origin: Point
+    + size: f32
+    + center_points() -> vec<Point>
+    + point_to_position(Point) -> Position
+    + lines() -> [Line; 4]
+    + wining_line(winning_positions) -> Option<Line>
+    + bounds() -> Rectangle
+    + position_to_square(Position) -> Square
+}
+
+@enduml
+
+PlantUML version 1.2018.13(Mon Nov 26 09:11:51 PST 2018)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 11.0.7+10-post-Debian-3deb10u1
+Operating System: Linux
+OS Version: 4.19.0-9-amd64
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

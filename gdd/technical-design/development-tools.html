@@ -4,8 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>6.9. Development Tools &#8212; FossXO Game Design Document Rev. B</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6.11. Development Tools &#8212; FossXO Game Design Document Rev. B</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -16,8 +16,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6.10. Prototype Lessons Learned" href="prototype.html" />
-    <link rel="prev" title="6.8. System and Data Security" href="security.html" />
+    <link rel="next" title="6.12. Prototype Lessons Learned" href="prototype.html" />
+    <link rel="prev" title="6.10. System and Data Security" href="security.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -35,11 +35,11 @@
           <div class="body" role="main">
             
   <div class="section" id="development-tools">
-<h1><span class="section-number">6.9. </span>Development Tools<a class="headerlink" href="#development-tools" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">6.11. </span>Development Tools<a class="headerlink" href="#development-tools" title="Permalink to this headline">¶</a></h1>
 <p>This section describes the tools used to help with the development of the game
 and to ensure future maintainability.</p>
 <div class="section" id="debug-environment">
-<span id="index-0"></span><h2><span class="section-number">6.9.1. </span>Debug Environment<a class="headerlink" href="#debug-environment" title="Permalink to this headline">¶</a></h2>
+<span id="index-0"></span><h2><span class="section-number">6.11.1. </span>Debug Environment<a class="headerlink" href="#debug-environment" title="Permalink to this headline">¶</a></h2>
 <p>The debug environment shows the canonical location of the grid, marks, and hit
 boxes. This can can optionally be overlaid on the current environment allowing
 developers to ensure the positioning of their entities is correct. <a class="footnote-reference brackets" href="#firstenv" id="id1">1</a></p>
@@ -52,7 +52,7 @@ developers to ensure the positioning of their entities is correct. <a class="foo
 </ul>
 </div>
 <div class="section" id="building-and-packaging-workflows">
-<span id="index-1"></span><h2><span class="section-number">6.9.2. </span>Building and Packaging Workflows<a class="headerlink" href="#building-and-packaging-workflows" title="Permalink to this headline">¶</a></h2>
+<span id="index-1"></span><h2><span class="section-number">6.11.2. </span>Building and Packaging Workflows<a class="headerlink" href="#building-and-packaging-workflows" title="Permalink to this headline">¶</a></h2>
 <p>There are several step to building and packing the game. This includes, but is
 not limited to compiling the application, running tests, rendering the user
 manual, and running the packaging process. Additionally, the details of some of
@@ -72,14 +72,14 @@ checks, and unit tests.</p></li>
 </ul>
 </div>
 <div class="section" id="continuous-integration">
-<h2><span class="section-number">6.9.3. </span>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permalink to this headline">¶</a></h2>
+<span id="index-2"></span><h2><span class="section-number">6.11.3. </span>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permalink to this headline">¶</a></h2>
 <p>A continuous integration system is used to build and test every commit
 allowing potential problems to be found as soon as possible. This allows
 developers to work right on the <code class="docutils literal notranslate"><span class="pre">development</span></code> branch and have confidence their
 changes are not breaking existing functionality.</p>
 </div>
 <div class="section" id="automated-license-checks">
-<span id="index-2"></span><h2><span class="section-number">6.9.4. </span>Automated License Checks<a class="headerlink" href="#automated-license-checks" title="Permalink to this headline">¶</a></h2>
+<span id="index-3"></span><h2><span class="section-number">6.11.4. </span>Automated License Checks<a class="headerlink" href="#automated-license-checks" title="Permalink to this headline">¶</a></h2>
 <p>Automated tools are used to quickly and accurately check the
 <a class="reference internal" href="../misc/licensing-and-distribution.html#ref-distribution-license-compliance"><span class="std std-ref">Third Party License Compliance</span></a>. An existing tool for checking
 library licenses is <a class="reference external" href="https://crates.io/crates/cargo-deny">cargo-deny</a> .
@@ -89,7 +89,7 @@ is taken for the third party assets.</p>
 workflows.</p>
 </div>
 <div class="section" id="logging">
-<span id="ref-dev-tools-logging"></span><h2><span class="section-number">6.9.5. </span>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
+<span id="ref-dev-tools-logging"></span><span id="index-4"></span><h2><span class="section-number">6.11.5. </span>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
 <p>Logging is used to help developers and users troubleshoot potential issues with
 the game.</p>
 <p>The available logging levels are:</p>
@@ -117,7 +117,7 @@ available in the event the game crashes.</p>
 <p>The default log level is <strong>info</strong>.</p>
 </div>
 <div class="section" id="command-line-options">
-<h2><span class="section-number">6.9.6. </span>Command Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.11.6. </span>Command Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
 <p>The game provides command line options allowing developers to launch the game
 in different configurations without having to recompile.</p>
 <dl class="std option">
@@ -148,7 +148,7 @@ environments at random. This is useful when creating new environments.</p>
 <span id="cmdoption-help"></span><code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-h" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shows the command line help. This provides a brief description of the
 application and lists the available command line options. This also lets
-users know how to find the user manual in case the user is searching for
+users know how to find the player manual in case the user is searching for
 information on how to play the game.</p>
 </dd></dl>
 
@@ -215,12 +215,14 @@ synchronized.</p>
 <li class="toctree-l2"><a class="reference internal" href="states.html">6.2. Game States</a></li>
 <li class="toctree-l2"><a class="reference internal" href="systems.html">6.3. Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="components-resources-entities.html">6.4. Components, Resources, and Entities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file-formats.html">6.5. File Formats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual.html">6.6. User Manual</a></li>
-<li class="toctree-l2"><a class="reference internal" href="packaging.html">6.7. Packages and Source Builds</a></li>
-<li class="toctree-l2"><a class="reference internal" href="security.html">6.8. System and Data Security</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">6.9. Development Tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="prototype.html">6.10. Prototype Lessons Learned</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coordinate-systems.html">6.5. Coordinate Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ui.html">6.6. UI Widgets, Layout, and Styles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-formats.html">6.7. File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="player-manual.html">6.8. Player Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html">6.9. Packages and Source Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">6.10. System and Data Security</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.11. Development Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototype.html">6.12. Prototype Lessons Learned</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../glossary.html">7. Glossary</a></li>
@@ -239,8 +241,8 @@ synchronized.</p>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
   <li><a href="index.html"><span class="section-number">6. </span>Technical Design</a><ul>
-      <li>Previous: <a href="security.html" title="previous chapter"><span class="section-number">6.8. </span>System and Data Security</a></li>
-      <li>Next: <a href="prototype.html" title="next chapter"><span class="section-number">6.10. </span>Prototype Lessons Learned</a></li>
+      <li>Previous: <a href="security.html" title="previous chapter"><span class="section-number">6.10. </span>System and Data Security</a></li>
+      <li>Next: <a href="prototype.html" title="next chapter"><span class="section-number">6.12. </span>Prototype Lessons Learned</a></li>
   </ul></li>
   </ul></li>
 </ul>
@@ -271,7 +273,7 @@ synchronized.</p>
       &copy;2020, James Richey.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

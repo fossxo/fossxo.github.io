@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6.5. Coordinate Systems &#8212; FossXO Game Design Document Rev. B</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.6. UI Widgets, Layout, and Styles" href="ui.html" />
+    <link rel="prev" title="6.4. Components, Resources, and Entities" href="components-resources-entities.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="coordinate-systems">
+<span id="index-0"></span><h1><span class="section-number">6.5. </span>Coordinate Systems<a class="headerlink" href="#coordinate-systems" title="Permalink to this headline">¶</a></h1>
+<p>A critical part of any video game is to show the games graphics on the user’s
+screen. However, most games does not directly control the contents of individual
+pixels. Instead geometry is submitted to the graphics pipeline to be rendered.
+The pipeline then determines the final color to write to each screen pixel. The
+geometry is described in terms of world coordinates. A projection matrix, e.g.
+the game’s camera, describes how to transform the points from world coordinates
+to screen coordinates.</p>
+<p>This section describes these coordinate systems and how they relate. This is of
+particular importance when handling mouse input provided by the operating system
+as the mouse’s screen coordinates need converted to a tic-tac-toe board position
+to know where the user would like to place their mark.</p>
+<div class="section" id="screen-coordinates">
+<span id="index-1"></span><h2><span class="section-number">6.5.1. </span>Screen Coordinates<a class="headerlink" href="#screen-coordinates" title="Permalink to this headline">¶</a></h2>
+<p>Screen coordinates, also known as normalized device coordinates, is how the
+operating system thinks of the game’s window. The window is a 2D image with the
+origin in the top left corner of the window. The y values increase down and the
+x values increase to the right as shown in <a class="reference internal" href="#fig-screen-coordinates"><span class="std std-numref">Figure 6.11</span></a>.</p>
+<div class="figure align-default" id="id2">
+<span id="fig-screen-coordinates"></span><img alt="../_images/screen-coordinates.svg" src="../_images/screen-coordinates.svg" /><p class="caption"><span class="caption-number">Figure 6.11 </span><span class="caption-text">The screen coordinate system with x-right and y-down. The origin is the top
+left of the window.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>The game uses the screen point type, shown in <a class="reference internal" href="#uml-screen-point"><span class="std std-numref">Figure 6.12</span></a>
+represent screen coordinates in terms of X and Y position.</p>
+<div class="figure align-default" id="id3">
+<span id="uml-screen-point"></span><p class="plantuml">
+<img src="../_images/plantuml-6a70c74a93e172c17f185870e63260802cf519e2.svg" alt="!include rust_types.uml
+hide empty members
+
+struct(ScreenPoint) {
+    + x: f32
+    + y: f32
+    + from((f32, f32))
+    + to_point() -&gt; Point2
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.12 </span><span class="caption-text">Representation of a screen point.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<p>When the user clicks on part of the window, the OS reports the mouse position
+in terms of screen coordinates. The mouse raycast system converts the position
+to world coordinates and a corresponding tic-tac-toe board position.</p>
+</div>
+<div class="section" id="world-coordinates">
+<span id="ref-world-coordinates"></span><span id="index-2"></span><h2><span class="section-number">6.5.2. </span>World Coordinates<a class="headerlink" href="#world-coordinates" title="Permalink to this headline">¶</a></h2>
+<p>All of the game’s objects described in 3D space using the world coordinates
+shown in <a class="reference internal" href="#fig-world-coordinates"><span class="std std-numref">Figure 6.13</span></a>.</p>
+<div class="figure align-default" id="id4">
+<span id="fig-world-coordinates"></span><img alt="../_images/world-coordinates.svg" src="../_images/world-coordinates.svg" /><p class="caption"><span class="caption-number">Figure 6.13 </span><span class="caption-text">World coordinate system with x-right, y-up, and z-out. The origin is an
+arbitrary point in the world.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<p>The game’s camera contains a projection matrix describes how the 3D scene is
+transformed to the 2D pixels. Likewise, the inverse operation mapping screen
+pixels to world points can be performed. <a class="footnote-reference brackets" href="#cameratransforms" id="id1">1</a></p>
+<p>The game uses the nalgebra <code class="docutils literal notranslate"><span class="pre">Point3</span></code> type to represent world points in terms of
+X, Y, and Z position.</p>
+</div>
+<div class="section" id="tic-tac-toe-board-positions">
+<span id="ref-ttt-board-position"></span><span id="index-3"></span><h2><span class="section-number">6.5.3. </span>Tic-tac-toe Board Positions<a class="headerlink" href="#tic-tac-toe-board-positions" title="Permalink to this headline">¶</a></h2>
+<p>The tic-tac-toe game describes marks in terms of their row and column position
+as shown in <a class="reference internal" href="#fig-board-position"><span class="std std-numref">Figure 6.14</span></a>.</p>
+<div class="figure align-default" id="id5">
+<span id="fig-board-position"></span><img alt="../_images/board-position.svg" src="../_images/board-position.svg" /><p class="caption"><span class="caption-number">Figure 6.14 </span><span class="caption-text">Tic-tac-toe board positions with rows-up, columns-right. The origin is the
+bottom left square.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<p>The open_ttt_lib <code class="docutils literal notranslate"><span class="pre">Position</span></code> type is use for board positions.</p>
+<p>For a tic-tac-toe game there are several data types that are useful when
+describing the board including lines and rectangles.
+<a class="reference internal" href="#uml-ttt-board-math-helper-types"><span class="std std-numref">Figure 6.15</span></a> shows some examples of these types.</p>
+<div class="figure align-default" id="id6">
+<span id="uml-ttt-board-math-helper-types"></span><p class="plantuml">
+<img src="../_images/plantuml-44003e08f4ad78d6fff2de2b8782d534c59e818a.svg" alt="!include rust_types.uml
+hide empty members
+
+struct(Line) {
+    + start: Point3
+    + end: Point3
+}
+
+struct(Square) {
+    + new(center, size)
+    + size() -&gt; f32
+    + center() -&gt; Point3
+    + top_left() -&gt; Point3
+    + top_right() -&gt; Point3
+    + bottom_left() -&gt; Point3
+    + bottom_right() -&gt; Point3
+    + top_center() -&gt; Point3
+    + bottom_center() -&gt; Point3
+    + center_left() -&gt; Point3
+    + center_right() -&gt; Point3
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.15 </span><span class="caption-text">Helper data types for describing the tic-tac-toe board.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+<p>A line can be used to describe the board’s grid or the line drawn through
+winning positions.</p>
+<p>An axis aligned rectangle is useful for describing one of the grid’s cells.
+Several helper methods provide access to the corners, center point, and midpoints.
+<a class="reference internal" href="#fig-grid-square-points"><span class="std std-numref">Figure 6.16</span></a> visually shows these points.</p>
+<div class="figure align-default" id="id7">
+<span id="fig-grid-square-points"></span><img alt="../_images/grid-square-points.svg" src="../_images/grid-square-points.svg" /><p class="caption"><span class="caption-number">Figure 6.16 </span><span class="caption-text">Points of interest in the rectangle structure. 1: center point,
+2: bottom left, 3: bottom center, and 4: top right.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="cameratransforms"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>The Amethyst <code class="docutils literal notranslate"><span class="pre">Camera::screen_to_world_point()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Camera::world_to_screen()</span></code> functions are useful when converting between
+screen and world positions.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">FossXO Game Design Document</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameplay.html">2. Gameplay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">3. User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../environments.html">4. Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/index.html">5. Additional Considerations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. Technical Design</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="engine-overview.html">6.1. Engine Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states.html">6.2. Game States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems.html">6.3. Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components-resources-entities.html">6.4. Components, Resources, and Entities</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.5. Coordinate Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ui.html">6.6. UI Widgets, Layout, and Styles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-formats.html">6.7. File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="player-manual.html">6.8. Player Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html">6.9. Packages and Source Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">6.10. System and Data Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development-tools.html">6.11. Development Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototype.html">6.12. Prototype Lessons Learned</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">8. References</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/fossxo/fossxo-gdd">GitHub Source</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html"><span class="section-number">6. </span>Technical Design</a><ul>
+      <li>Previous: <a href="components-resources-entities.html" title="previous chapter"><span class="section-number">6.4. </span>Components, Resources, and Entities</a></li>
+      <li>Next: <a href="ui.html" title="next chapter"><span class="section-number">6.6. </span>UI Widgets, Layout, and Styles</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, James Richey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/technical-design/coordinate-systems.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

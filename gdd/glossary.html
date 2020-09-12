@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>7. Glossary &#8212; FossXO Game Design Document Rev. B</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="8. References" href="references.html" />
-    <link rel="prev" title="6.10. Prototype Lessons Learned" href="technical-design/prototype.html" />
+    <link rel="prev" title="6.12. Prototype Lessons Learned" href="technical-design/prototype.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -45,11 +45,16 @@ primary focus of listeners. When described as the type of music for an
 <a class="reference internal" href="#term-environment"><span class="xref std std-term">environment</span></a>, it indicates the environment’s music is not a main
 focus of the environment.</p>
 </dd>
+<dt id="term-BOM">BOM</dt><dd><p>Acronym for bill of materials. See <a class="reference internal" href="#term-software-bill-of-materials"><span class="xref std std-term">software bill of materials</span></a>
+for how BOMs are used in software.</p>
+</dd>
 <dt id="term-cat-s-game">cat’s game</dt><dd><p>Term used when a game of tic-tac-toe ends in a draw where there is no winner.</p>
 </dd>
 <dt id="term-component">component</dt><dd><p>In an <a class="reference internal" href="#term-entity-component-system"><span class="xref std std-term">entity component system</span></a> architecture, a component contains
 the data for one aspect of a game object. Component examples include
 color, position, or mark type.</p>
+</dd>
+<dt id="term-coordinate-system">coordinate system</dt><dd><p>A numerical system that describes the positions of points in space.</p>
 </dd>
 <dt id="term-ECS">ECS</dt><dd><p>Acronym for <a class="reference internal" href="#term-entity-component-system"><span class="xref std std-term">entity component system</span></a>.</p>
 </dd>
@@ -71,16 +76,32 @@ played.</p>
 </dd>
 <dt id="term-hand-drawn">hand drawn</dt><dd><p>Hand drawn is a style of line that is wavy and imprecise.</p>
 </dd>
+<dt id="term-microtransaction">microtransaction</dt><dd><p>A monetization scheme where players purchase in game currency, such as
+“gems”, which can later be redeemed for other game items. These items
+often give the player an edge therefore requiring players to purchase
+said items if they wish to be competitive at the game.</p>
+</dd>
 <dt id="term-open-source-software">open-source software</dt><dd><p>Open-source software is software whose source code is available for others
 to study, modify, and redistribute.</p>
+</dd>
+<dt id="term-projection-matrix">projection matrix</dt><dd><p>A 4x4 mathematical matrix that transforms a given point from 3D point in
+the game’s world to the 2D point on the user’s monitor. The game’s
+camera contains this matrix.</p>
 </dd>
 <dt id="term-Rust-programming-language">Rust programming language</dt><dd><p>Rust is a systems programming language with a focus on safety and speed.
 Website: <a class="reference external" href="https://www.rust-lang.org/">https://www.rust-lang.org/</a></p>
 </dd>
 <dt id="term-RustConf">RustConf</dt><dd><p>RustConf is the annual Rust developers conference.</p>
 </dd>
+<dt id="term-software-bill-of-materials">software bill of materials</dt><dd><p>A list of all libraries and components used in a piece of software.
+This is similar to how food packages list their ingredients.</p>
+</dd>
 <dt id="term-speedrun">speedrun</dt><dd><p>A speed run is a play-though of a video game where the go is to complete
 the game as fast as possible.</p>
+</dd>
+<dt id="term-supply-chain-attack">supply chain attack</dt><dd><p>An attack where a cyber-attacker compromises libraries or other
+dependencies of an application to attack systems that use the
+application.</p>
 </dd>
 <dt id="term-system">system</dt><dd><p>In an <a class="reference internal" href="#term-entity-component-system"><span class="xref std std-term">entity component system</span></a> architecture, systems contain the
 game’s logic. Each system is executed every game loop over a collection
@@ -90,6 +111,10 @@ of <a class="reference internal" href="#term-component"><span class="xref std st
 features or techniques of a software application. A throwaway prototype
 is discarded once the features or techniques have been demonstrated.
 Throwaway prototypes allow for rapid experimentation with low risk.</p>
+</dd>
+<dt id="term-UI-widget">UI widget</dt><dd><p>A graphical user interface control, such as a button or textbox, that
+facilitates a particular type of interaction. Typically widgets have
+consistent look and feel.</p>
 </dd>
 </dl>
 </div>
@@ -133,7 +158,7 @@ Throwaway prototypes allow for rapid experimentation with low risk.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="technical-design/prototype.html" title="previous chapter"><span class="section-number">6.10. </span>Prototype Lessons Learned</a></li>
+      <li>Previous: <a href="technical-design/prototype.html" title="previous chapter"><span class="section-number">6.12. </span>Prototype Lessons Learned</a></li>
       <li>Next: <a href="references.html" title="next chapter"><span class="section-number">8. </span>References</a></li>
   </ul></li>
 </ul>
@@ -164,7 +189,7 @@ Throwaway prototypes allow for rapid experimentation with low risk.</p>
       &copy;2020, James Richey.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

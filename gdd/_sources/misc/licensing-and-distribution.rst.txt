@@ -51,6 +51,7 @@ Because the game is open-source anyone can build the game from source. This
 involves cloning the game's source code repository and following the build
 instructions documented in the README file. [#cratessizelimit]_
 
+.. index:: microtransaction, spyware, advertisement
 
 ============
 Monetization
@@ -70,6 +71,8 @@ assets to help reduce the development effort. To use these resources, the game
 must comply with their various licensing terms. Additionally, the game can only
 use any third party resources that have licenses that are compatible with the
 game's license.
+
+.. index:: software bill of materials
 
 ------------------
 Software Libraries

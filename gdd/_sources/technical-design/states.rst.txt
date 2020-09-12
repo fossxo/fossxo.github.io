@@ -30,6 +30,8 @@ A summary of the State trait is shown in :numref:`uml-state-trait`.
         +update(StateData) -> Trans
     }
 
+..  index:: EventData enum
+
 Each method is provided a ``StateData`` structure that provide's access to the
 world's entities and resources. Additionally, ``handle_event()`` is provided an
 ``EventData`` enum, shown in :numref:`uml-event-data-enum`, that aggregates the
@@ -103,7 +105,7 @@ are:
 
 *   Spawn the player and AI opponent entities for playing the game.
 *   Handle player events for when marks are placed.
-*   Manage the game resource.
+*   Manage the game logic resource.
 *   Show the game environment with the :ref:`ref-environments-resource`.
 *   Show the :ref:`ref-ui-game-board` widgets including the menu button and
     status text.
@@ -125,7 +127,7 @@ The speedrun game state is used for :ref:`ref-gameplay-speed-run-mode` games.
 
 *   Spawn the player and AI opponent entities for playing the game.
 *   Handle player events for when marks are placed.
-*   Manage the game resource.
+*   Manage the game logic resource.
 *   Keep track of the total speedrun time and time for each game.
 *   Show the :ref:`ref-ui-speedrun-game-board` widgets including the menu
     button and status text.
@@ -167,7 +169,7 @@ Responsibilities include:
 *   Launch the game state with the multiplayer game flag.
 *   Navigate to the options menu state.
 *   Navigate to the credits menu state.
-*   Open the game's user manual in an external browser.
+*   Open the game's player manual in an external browser.
 *   Go to the quit state to exit the game.
 
 
@@ -233,7 +235,7 @@ The credits menu state shows the game's credits along with demoing the various
 games environments. The responsibilities are:
 
 *   Show the :ref:`ref-ui-credits` menu widgets.
-*   Open the game's licence compliance information contained in the user manual
+*   Open the game's licence compliance information contained in the player manual
     in an external browser.
 *   Demonstrate different in progress games.
 *   Go back to the main menu state.

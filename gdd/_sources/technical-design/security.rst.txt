@@ -11,7 +11,7 @@ systems and the steps taken to minimize those risks.
 ===================
 Supply Chain Attack
 ===================
-A supply chain attack is where cyber-attacker compromises libraries or other
+A supply chain attack is where a cyber-attacker compromises libraries or other
 dependencies of an application to attack systems that use the application.
 The game makes extensive use of third party libraries, thus at an elevated risk
 for this type of attack. It only takes one of the dependent libraries being
@@ -25,7 +25,7 @@ bill of materials and using tools to automate package auditing.
 --------------------------
 Software Bill of Materials
 --------------------------
-The :doc:`user-manual` contains a listing of every library used by the game.
+The :doc:`player-manual` contains a listing of every library used by the game.
 The software BOM is specific for each release of the game. [#offlinebom]_
 
 The software BOM ensures developers and users alike know exactly what version of
@@ -72,7 +72,7 @@ in an untrusted pull request are carefully scrutinized to prevent a targeted
 attack against the game. [#pngcheck]_
 
 
-..  index:: SQL injection attack
+..  index:: SQL injection attack, network
 
 ==============
 Direct Attacks
@@ -103,6 +103,8 @@ to a user's system.
     an SQL injection attack.
     `Comic copyright xkcd.com under the CC BY-NC 2.5 license <https://xkcd.com/license.html>`_.
 
+
+..  index:: user data, personal data
 
 =============
 Personal Data

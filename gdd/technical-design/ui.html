@@ -1,0 +1,460 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6.6. UI Widgets, Layout, and Styles &#8212; FossXO Game Design Document Rev. B</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.7. File Formats" href="file-formats.html" />
+    <link rel="prev" title="6.5. Coordinate Systems" href="coordinate-systems.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="ui-widgets-layout-and-styles">
+<span id="index-0"></span><h1><span class="section-number">6.6. </span>UI Widgets, Layout, and Styles<a class="headerlink" href="#ui-widgets-layout-and-styles" title="Permalink to this headline">¶</a></h1>
+<p>In addition to showing the game board, FossXO’s <a class="reference internal" href="../gui.html"><span class="doc">User Interface</span></a> allows players to
+select different game modes, configure options, and view speed run best times.
+Amethyst provides a UI module, but it is intended to be used as building blocks
+for a game UI instead of being used directly.</p>
+<p>Therefore, FossXO provides a <code class="docutils literal notranslate"><span class="pre">ui</span></code> module that provides a high level interface
+around the low level Amethyst functionality. This section describes how high
+level UI widgets are constructed from the Amethyst building blocks, including
+how the UI is styled, laid out, and incorporated into the rest of the game.</p>
+<div class="section" id="amethyst-ui-overview">
+<span id="index-1"></span><h2><span class="section-number">6.6.1. </span>Amethyst UI Overview<a class="headerlink" href="#amethyst-ui-overview" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://docs.amethyst.rs/master/amethyst_ui/index.html">amethyst_ui</a>
+module provides the building blocks for creating game UIs. It actually contains
+three separate ways to create a UI.</p>
+<ol class="arabic simple">
+<li><p>The UI can be constructed directly using <code class="docutils literal notranslate"><span class="pre">UiTransform</span></code>, <code class="docutils literal notranslate"><span class="pre">UiText</span></code>,
+<code class="docutils literal notranslate"><span class="pre">UiImage</span></code>, and <code class="docutils literal notranslate"><span class="pre">Interactable</span></code> components. <a class="footnote-reference brackets" href="#additionalcomponents" id="id1">1</a>
+All fields of each component structure must be provided during creation.
+Also, this is the method described in the Amethyst book.</p></li>
+<li><p>The UI can be loaded from a <code class="docutils literal notranslate"><span class="pre">.ron</span></code> file using the <code class="docutils literal notranslate"><span class="pre">UiCreator</span></code>. The entity
+that defines the root of the UI is provided. Additionally, the <code class="docutils literal notranslate"><span class="pre">UiFinder</span></code> is
+used to locate child elements. The down side of this approach is creating
+the <code class="docutils literal notranslate"><span class="pre">.ron</span></code> files gets tedious and there is no style sheet support making
+changes difficult. The Amethyst repository contains several examples of this
+method. <a class="footnote-reference brackets" href="#weirdbug" id="id2">2</a></p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">UiButtonBuilder</span></code> and <code class="docutils literal notranslate"><span class="pre">UiLabelBuilder</span></code> builders can be used to help
+build buttons and labels. The builders use default values for any missing
+fields.</p></li>
+</ol>
+<p>Based on initial experimentation and the Amethyst documentation, building
+widgets directly from Amethyst components seems  like the best method to base
+the higher level functionality around. This ensures we have visibility into the
+exact set of entities and components being created. Additionally, our high level
+API hides the verbosity of creating widgets using this method.</p>
+</div>
+<div class="section" id="high-level-api">
+<span id="index-2"></span><h2><span class="section-number">6.6.2. </span>High Level API<a class="headerlink" href="#high-level-api" title="Permalink to this headline">¶</a></h2>
+<p>FossXO’s <code class="docutils literal notranslate"><span class="pre">ui</span></code> module provides a high level API to construct game menus and the
+in game controls. <a class="footnote-reference brackets" href="#apiusecase" id="id3">3</a> The <code class="docutils literal notranslate"><span class="pre">Menu</span></code> structure allows creating
+<a class="reference internal" href="../gui.html#ref-ui-menus"><span class="std std-ref">Menus</span></a> related widgets, provides UI event handling logic, and holds
+the underlying entities. The <code class="docutils literal notranslate"><span class="pre">Menu</span></code> structure and supporting types are
+shown in <a class="reference internal" href="#uml-ui-menu-types"><span class="std std-numref">Figure 6.17</span></a>.</p>
+<div class="figure align-default" id="id5">
+<span id="uml-ui-menu-types"></span><p class="plantuml">
+<img src="../_images/plantuml-0bcad2e083e7e433981564c77d7075e87bc794d2.svg" alt="!include rust_types.uml
+hide empty members
+
+struct(Menu) {
+    - ui_entities
+    - observers
+    + new()
+    + layout(world)
+    + delete(world)
+    + handle_ui_event(world, ui_event)  -&gt; Option&lt;fn&gt;
+    + set_title(world, text)
+    + set_close_button(world, text, on_close)
+    + add_button(world, text, on_press)
+    + add_link_button(world, text, on_press)
+    + add_separator(world)
+    + add_paragraph(world, text, num_lines)
+    + add_player_selector(world, initial_player) -&gt; PlayerSelector
+    + add_text_box(world, label, initial_text) -&gt; TextBox
+    + add_check_box(world, label, is_checked) -&gt; CheckBox
+}
+
+struct(PlayerSelector) {
+    + selected_player(world) -&gt; Player
+}
+
+struct(TextBox) {
+    + text(world) -&gt; String
+}
+
+struct(CheckBox) {
+    + is_checked(world) -&gt; bool
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.17 </span><span class="caption-text">Menu and and supporting types.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">GameControls</span></code> structure holds the controls shown during an in progress
+game. This includes the hamburger menu button, status text, and next game button.
+<a class="reference internal" href="#uml-ui-game-controls-types"><span class="std std-numref">Figure 6.18</span></a> shows the <code class="docutils literal notranslate"><span class="pre">GameControls</span></code> structure and
+related types.</p>
+<div class="figure align-default" id="id6">
+<span id="uml-ui-game-controls-types"></span><p class="plantuml">
+<img src="../_images/plantuml-d037f2894e1d61dca3aa8f2bf2f4c4ddf65f6f87.svg" alt="!include rust_types.uml
+hide empty members
+
+struct(GameControls) {
+    - ui_entities
+    - observers
+    + new()
+    + handle_ui_event(ui_event) -&gt; Option&lt;fn&gt;
+    + layout(world)
+    + delete(world)
+    + set_menu_button(world, on_press)
+    + set_game_over_button(world, on_press) -&gt; GameOverButton
+    + set_extra_information(world, text)
+    + enable_speed_run_display(world)
+}
+
+struct(GameOverButton) {
+    + set_text(world, text)
+    + show(world)
+    + hide(world)
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.18 </span><span class="caption-text">Game controls and related types.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+<p>The types provided by the high level API are specific for FossXO. For example
+instead of providing a generic toggle switch, the menu builder provides the
+<code class="docutils literal notranslate"><span class="pre">PlayerSelector</span></code> widget to hold the <a class="reference internal" href="../gui.html#ref-ui-single-player"><span class="std std-ref">Single-player</span></a> menu
+<span class="guilabel">Play as</span> selector. This allows us to focus on creating the controls
+needed for the game without having to handle potentially many different use
+cases of generic controls.</p>
+<div class="section" id="building-menus-and-widgets">
+<h3><span class="section-number">6.6.2.1. </span>Building Menus and Widgets<a class="headerlink" href="#building-menus-and-widgets" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Menu</span></code> and <code class="docutils literal notranslate"><span class="pre">GameControls</span></code> structures hide the details of constructing
+widgets with Amethyst from the rest of the game. They also ensure the widgets
+are constructed with a consistent style and layout as discussed in the
+<a class="reference internal" href="#ref-ui-styling"><span class="std std-ref">Styling</span></a> and <a class="reference internal" href="#ref-ui-layout"><span class="std std-ref">Layout</span></a> sections.</p>
+<p>The structures ensure the necessary components are created so the game’s
+<a class="reference internal" href="systems.html"><span class="doc">Systems</span></a> can take care of automatically updating the UI. For example,
+the game’s status text is automatically updated by the game state display system,
+thus there is no need to have a way to explicitly update the status text in
+the <code class="docutils literal notranslate"><span class="pre">GameControls</span></code>. Therefore, the <code class="docutils literal notranslate"><span class="pre">Menu</span></code> and <code class="docutils literal notranslate"><span class="pre">GameControls</span></code> structures
+hide most of the underlying widgets.</p>
+<p>Some additional items of interest are:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">add_*</span></code> methods add new elements to UI. The order in which the
+<code class="docutils literal notranslate"><span class="pre">add_*</span></code> methods are called determines the order the elements appear in the UI.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">set_*</span></code> methods add or overwrite a specific UI element. For example,
+menus have at most one title element that is provided via the
+<code class="docutils literal notranslate"><span class="pre">set_title()</span></code> method.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">layout()</span></code> method should be called once all items have been added
+to the UI to perform the automatic <a class="reference internal" href="#ref-ui-layout"><span class="std std-ref">Layout</span></a> process.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">delete()</span></code> to delete all widgets and their entities. Once this is
+called the menu or any widgets created from it should not be used.</p></li>
+</ul>
+</div>
+<div class="section" id="accessing-ui-data">
+<h3><span class="section-number">6.6.2.2. </span>Accessing UI Data<a class="headerlink" href="#accessing-ui-data" title="Permalink to this headline">¶</a></h3>
+<p>When a state might need access data contained in a particular widget, the `
+<cite>Menu`</cite> and <code class="docutils literal notranslate"><span class="pre">GameControls</span></code> structures return an instance of the widget when
+constructed. For example, <code class="docutils literal notranslate"><span class="pre">add_player_selector()</span></code> returns a <code class="docutils literal notranslate"><span class="pre">PlayerSelector</span></code>
+that can later be used by the state to see which selection has been made.</p>
+<p>However, in most cases, the game’s systems take care of managing and updating
+UI related data so the state’s don’t have to micro-manage the UI.</p>
+</div>
+<div class="section" id="handling-ui-events-with-slots-and-signals">
+<span id="index-3"></span><h3><span class="section-number">6.6.2.3. </span>Handling UI Events with Slots and Signals<a class="headerlink" href="#handling-ui-events-with-slots-and-signals" title="Permalink to this headline">¶</a></h3>
+<p>The UI buttons use a basic slots and signals concept to handle button presses.
+When a button is created, the a <code class="docutils literal notranslate"><span class="pre">on_press</span></code> callback is provided.
+The <code class="docutils literal notranslate"><span class="pre">handle_ui_event()</span></code> method returns the previously registered callback
+that is associated with given UI event. <a class="footnote-reference brackets" href="#callbackborrowchecker" id="id4">4</a>
+The state can then use this to invoke the logic for the specific button preventing
+states from having to implement long and bug prone <code class="docutils literal notranslate"><span class="pre">if</span></code> / <code class="docutils literal notranslate"><span class="pre">else</span> <span class="pre">if</span></code> chains.</p>
+<p><a class="reference internal" href="#code-ui-on-press-handler"><span class="std std-numref">Listing 6.4</span></a> shows the typical signature of the callback.</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<span id="code-ui-on-press-handler"></span><div class="code-block-caption"><span class="caption-number">Listing 6.4 </span><span class="caption-text">Typical signature of button <code class="docutils literal notranslate"><span class="pre">on_press</span></code> callback.</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">fn</span> <span class="nf">on_my_button_press</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">world</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">World</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Handle the press event here</span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">ui</span></code> module uses the private <code class="docutils literal notranslate"><span class="pre">EntityObservers</span></code> structure, shown in
+<a class="reference internal" href="#uml-ui-event-observers"><span class="std std-numref">Figure 6.19</span></a>, to help with mapping UI events to callbacks
+registered during the building process.</p>
+<div class="figure align-default" id="id8">
+<span id="uml-ui-event-observers"></span><p class="plantuml">
+<img src="../_images/plantuml-27f8cec484dbd862427e214fde84dcf28252f9d4.svg" alt="!include rust_types.uml
+hide empty members
+
+struct(EntityObservers) {
+    - observers: Map&lt;entity, fn&gt;
+    + add_observer(entity, observer: fn)
+    + observer(entity) -&gt; Option&lt;fn&gt;
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.19 </span><span class="caption-text">Event observers struct maps entities to observer callbacks.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="styling">
+<span id="ref-ui-styling"></span><span id="index-4"></span><h2><span class="section-number">6.6.3. </span>Styling<a class="headerlink" href="#styling" title="Permalink to this headline">¶</a></h2>
+<p>An important part of any user interface is to have a consistent style throughout.
+FossXO achieves this by specifying common UI widget properties in a style
+resource as shown in <a class="reference internal" href="#uml-ui-style-resource"><span class="std std-numref">Figure 6.20</span></a>.</p>
+<div class="figure align-default" id="id9">
+<span id="uml-ui-style-resource"></span><p class="plantuml">
+<img src="../_images/plantuml-f2d8da8ce93f3f6e5a13cfe5a04fe6d2c909ede9.svg" alt="!include rust_types.uml
+hide empty members
+
+struct(UiStyle) {
+    + menu
+    + title
+    + button
+    + hamburger_button
+    + game_status
+}
+
+struct(MenuStyle) {
+    background_image
+}
+
+struct(ButtonStyle) {
+    + text_style
+    + width
+    + height
+    + margin
+    + border_thickness
+    + border_color
+    + color
+    + hover_color
+    + press_color
+}
+
+struct(TextStyle) {
+    + font
+    + font_size
+    + color
+}
+
+struct(HamburgerButtonStyle) {
+    + icon
+    + size
+}"/></p>
+<p class="caption"><span class="caption-number">Figure 6.20 </span><span class="caption-text">UI style resources. Additional style structures are added as needed.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+<p>The style resource holds the common properties to all the UI widgets. When the
+widgets are being constructed, the UI style is fetched from the world and its
+properties are used instead of hard coding values for each individual UI widget
+as done in <code class="docutils literal notranslate"><span class="pre">.ron</span></code> files. For example, if the UI designer wishes to use a
+different font, every widget gets updated.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ui</span></code> module provides a <code class="docutils literal notranslate"><span class="pre">load_style()</span></code> function that loads assets
+required by the style such as fonts, icons, and background images. This ensures
+these resources are available when the game board or menus are displayed.</p>
+</div>
+<div class="section" id="layout">
+<span id="ref-ui-layout"></span><span id="index-5"></span><h2><span class="section-number">6.6.4. </span>Layout<a class="headerlink" href="#layout" title="Permalink to this headline">¶</a></h2>
+<p>In addition to having consistent style, it is important to have consistent and
+predictable locations of UI widgets. Requiring the UI designer to manually
+specify coordinates to place widgets is both tedious and error prone. FossXO’s
+<code class="docutils literal notranslate"><span class="pre">ui</span></code> module automatically determines where UI widgets should be placed. This
+feature is known as automatic layout.</p>
+<p>The Amethyst <code class="docutils literal notranslate"><span class="pre">UiTransform</span></code> component controls where the UI widget is drawn.
+The position is specified using <a class="reference internal" href="coordinate-systems.html#ref-world-coordinates"><span class="std std-ref">World Coordinates</span></a> with x-right and y-up.
+The Z value controls the draw order with widgets with a higher Z order drawn
+over those with a lower Z order. Also, the UI uses its own projection matrix,
+thus its scale is different than used for the environments.</p>
+<p>The origin of each component is selectable via the <code class="docutils literal notranslate"><span class="pre">Anchor</span></code> enum, shown in
+<a class="reference internal" href="#fig-ui-anchor-points"><span class="std std-numref">Figure 6.21</span></a>.</p>
+<div class="figure align-default" id="id10">
+<span id="fig-ui-anchor-points"></span><img alt="../_images/ui-anchor-points.svg" src="../_images/ui-anchor-points.svg" /><p class="caption"><span class="caption-number">Figure 6.21 </span><span class="caption-text">The anchor point sets the origin of the widget.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">ui</span></code> module takes a few different approaches to layout depending on the
+type of widget.</p>
+<div class="section" id="fixed-content">
+<h3><span class="section-number">6.6.4.1. </span>Fixed Content<a class="headerlink" href="#fixed-content" title="Permalink to this headline">¶</a></h3>
+<p>Many widgets have fixed locations. For example a menu’s title, close button, and
+the hamburger button are all placed in fixed specific locations. The layout
+logic for these items is fairly straight forward, but it must still account for
+any style properties that affect the positioning.</p>
+</div>
+<div class="section" id="content-stacking">
+<h3><span class="section-number">6.6.4.2. </span>Content Stacking<a class="headerlink" href="#content-stacking" title="Permalink to this headline">¶</a></h3>
+<p>The main content of menus is stacked and centered on the screen. Using the
+<code class="docutils literal notranslate"><span class="pre">Anchor::Middle</span></code> variant allows Amethyst to take care of the majority of the
+work. This will both horizontally and vertically center each component.
+However, to prevent all the widgets from overlapping, the layout system must
+take into account the total height of the content, the height of each
+widget and margin between widgets then adjust their Y offset accordingly.</p>
+<p>The pseudocode in <a class="reference internal" href="#code-ui-layout-stacked-content"><span class="std std-numref">Listing 6.5</span></a> shows one way this
+can be done by first calculating retaliative Y location of each widget then
+shifting the entire group to be centered.</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<span id="code-ui-layout-stacked-content"></span><div class="code-block-caption"><span class="caption-number">Listing 6.5 </span><span class="caption-text">Pseudocode for centering stacked content.</span><a class="headerlink" href="#id11" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Set widget offsets:
+    calculate the widget&#39;s center point Y using its height,
+        margin, and center point of the previous widget:
+    center point Y = previous center point Y - (widget.height / 2 + margin)
+
+Vertically center widgets:
+    Calculate the total height of the widgets.
+    Calculate current center point Y value from the total height.
+    Calculate the offset from the expected Y value. Since
+        widgets are anchored at the middle, the expected
+        Y value is 0.0.
+    Add the offset to each widget Y value thus vertically
+        centering the group of widgets.
+</pre></div>
+</div>
+</div>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="additionalcomponents"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>There are additional components that are useful such
+as <code class="docutils literal notranslate"><span class="pre">Selectable</span></code>. See the <code class="docutils literal notranslate"><span class="pre">amethyst_ui</span></code> documentation for additional
+components.</p>
+</dd>
+<dt class="label" id="weirdbug"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>A weird bug was encountered where creating buttons
+using the <code class="docutils literal notranslate"><span class="pre">UiLabelBuilder</span></code> would cause buttons loaded from via the
+<code class="docutils literal notranslate"><span class="pre">UiCreator</span></code> to render in weird places and not be deleted when the root
+element was deleted.</p>
+</dd>
+<dt class="label" id="apiusecase"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>FossXO’s UI APIs are designed specifically around FossXO’s
+interface requirements. They are no intended to construct general
+purpose user interfaces.</p>
+</dd>
+<dt class="label" id="callbackborrowchecker"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>A reference to the observer callback to invoke is
+returned from <code class="docutils literal notranslate"><span class="pre">handle_ui_event()</span></code> instead of being directly invoked
+due to Rust’s reference borrowing rules. The borrow checker prevents
+using closures to capture a reference to the struct when the callback is
+created like one might do in JavaScript. Additionally, while prototyping
+it was found the Rust compiler was unhappy with passing <code class="docutils literal notranslate"><span class="pre">&amp;mut</span> <span class="pre">self</span></code>
+to <code class="docutils literal notranslate"><span class="pre">handle_ui_event()</span></code> as <code class="docutils literal notranslate"><span class="pre">self</span></code> was also being used to access the
+<code class="docutils literal notranslate"><span class="pre">Menu</span></code> struct.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">FossXO Game Design Document</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameplay.html">2. Gameplay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui.html">3. User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../environments.html">4. Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/index.html">5. Additional Considerations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. Technical Design</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="engine-overview.html">6.1. Engine Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states.html">6.2. Game States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems.html">6.3. Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components-resources-entities.html">6.4. Components, Resources, and Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coordinate-systems.html">6.5. Coordinate Systems</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.6. UI Widgets, Layout, and Styles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-formats.html">6.7. File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="player-manual.html">6.8. Player Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html">6.9. Packages and Source Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">6.10. System and Data Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development-tools.html">6.11. Development Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototype.html">6.12. Prototype Lessons Learned</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">8. References</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/fossxo/fossxo-gdd">GitHub Source</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html"><span class="section-number">6. </span>Technical Design</a><ul>
+      <li>Previous: <a href="coordinate-systems.html" title="previous chapter"><span class="section-number">6.5. </span>Coordinate Systems</a></li>
+      <li>Next: <a href="file-formats.html" title="next chapter"><span class="section-number">6.7. </span>File Formats</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, James Richey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/technical-design/ui.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

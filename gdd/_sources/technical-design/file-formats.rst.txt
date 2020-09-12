@@ -100,7 +100,7 @@ If the file does not exist, the game creates a new file using the default values
 If there is a problem reading or parsing this file, default values are used.
 
 
-.. index:: user data file
+.. index:: user data file, speedruns SQL table
 ..  _ref-user-data-file:
 
 ==============

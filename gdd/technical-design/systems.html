@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>6.3. Systems &#8212; FossXO Game Design Document Rev. B</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -133,9 +133,28 @@ the AI player system logic.</p>
 <p>To prevent burning CPU cycles evaluating positions that will not be used the
 AI system skips players if it is not the player’s turn.</p>
 </div>
+<div class="section" id="mouse-raycast-system">
+<span id="index-3"></span><h3><span class="section-number">6.3.3.3. </span>Mouse Raycast System<a class="headerlink" href="#mouse-raycast-system" title="Permalink to this headline">¶</a></h3>
+<p>The mouse raycast system is responsible for converting the mouse position from
+screen to world coordinates and grid position.</p>
+<p><a class="reference internal" href="#code-mouse-raycast-system"><span class="std std-numref">Listing 6.3</span></a> shows the pseudocode that describes the
+mouse raycast system logic for converting the mouse position to the different
+<a class="reference internal" href="coordinate-systems.html"><span class="doc">Coordinate Systems</span></a>.</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<span id="code-mouse-raycast-system"></span><div class="code-block-caption"><span class="caption-number">Listing 6.3 </span><span class="caption-text">Mouse raycast system pseudocode.</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Get the mouse position as screen coordinates.
+Use the game&#39;s camera and screen size to convert the
+    screen coordinates to world coordinates.
+Use the grid resource to convert the world coordinates
+    to tic-tac-toe grid position.
+Store all results in the mouse position resource.
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="builtin-amethyst-systems">
-<h2><span class="section-number">6.3.4. </span>Builtin Amethyst Systems<a class="headerlink" href="#builtin-amethyst-systems" title="Permalink to this headline">¶</a></h2>
+<span id="index-4"></span><h2><span class="section-number">6.3.4. </span>Builtin Amethyst Systems<a class="headerlink" href="#builtin-amethyst-systems" title="Permalink to this headline">¶</a></h2>
 <p>Amethyst provides several system bundles that are used by the game:</p>
 <dl class="simple">
 <dt>TransformBundle</dt><dd><p>Handles updating transform component’s position matrix.</p>
@@ -147,6 +166,8 @@ AI system skips players if it is not the player’s turn.</p>
 <dt>UiBundle</dt><dd><p>Provides support for rendering user interfaces and processing UI input events.</p>
 </dd>
 <dt>RenderingBundle</dt><dd><p>Provides the game’s rendering support.</p>
+</dd>
+<dt>CameraOrthoSystem</dt><dd><p>Automatically adjusts the camera matrix when the window is resized.</p>
 </dd>
 </dl>
 <p>See the Amethyst documentation for details on each of these bundles and the
@@ -182,12 +203,14 @@ systems they provide.</p>
 <li class="toctree-l2"><a class="reference internal" href="states.html">6.2. Game States</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">6.3. Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="components-resources-entities.html">6.4. Components, Resources, and Entities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file-formats.html">6.5. File Formats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual.html">6.6. User Manual</a></li>
-<li class="toctree-l2"><a class="reference internal" href="packaging.html">6.7. Packages and Source Builds</a></li>
-<li class="toctree-l2"><a class="reference internal" href="security.html">6.8. System and Data Security</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development-tools.html">6.9. Development Tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="prototype.html">6.10. Prototype Lessons Learned</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coordinate-systems.html">6.5. Coordinate Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ui.html">6.6. UI Widgets, Layout, and Styles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-formats.html">6.7. File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="player-manual.html">6.8. Player Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html">6.9. Packages and Source Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">6.10. System and Data Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development-tools.html">6.11. Development Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototype.html">6.12. Prototype Lessons Learned</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../glossary.html">7. Glossary</a></li>
@@ -238,7 +261,7 @@ systems they provide.</p>
       &copy;2020, James Richey.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

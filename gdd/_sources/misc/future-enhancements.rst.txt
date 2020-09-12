@@ -5,6 +5,7 @@ Future Enhancements
 There are some additional features that can be considered for future versions of
 the game. These are described below.
 
+..  index:: multiplayer, network
 
 ===================
 Network Multiplayer
@@ -39,6 +40,8 @@ King of the Hill
 Regardless of the mode, the players always see the same environment to ensure
 a consistent play experience.
 
+
+..  index:: achievement
 
 ============
 Achievements

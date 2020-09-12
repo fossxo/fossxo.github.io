@@ -1,3 +1,5 @@
+..  index:: component, resource, entity
+
 ###################################
 Components, Resources, and Entities
 ###################################
@@ -122,19 +124,19 @@ Other Resources
 In addition to environments, there are a other notable resources used by the
 game.
 
-The :index:`game resource` provides access to the underlying tic-tac-toe game
+The :index:`game logic resource` provides access to the underlying tic-tac-toe game
 logic and the last time a move was done on the game. Helper methods are provided
-to make tasks such as seeing if it is a given player's turn. The game resource
-is shown in :numref:`uml-game-resource`.
+to make tasks such as seeing if it is a given player's turn. The game logic resource
+is shown in :numref:`uml-game-logic-resource`.
 
-..  _uml-game-resource:
+..  _uml-game-logic-resource:
 ..  uml::
-    :caption: Game resource.
+    :caption: Game logic resource.
 
     !include rust_types.uml
     hide empty members
 
-    struct(Game) {
+    struct(GameLogic) {
         + game: ttt::Game
         + last_move_time
         + is_players_move(player) -> bool
@@ -153,16 +155,20 @@ positions.
 
     struct(Grid) {
         + origin: Point
-        + size: Point
+        + size: f32
         + center_points() -> vec<Point>
-        + to_position(Point) -> Optional<Position>
-        + cell(Position) -> (origin, size)
+        + point_to_position(Point) -> Position
+        + lines() -> [Line; 4]
+        + wining_line(winning_positions) -> Option<Line>
+        + bounds() -> Rectangle
+        + position_to_square(Position) -> Square
     }
 
-Additional conversion methods are added as needed to the grid resource.
+Additional conversion methods between :ref:`ref-world-coordinates` and
+:ref:`ref-ttt-board-position` are added as needed to the grid resource.
 
 
-.. index:: player component, ai component, mark component,
+.. index:: player component, local player component, ai component, mark component
 
 ==================
 Notable Components
@@ -206,6 +212,7 @@ Ai
     positions. Additionally, a delay can be specified to prevent the AI from
     instantly selecting a position.
 
+.. index:: camera component, transform component
 
 ============================
 Amethyst Provided Components

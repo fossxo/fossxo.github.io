@@ -4,8 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>6.6. User Manual &#8212; FossXO Game Design Document Rev. B</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6.8. Player Manual &#8212; FossXO Game Design Document Rev. B</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -16,8 +16,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6.7. Packages and Source Builds" href="packaging.html" />
-    <link rel="prev" title="6.5. File Formats" href="file-formats.html" />
+    <link rel="next" title="6.9. Packages and Source Builds" href="packaging.html" />
+    <link rel="prev" title="6.7. File Formats" href="file-formats.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -34,14 +34,14 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="user-manual">
-<h1><span class="section-number">6.6. </span>User Manual<a class="headerlink" href="#user-manual" title="Permalink to this headline">¶</a></h1>
-<p>The user manual provides information about how to play the game, different
+  <div class="section" id="player-manual">
+<h1><span class="section-number">6.8. </span>Player Manual<a class="headerlink" href="#player-manual" title="Permalink to this headline">¶</a></h1>
+<p>The player manual provides information about how to play the game, different
 gameplay modes, and contains content to fulfill the
 <a class="reference internal" href="../misc/licensing-and-distribution.html#ref-distribution-license-compliance"><span class="std std-ref">Third Party License Compliance</span></a> requirements.</p>
-<div class="section" id="user-manual-topics">
-<span id="index-0"></span><h2><span class="section-number">6.6.1. </span>User Manual Topics<a class="headerlink" href="#user-manual-topics" title="Permalink to this headline">¶</a></h2>
-<p>The list of topics included in user manual are:</p>
+<div class="section" id="player-manual-topics">
+<span id="index-0"></span><h2><span class="section-number">6.8.1. </span>Player Manual Topics<a class="headerlink" href="#player-manual-topics" title="Permalink to this headline">¶</a></h2>
+<p>The list of topics included in player manual are:</p>
 <ul class="simple">
 <li><p>How to play tic-tac-toe and the <a class="reference internal" href="../gameplay.html#ref-gameplay-rules-of-tic-tac-toe"><span class="std std-ref">Rules of Tic-tac-toe</span></a>.</p></li>
 <li><p>The different <a class="reference internal" href="../gameplay.html"><span class="doc">Gameplay</span></a> modes of FossXO.</p></li>
@@ -58,17 +58,17 @@ libraries used by the game.</p></li>
 kept short and pictures are used to demonstrate concepts.</p>
 </div>
 <div class="section" id="html-generation-suggestions">
-<h2><span class="section-number">6.6.2. </span>HTML Generation Suggestions<a class="headerlink" href="#html-generation-suggestions" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.8.2. </span>HTML Generation Suggestions<a class="headerlink" href="#html-generation-suggestions" title="Permalink to this headline">¶</a></h2>
 <p>As the <a class="reference internal" href="../gui.html#ref-ui-help"><span class="std std-ref">Help</span></a> menu describes, local HTML files store the user
-manual. There are some tools worth considering for creating the user manual.</p>
+manual. There are some tools worth considering for creating the player manual.</p>
 <div class="section" id="mdbook">
-<span id="index-1"></span><h3><span class="section-number">6.6.2.1. </span>mdBook<a class="headerlink" href="#mdbook" title="Permalink to this headline">¶</a></h3>
+<span id="index-1"></span><h3><span class="section-number">6.8.2.1. </span>mdBook<a class="headerlink" href="#mdbook" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://github.com/rust-lang/mdBook">mdBook</a> is a Rust based tool for
 generating HTML based books from Markdown files. This tool both popular in the
 Rust community and is used for other game manuals. <a class="footnote-reference brackets" href="#openrabook" id="id2">2</a></p>
 </div>
 <div class="section" id="cargo-about">
-<span id="index-2"></span><h3><span class="section-number">6.6.2.2. </span>cargo-about<a class="headerlink" href="#cargo-about" title="Permalink to this headline">¶</a></h3>
+<span id="index-2"></span><h3><span class="section-number">6.8.2.2. </span>cargo-about<a class="headerlink" href="#cargo-about" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://crates.io/crates/cargo-about">cargo-about</a> is a Cargo plugin for
 generating a listing of all creates used by the application. It uses a
 templating engine to render the output listing allowing for Markdown or HTML
@@ -120,12 +120,14 @@ based.</p>
 <li class="toctree-l2"><a class="reference internal" href="states.html">6.2. Game States</a></li>
 <li class="toctree-l2"><a class="reference internal" href="systems.html">6.3. Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="components-resources-entities.html">6.4. Components, Resources, and Entities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file-formats.html">6.5. File Formats</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">6.6. User Manual</a></li>
-<li class="toctree-l2"><a class="reference internal" href="packaging.html">6.7. Packages and Source Builds</a></li>
-<li class="toctree-l2"><a class="reference internal" href="security.html">6.8. System and Data Security</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development-tools.html">6.9. Development Tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="prototype.html">6.10. Prototype Lessons Learned</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coordinate-systems.html">6.5. Coordinate Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ui.html">6.6. UI Widgets, Layout, and Styles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-formats.html">6.7. File Formats</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.8. Player Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html">6.9. Packages and Source Builds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">6.10. System and Data Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development-tools.html">6.11. Development Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototype.html">6.12. Prototype Lessons Learned</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../glossary.html">7. Glossary</a></li>
@@ -144,8 +146,8 @@ based.</p>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
   <li><a href="index.html"><span class="section-number">6. </span>Technical Design</a><ul>
-      <li>Previous: <a href="file-formats.html" title="previous chapter"><span class="section-number">6.5. </span>File Formats</a></li>
-      <li>Next: <a href="packaging.html" title="next chapter"><span class="section-number">6.7. </span>Packages and Source Builds</a></li>
+      <li>Previous: <a href="file-formats.html" title="previous chapter"><span class="section-number">6.7. </span>File Formats</a></li>
+      <li>Next: <a href="packaging.html" title="next chapter"><span class="section-number">6.9. </span>Packages and Source Builds</a></li>
   </ul></li>
   </ul></li>
 </ul>
@@ -176,11 +178,11 @@ based.</p>
       &copy;2020, James Richey.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="../_sources/technical-design/user-manual.rst.txt"
+      <a href="../_sources/technical-design/player-manual.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
