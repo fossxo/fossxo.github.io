@@ -12,7 +12,7 @@ For example, a Pong type game might have a ball entity that is composed of a
 position component, sprint component and a ball component.
 
 Resources store global data that is not specific to any one entity. For example,
-the score in a pong game is global to the entire game.
+the score in a Pong game is global to the entire game.
 
 This section describes the notable components, resources, entities, and
 supporting types used in the game. Additional components, resources, and

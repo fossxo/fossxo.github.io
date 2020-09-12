@@ -15,7 +15,7 @@ the core systems used by the game.
 ============
 System Trait
 ============
-In Amethyst systems implement the `System trait <https://docs.amethyst.rs/stable/specs/trait.System.html>`__.
+In Amethyst systems implement the ``System`` trait.
 A summary of the System trait is shown in :numref:`uml-system-trait`.
 
 ..  _uml-system-trait:
